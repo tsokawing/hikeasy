@@ -11,3 +11,5 @@ We are:
 - 
 
 This is a repo for the course project of a software engineering course (CSCI3100). We attempt to build HikEasy, a hiking-themed website with various features.
+
+Relevant documents are available in the `/ReadMe` directory.
