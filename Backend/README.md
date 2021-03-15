@@ -9,6 +9,8 @@ We have also decided to utilize MySQL as the data storage mechanism.
 
 Package management is handled by NPM.
 
+Database connection is handled by typeorm.
+
 # Build Instructions
 This section describes the steps needed to prepare and use the environment of the backend sub-repo.
 
