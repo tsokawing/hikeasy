@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import TrailList from "../components/TrailList";
 
 class TrailListPage extends Component {
   constructor() {
@@ -20,19 +21,10 @@ class TrailListPage extends Component {
   }
 
   render() {
-    const trailItems = this.state.trailList.map((item) => (
-      <>
-        <div>Trail name: {item.trailName}</div>
-        <div>Difficulty: {item.difficulty}</div>
-        <div>Rating: {item.rating}</div>
-        <div>Description: {item.description}</div>
-      </>
-    ));
-
     return (
       <>
         <h1>Trails Results:</h1>
-        {trailItems}
+        <TrailList trailList={this.state.trailList} />
       </>
     );
   }
