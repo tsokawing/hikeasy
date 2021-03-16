@@ -7,7 +7,8 @@ video {
 }
 
 .hero-container {
-  background: url("https://picsum.photos/300/200") center center/cover no-repeat;
+  background: url("https://cdn1.i-scmp.com/sites/default/files/images/methode/2017/05/02/35cc35e2-2a41-11e7-acff-d77f13c4971d_image_hires_150136.JPG")
+    center center/cover no-repeat;
   height: 100vh;
   width: 100%;
   display: flex;
