@@ -2,7 +2,6 @@ import {
   Connection,
   createConnection,
   EntityManager,
-  getManager,
 } from "typeorm";
 
 export class HikEasyApp {
@@ -34,7 +33,7 @@ export class HikEasyApp {
     })
       .then(async (connection) => {
         this.databaseConnection = connection;
-        this.entityManager = getManager();
+        this.entityManager = this.databaseConnection.manager;
         console.log("Successfully connected to database.");
       })
       .catch((error) => console.log(error));
