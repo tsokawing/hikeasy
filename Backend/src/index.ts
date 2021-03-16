@@ -1,4 +1,5 @@
 import {connectTest} from './MysqlConnector'
+import { HikEasyApp } from "./HikEasyApp";
 
 // load dotenv as the first thing to do
 require('dotenv').config();
@@ -28,7 +29,7 @@ app.get('/demo_sum', async function(req: any, res: any){
 
 // link the different modules to the main file
 // we will leave this blank for now, this is currently empty project...
-connectTest();
+const appInstance = new HikEasyApp();
 
 // finally specify that we are starting the backend
 app.listen(port, () => {
