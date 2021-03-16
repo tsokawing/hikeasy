@@ -11,6 +11,9 @@ const NavBar = () => (
         <Link to="/trails">Trails</Link>
       </li>
       <li>
+        <Link to="/events">Events</Link>
+      </li>
+      <li>
         <Link to="/login">Login</Link>
       </li>
     </ul>
