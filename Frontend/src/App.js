@@ -6,11 +6,13 @@ import EventListPage from "./pages/EventListPage";
 import LoginPage from "./pages/LoginPage";
 import NavBar from "./components/NavBar";
 import NotFoundPage from "./pages/NotFoundPage";
+import AuthForm from './components/AuthForm';
 
 function App() {
   return (
     <Router>
       <div className="App">
+       <AuthForm/>
         <NavBar />
         <div id="page-body">
           <Switch>
