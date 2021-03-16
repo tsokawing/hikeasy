@@ -6,9 +6,10 @@ export function connectTest()
 {
     createConnection({
         type: "mysql",
-        host: "http://18.188.120.239",
+        // host: "172.31.44.209",
+        host: "localhost",
         // host: "http://ec2-18-188-120-239.us-east-2.compute.amazonaws.com",
-        // port: 8808,
+        // port: 3306,
         username: "csci3100",
         password: "hiking",
         database: "hikeasy",
