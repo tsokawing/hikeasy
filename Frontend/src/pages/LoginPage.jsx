@@ -23,7 +23,7 @@ function renderLoggedIn() {
     <div className="loggedIn-wrapper">
       <h1>You are logged in!</h1>
       <div>
-        <Button onClick={() => auth.signOut()} color="yellow">
+        <Button onClick={() => auth.signOut()} color="red">
           Log out
         </Button>
       </div>
@@ -77,7 +77,7 @@ function AuthForm() {
                 <Fragment>
                   <Form>
                     <Form.Field className="auth-form-fields">
-                      <label className="form-labels">Email</label>
+                      <label className="form-labels">Email Address:</label>
                       <input
                         placeholder="Email Address"
                         name="loginEmail"
@@ -87,7 +87,7 @@ function AuthForm() {
                       ></input>
                     </Form.Field>
                     <Form.Field className="auth-form-fields">
-                      <label className="form-labels">Password</label>
+                      <label className="form-labels">Password:</label>
                       <input
                         placeholder="Password"
                         name="loginPassword"
@@ -99,9 +99,9 @@ function AuthForm() {
                     <Button
                       onClick={() => authenticateUser(loginEmail, loginPassword, true)}
                       className="auth-form-buttons"
-                      color="green"
+                      color="blue"
                     >
-                      Login
+                      Click to Login
                     </Button>
                   </Form>
                   <div className="google-login"></div>
@@ -110,7 +110,7 @@ function AuthForm() {
                 <Fragment>
                   <Form>
                     <Form.Field className="auth-form-fields">
-                      <label className="form-labels">Email</label>
+                      <label className="form-labels">Email Address:</label>
                       <input
                         placeholder="Email Address"
                         name="signUpEmail"
@@ -120,7 +120,7 @@ function AuthForm() {
                       ></input>
                     </Form.Field>
                     <Form.Field className="auth-form-fields">
-                      <label className="form-labels">Password</label>
+                      <label className="form-labels">Password:</label>
                       <input
                         placeholder="Password"
                         name="signUpPassword"
@@ -131,10 +131,10 @@ function AuthForm() {
                     </Form.Field>
                     <Button
                       className="auth-form-buttons"
-                      color="teal"
+                      color="green"
                       onClick={() => authenticateUser(signupEmail, signupPassword, false)}
                     >
-                      Sign up
+                      Register an account for HikEasy
                     </Button>
                   </Form>
                   <div className="google-login"></div>
