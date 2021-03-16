@@ -1,5 +1,8 @@
 import {connectTest} from './MysqlConnector'
 
+// load dotenv as the first thing to do
+require('dotenv').config();
+
 const express = require('express');
 const app = express();
 const port = 8080;
