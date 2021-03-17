@@ -106,8 +106,7 @@ export class TrailService {
       return;
     }
     let somethingWasChanged = false;
-    const updatedTrailName = req.params['trailName'];
-    console.log('trailName: ' + updatedTrailName);
+    const updatedTrailName = req.body['trailName'];
     if (updatedTrailName !== undefined) {
       if (updatedTrailName.length == 0) {
         // cannot be empty
@@ -134,8 +133,22 @@ export class TrailService {
       targetedTrail.difficulty = updatedDifficulty;
       somethingWasChanged = true;
     }
+    const updatedDescription = req.body['trailDescription'];
+    if (updatedDescription !== undefined) {
+      // we allow empty description -> no description
+      targetedTrail.description = updatedDescription;
+    }
+    const updatedVerifiedStatus = Number.parseInt(req.body['isVerified']);
+    if (updatedVerifiedStatus !== undefined) {
+      // todo also check for admin status
+      targetedTrail.isVerified = updatedVerifiedStatus ? true : false;
+    }
+    const updatedDidsplayStatus = Number.parseInt(req.body['isShown']);
+    if (updatedDidsplayStatus !== undefined) {
+      // todo also check for admin status
+      targetedTrail.isShown = updatedDidsplayStatus ? true : false;
+    }
     // other checks, yadda yadda
-    console.log(somethingWasChanged);
     if (!somethingWasChanged) {
       res.json({
         success: false,
