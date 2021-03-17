@@ -7,10 +7,10 @@ export class Trail {
     trailID!: number;
 
     @Column()
-    difficulty!: number;
+    trailName!: string;
 
     @Column()
-    trailName!: string;
+    difficulty!: number;
 
     @Column({
         default: "",
@@ -21,6 +21,16 @@ export class Trail {
         default: false
     })
     isVerified!: boolean;
+
+    @Column({
+        default: null
+    })
+    profilePic!: string;
+
+    @Column({
+        default: true
+    })
+    isShown!: boolean;
 
     @CreateDateColumn()
     createdAt!: Date;
