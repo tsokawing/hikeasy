@@ -3,10 +3,15 @@ import {
   createConnection,
   EntityManager,
 } from "typeorm";
+import { appInstance } from "./index";
 
 export class HikEasyApp {
   private databaseConnection: Connection | undefined = undefined;
   private entityManager: EntityManager| undefined = undefined;
+
+  static get Instance() {
+    return appInstance;
+  }
 
   get DatabaseConnection() {
     return this.databaseConnection;
