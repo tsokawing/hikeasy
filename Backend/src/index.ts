@@ -9,6 +9,9 @@ const express = require("express");
 const app: Application = express();
 const port = 8080;
 
+// configure the express first so that we can unpack the body of incoming POST requests
+app.use(express.urlencoded({ extended: true }));
+
 // establish root endpoint
 // this is a sample on how to further extend the backend code
 app.get("/", async function (req: any, res: any) {
