@@ -22,20 +22,28 @@ This section describes the steps needed to prepare and use the environment of th
 
 One of us recommended using Prettier as the linter of JS/TS. Prettier is now listed inside `package.json` as one of the dependencies.
 
-It seems that you will also need to install Prettier globally in your machine.
+Prettier can be considered an extension of ESLint. The configuration of ESLint/Prettier in this sub-repo refers to this online guide: https://dev.to/caelinsutch/setting-up-a-typescript-nodejs-application-with-prettier-and-eslint-53jc
 
-After installation, you may lint the entire Backend project by running the following command at `/Backend`:
+Linting configuartions are now properly set up in this sub-repo. All items in this sub-repo are under the command of the Prettier linter, but these are excluded (refer to `.eslintignore` for latest exclusion):
 
-```
-prettier "./src/*" --save
-```
+- Everything under `node_modules`
+- Everything under `build`
 
-The above command targets everything under `/src` to be linted. The `/build` directory contains build artifacts and linting them is unnecessary.
+To begin the linting process, run ONLY ONE of the following two commands:
 
-Prettier plugins may be optionally installed in your favourite IDE:
+- Lint only, detect problems:
+  - `npm run lint`
+- Lint AND FIX in-place:
+  - `npm run lint:fix`
 
-- In IntelliJ IDEA, the IDE should be able to detect Prettier being installed and provide some built-in buttons/features to lint
-- In Visual Studio Code, there are Prettier extensions available for install. For maximum convenience, set the Prettier as the formatter in the workspace and enable "format on save".
+To make development easier, it is highly recommended to enable some form of auto-linting.
+
+- In IntelliJ IDEA, the IDE should be able to detect ESLint/Prettier being installed and provide some built-in buttons/features to lint; details are omitted
+- In Visual Studio Code, follow these steps to enable "auto-lint on save":
+  1. Install the ESLint extension
+  2. Do `Ctrl` + `Shift` + `P`, search/select `Open Workspace Settings (JSON)`
+  3. A VS Code file `settings.json` is opened; paste this configuration inside the JSON object: `"editor.formatOnSave": true,`
+  4. Wait a few minutes; from previous experiences, commands and procedures are sometimes still being set up in the background, and there will be occasional "command not found" errors if you try to invoke the ESLint plugin during that time
 
 ## How to start the backend
 
