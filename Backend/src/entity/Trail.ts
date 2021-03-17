@@ -12,10 +12,14 @@ export class Trail {
     @Column()
     trailName!: string;
 
-    @Column()
+    @Column({
+        default: "",
+    })
     description!: string;
 
-    @Column()
+    @Column({
+        default: false
+    })
     isVerified!: boolean;
 
     @CreateDateColumn()
