@@ -1,4 +1,6 @@
 import React, { Component } from "react";
+
+import SearchBar from "../components/SearchBar";
 import TrailList from "../components/TrailList";
 
 class TrailListPage extends Component {
@@ -24,6 +26,7 @@ class TrailListPage extends Component {
     return (
       <>
         <h1>Trails Results:</h1>
+        <SearchBar />
         <TrailList trailList={this.state.trailList} />
       </>
     );
