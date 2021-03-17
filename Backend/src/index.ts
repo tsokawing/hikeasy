@@ -28,7 +28,7 @@ app.get("/demo_sum", async function (req: any, res: any) {
 
 // link the different modules to the main file
 // we will leave this blank for now, this is currently empty project...
-const appInstance = new HikEasyApp();
+export const appInstance = new HikEasyApp();
 
 // finally specify that we are starting the backend
 app.listen(port, () => {
