@@ -18,4 +18,15 @@ export class User {
     @Column()
     age!: number;
 
+    @Column({
+        default: "",
+    })
+    email!: string;
+
+    @Column({
+        default: "",
+    })
+    password!: string;
+
+
 }
