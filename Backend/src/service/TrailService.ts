@@ -8,6 +8,7 @@ export class TrailService {
     app.get('/trails/get_specific/:trailID', this.getSpecificTrail);
     app.post('/trails/add_trail', this.addTrail);
     app.post('/trails/update_trail/:trailID', this.updateTrail);
+    app.post('/trails/delete_trail/:trailID', this.deleteTrail);
     app.get('/trails/fake_add', this.testFakeAddTrail);
     app.get('/trails/search_test', this.searchSomeTrailTest);
     app.post('/trails/post_test', this.postTest);
@@ -180,6 +181,23 @@ export class TrailService {
     // the object has been changed
     HikEasyApp.Instance.EntityManager.save(targetedTrail);
     // todo check whether it was successful
+    res.json({
+      success: true,
+      message: 'OK',
+    });
+    return;
+  }
+
+  private async deleteTrail(req: Request, res: Response) {
+    const targetTrailID = parseInt(req.params['trailID']);
+    if (Number.isNaN(targetTrailID)) {
+      res.json({
+        success: false,
+        message: 'Invalid trail ID',
+      });
+      return;
+    }
+    await HikEasyApp.Instance.EntityManager?.softDelete(Trail, targetTrailID);
     res.json({
       success: true,
       message: 'OK',
