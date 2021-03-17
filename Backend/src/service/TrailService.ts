@@ -5,6 +5,7 @@ import { HikEasyApp } from '../HikEasyApp';
 export class TrailService {
   public constructor(app: Application) {
     app.get('/trails/get_all', this.getAllTrails);
+    app.get('/trails/get_specific/:trailID', this.getSpecificTrail);
     app.post('/trails/add_trail', this.addTrail);
     app.post('/trails/update_trail/:trailID', this.updateTrail);
     app.get('/trails/fake_add', this.testFakeAddTrail);
@@ -24,6 +25,26 @@ export class TrailService {
       // ok
       res.status(200).json(trails);
     }
+  }
+
+  private async getSpecificTrail(req: Request, res: Response) {
+    const targetTrailID = parseInt(req.params['trailID']);
+    if (Number.isNaN(targetTrailID)) {
+      res.json({
+        success: false,
+        message: 'Invalid trail ID',
+      });
+      return;
+    }
+    const trail = await HikEasyApp.Instance.EntityManager?.findOne(
+      Trail,
+      targetTrailID
+    );
+    res.json({
+      success: true,
+      response: trail,
+    });
+    return;
   }
 
   private async addTrail(req: Request, res: Response) {
