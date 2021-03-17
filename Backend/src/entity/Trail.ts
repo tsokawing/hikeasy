@@ -1,4 +1,4 @@
-import {Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, UpdateDateColumn, DeleteDateColumn} from "typeorm";
+import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, UpdateDateColumn, DeleteDateColumn } from "typeorm";
 
 @Entity()
 export class Trail {
@@ -23,7 +23,7 @@ export class Trail {
 
     @UpdateDateColumn()
     updatedAt!: Date;
-    
+
     @DeleteDateColumn()
     deletedAt?: Date;
 }
