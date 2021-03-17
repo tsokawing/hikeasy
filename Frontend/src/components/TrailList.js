@@ -1,17 +1,21 @@
 import React, { Component } from "react";
+import TrailCard from "./TrailCard";
+import "./TrailList.css";
 
 class TrailList extends Component {
   render() {
-    const trailItems = this.props.trailList.map((item) => (
-      <>
-        <div>Trail name: {item.trailName}</div>
-        <div>Difficulty: {item.difficulty}</div>
-        <div>Rating: {item.rating}</div>
-        <div>Description: {item.description}</div>
-      </>
-    ));
-
-    return <div>{trailItems}</div>;
+    return (
+      <div className="trail-list">
+        {this.props.trailList.map((item) => (
+          <TrailCard
+            img="https://picsum.photos/id/14/400/300"
+            title={item.trailName}
+            description={item.description}
+            author="Admin"
+          />
+        ))}
+      </div>
+    );
   }
 }
 
