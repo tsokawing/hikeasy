@@ -1,10 +1,12 @@
+import { Application } from "express";
 import { HikEasyApp } from "./HikEasyApp";
+import { TrailService } from "./service/TrailService";
 
 // load dotenv as the first thing to do
 require("dotenv").config();
 
 const express = require("express");
-const app = express();
+const app: Application = express();
 const port = 8080;
 
 // establish root endpoint
@@ -29,6 +31,7 @@ app.get("/demo_sum", async function (req: any, res: any) {
 // link the different modules to the main file
 // we will leave this blank for now, this is currently empty project...
 export const appInstance = new HikEasyApp();
+const trailService = new TrailService(app);
 
 // finally specify that we are starting the backend
 app.listen(port, () => {
