@@ -77,7 +77,81 @@ export class TrailService {
     });
   }
 
-  private async updateTrail(req: Request, res: Response) {}
+  private async updateTrail(req: Request, res: Response) {
+    const trailID = parseInt(req.params['trailID']);
+    if (Number.isNaN(trailID)) {
+      res.json({
+        success: false,
+        message: 'Invalid trail ID',
+      });
+      return;
+    }
+    // need to check whether something has changed, respond false if nothing was changed
+    if (HikEasyApp.Instance.EntityManager == undefined) {
+      res.json({
+        success: false,
+        message: 'Database unreachable',
+      });
+      return;
+    }
+    const targetedTrail = await HikEasyApp.Instance.EntityManager.findOne(
+      Trail,
+      trailID
+    );
+    if (targetedTrail == undefined) {
+      res.json({
+        success: false,
+        message: 'No such trail',
+      });
+      return;
+    }
+    let somethingWasChanged = false;
+    const updatedTrailName = req.params['trailName'];
+    console.log('trailName: ' + updatedTrailName);
+    if (updatedTrailName !== undefined) {
+      if (updatedTrailName.length == 0) {
+        // cannot be empty
+        res.json({
+          success: false,
+          message: 'Trail name cannot be empty',
+        });
+        return;
+      }
+      // name is non-empty
+      targetedTrail.name = updatedTrailName;
+      somethingWasChanged = true;
+    }
+    const updatedDifficulty = parseInt(req.body['trailDifficulty']);
+    if (!Number.isNaN(updatedDifficulty)) {
+      if (updatedDifficulty < 0 || updatedDifficulty > 5) {
+        res.json({
+          success: false,
+          message: 'Invalid difficulty',
+        });
+        return;
+      }
+      // difficulty is OK
+      targetedTrail.difficulty = updatedDifficulty;
+      somethingWasChanged = true;
+    }
+    // other checks, yadda yadda
+    console.log(somethingWasChanged);
+    if (!somethingWasChanged) {
+      res.json({
+        success: false,
+        message: 'Nothing to update',
+      });
+      return;
+    }
+    // the object has been changed
+    HikEasyApp.Instance.EntityManager.save(targetedTrail);
+    // todo check whether it was successful
+    res.json({
+      success: true,
+      message: 'OK',
+    });
+    return;
+  }
 
   private async searchSomeTrailTest(req: Request, res: Response) {
     console.log(req.query['a']);
