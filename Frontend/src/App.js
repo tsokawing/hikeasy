@@ -6,6 +6,7 @@ import EventListPage from "./pages/EventListPage";
 import LoginPage from "./pages/LoginPage";
 import NavBar from "./components/NavBar";
 import NotFoundPage from "./pages/NotFoundPage";
+import FooterPro from "./components/FooterPro";
 
 function App() {
   return (
@@ -22,6 +23,7 @@ function App() {
             <Route component={NotFoundPage} />
           </Switch>
         </div>
+        <FooterPro />
       </div>
     </Router>
   );
