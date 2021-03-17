@@ -46,7 +46,7 @@ export class TrailService {
         console.log("I receive fake add request");
         const trail = new Trail();
         trail.difficulty = 4;
-        trail.trailName = "fake trailk";
+        trail.name = "fake trailk";
         trail.description = "";
         trail.isVerified = false;
         const val = HikEasyApp.Instance?.EntityManager?.save(trail);
@@ -62,7 +62,7 @@ export class TrailService {
 
         const trail = new Trail();
         trail.difficulty = 4;
-        trail.trailName = "Dragon Back";
+        trail.name = "Dragon Back";
         trail.description = "";
         trail.isVerified = false;
         const value = await HikEasyApp.Instance?.EntityManager?.save(trail);

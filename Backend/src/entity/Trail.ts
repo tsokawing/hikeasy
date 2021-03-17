@@ -7,7 +7,7 @@ export class Trail {
     trailID!: number;
 
     @Column()
-    trailName!: string;
+    name!: string;
 
     @Column()
     difficulty!: number;
