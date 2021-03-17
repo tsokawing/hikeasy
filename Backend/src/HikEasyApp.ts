@@ -27,7 +27,8 @@ export class HikEasyApp {
       username: process.env["DB_USERNAME"],
       password: process.env["DB_PASSWORD"],
       database: process.env["DB_DATABASE"],
-      entities: [__dirname + "/entity/*.ts"],
+      // note: will need to write as *.js to properly target the compiled js files
+      entities: [__dirname + "/entity/*.js"],
       synchronize: true,
       logging: false,
     })
