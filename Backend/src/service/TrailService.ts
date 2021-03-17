@@ -36,6 +36,7 @@ export class TrailService {
     // const value = await this?.appInstance.EntityManager?.save(trail);
     // console.log(value);
     // res.son();
+    res.json({});
   }
 
   private async testtest() {
