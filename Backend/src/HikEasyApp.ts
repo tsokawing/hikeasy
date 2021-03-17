@@ -6,15 +6,15 @@ export class HikEasyApp {
   private databaseConnection: Connection | undefined = undefined;
   private entityManager: EntityManager | undefined = undefined;
 
-  static get Instance() {
+  static get Instance(): HikEasyApp {
     return appInstance;
   }
 
-  get DatabaseConnection() {
+  get DatabaseConnection(): Connection | undefined {
     return this.databaseConnection;
   }
 
-  get EntityManager() {
+  get EntityManager(): EntityManager | undefined {
     return this.entityManager;
   }
 
