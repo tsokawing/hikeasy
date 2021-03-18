@@ -5,12 +5,14 @@ import {
   CreateDateColumn,
   UpdateDateColumn,
   DeleteDateColumn,
+  OneToMany,
 } from 'typeorm';
+import { Review } from './Review';
 
 @Entity()
 export class Trail {
   @PrimaryGeneratedColumn()
-  trailID!: number;
+  id!: number;
 
   @Column()
   name!: string;
@@ -37,6 +39,9 @@ export class Trail {
     default: true,
   })
   isShown!: boolean;
+
+  @OneToMany(() => Review, (review) => review.trail)
+  reviews!: Review[];
 
   @CreateDateColumn()
   createdAt!: Date;

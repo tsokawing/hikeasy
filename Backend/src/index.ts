@@ -1,11 +1,12 @@
 import { Application, Request, Response } from 'express';
 import { HikEasyApp } from './HikEasyApp';
 import { TrailService } from './service/TrailService';
-import {UserService} from './service/UserService';
-import {EventService} from './service/EventService';
+import { UserService } from './service/UserService';
+import { EventService } from './service/EventService';
 
 // load dotenv as the first thing to do
 import * as dotenv from 'dotenv';
+import { ReviewService } from './service/ReviewService';
 dotenv.config();
 
 const express = require('express');
@@ -40,6 +41,7 @@ export const appInstance = new HikEasyApp();
 const trailService = new TrailService(app);
 const userService = new UserService(app);
 const eventService = new EventService(app);
+const reviewService = new ReviewService(app);
 
 // finally specify that we are starting the backend
 app.listen(port, () => {

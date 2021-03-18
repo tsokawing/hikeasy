@@ -4,6 +4,8 @@ import { Response } from 'express';
  * A util class that handles the printing of common JSON response messages (usually error messages).
  */
 export class ResponseUtil {
+  public static readonly ERROR_INVALID_USER_ID = 'Invalid user ID';
+
   public static readonly ERROR_INVALID_TRAIL_ID = 'Invalid trail ID';
   public static readonly ERROR_INVALID_DIFFICULTY = 'Invalid difficulty';
 
@@ -22,6 +24,10 @@ export class ResponseUtil {
 
   public static respondWithError(res: Response, message: string): void {
     this.respondWithStandardizedJson(res, false, message);
+  }
+
+  public static respondWithInvalidUserID(res: Response): void {
+    this.respondWithError(res, this.ERROR_INVALID_USER_ID);
   }
 
   public static respondWithInvalidTrailID(res: Response): void {
