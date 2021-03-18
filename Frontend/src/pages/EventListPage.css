@@ -1,27 +1,9 @@
 .event-header {
   display: flex;
-  flex-wrap: wrap; 
-  width: 20em;
-  margin:1em;
-}
-
-.event-heading {
-    text-align: center;
-  /* flex-basis: 80%; */
-  flex-basis: 45%;
-}
-
-.event-button{
-  /* flex-basis: 1%; */
-  flex-basis: 45%;
-}
-
-* {
-  text-align: center;
-  align-items: center;
-  justify-content: center;
-}
-
-h1 {
-  align-items: center;
+  justify-content: space-between;
+  /* flex-wrap: wrap; */
+  width: 40em;
+  margin: auto;
+  margin-bottom: 3em;
+  margin-top: 3em;
 }
