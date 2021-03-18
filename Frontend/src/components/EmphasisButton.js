@@ -3,7 +3,7 @@ import { Button } from 'semantic-ui-react'
 
 const EmphasisButton = () => (
   <div>
-    <Button secondary>New</Button>
+    <Button size = 'mini' secondary>New</Button>
   </div>
 )
 
