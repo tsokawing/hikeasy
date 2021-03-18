@@ -1,6 +1,8 @@
 import { Application, Request, Response } from 'express';
 import { HikEasyApp } from './HikEasyApp';
 import { TrailService } from './service/TrailService';
+import {UserService} from './service/UserService';
+import {EventService} from './service/EventService';
 
 // load dotenv as the first thing to do
 import * as dotenv from 'dotenv';
@@ -37,6 +39,7 @@ app.get('/demo_sum', async function (req: Request, res: Response) {
 export const appInstance = new HikEasyApp();
 const trailService = new TrailService(app);
 const userService = new UserService(app);
+const eventService = new EventService(app);
 
 // finally specify that we are starting the backend
 app.listen(port, () => {
