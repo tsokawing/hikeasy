@@ -15,9 +15,13 @@ const EventListPage = () => (
     </div>
 
     <SearchBar />
-    
-    <p>Click the New button to create your own event.&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;</p>
 
+    <div className = "event-header">
+      
+    <p>Click the </p>
+    <div className = "event-button"><EmphasisButton /></div>
+    <p> button to create your own event.</p></div>
+ 
     <p>Below are the list of hiking events</p>
     
   </>
