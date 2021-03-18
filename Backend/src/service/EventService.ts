@@ -1,6 +1,7 @@
 import { Application, Request, Response } from 'express';
 import { Event } from '../entity/Event';
 import { HikEasyApp } from '../HikEasyApp';
+import { ResponseUtil } from '../util/ResponseUtil';
 
 export class EventService {
   public constructor(app: Application) {
@@ -14,9 +15,7 @@ export class EventService {
     const events = await HikEasyApp.Instance.EntityManager?.find(Event);
     if (events == undefined) {
       // failed to connect to database
-      res.status(503).json({
-        message: 'Database unreachable',
-      });
+      ResponseUtil.respondWithDatabaseUnreachable(res);
     } else {
       res.status(200).json(events);
     }
@@ -58,10 +57,7 @@ export class EventService {
     }
     // no problem, can insert!
     if (HikEasyApp.Instance.EntityManager == undefined) {
-      res.json({
-        success: false,
-        message: 'Database unreachable',
-      });
+      ResponseUtil.respondWithDatabaseUnreachable(res);
       return;
     }
     HikEasyApp.Instance.EntityManager.save(event);
@@ -83,10 +79,7 @@ export class EventService {
     }
     // need to check whether something has changed, respond false if nothing was changed
     if (HikEasyApp.Instance.EntityManager == undefined) {
-      res.json({
-        success: false,
-        message: 'Database unreachable',
-      });
+      ResponseUtil.respondWithDatabaseUnreachable(res);
       return;
     }
     const targetedEvent = await HikEasyApp.Instance.EntityManager.findOne(Event,eventID);

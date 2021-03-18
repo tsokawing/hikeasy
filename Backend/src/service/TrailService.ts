@@ -20,9 +20,7 @@ export class TrailService {
     const trails = await HikEasyApp.Instance.EntityManager?.find(Trail);
     if (trails == undefined) {
       // failed to connect to database
-      res.status(503).json({
-        message: 'Database unreachable',
-      });
+      ResponseUtil.respondWithDatabaseUnreachable(res);
     } else {
       // ok
       res.status(200).json(trails);
@@ -79,10 +77,7 @@ export class TrailService {
     }
     // no problem, can insert!
     if (HikEasyApp.Instance.EntityManager == undefined) {
-      res.json({
-        success: false,
-        message: 'Database unreachable',
-      });
+      ResponseUtil.respondWithDatabaseUnreachable(res);
       return;
     }
     HikEasyApp.Instance.EntityManager.save(trail);
@@ -102,10 +97,7 @@ export class TrailService {
     }
     // need to check whether something has changed, respond false if nothing was changed
     if (HikEasyApp.Instance.EntityManager == undefined) {
-      res.json({
-        success: false,
-        message: 'Database unreachable',
-      });
+      ResponseUtil.respondWithDatabaseUnreachable(res);
       return;
     }
     const targetedTrail = await HikEasyApp.Instance.EntityManager.findOne(

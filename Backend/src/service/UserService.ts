@@ -2,6 +2,7 @@ import { Application, Request, Response } from 'express';
 import { User } from '../entity/User';
 import { HikEasyApp } from '../HikEasyApp';
 import { EntityManager } from 'typeorm';
+import { ResponseUtil } from '../util/ResponseUtil';
 
 export class UserService {
   public constructor(app: Application) {
@@ -15,9 +16,7 @@ export class UserService {
     //console.log(users);
     if (users == undefined) {
       // failed to connect to database
-      res.status(503).json({
-        message: 'Database unreachable',
-      });
+      ResponseUtil.respondWithDatabaseUnreachable(res);
     } else {
       // ok
       res.status(200).json(users);
@@ -59,10 +58,7 @@ export class UserService {
         return;
       }
       if (HikEasyApp.Instance.EntityManager == undefined) {
-        res.json({
-          success: false,
-          message: 'Database unreachable',
-        });
+        ResponseUtil.respondWithDatabaseUnreachable(res);
         return;
       }
       //check whether the email have been registered 

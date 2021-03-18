@@ -4,6 +4,8 @@ import { Response } from 'express';
  * A util class that handles the printing of common JSON response messages (usually error messages).
  */
 export class ResponseUtil {
+  public static readonly ERROR_DATABASE_UNREACHABLE = 'Database unreachable';
+
   public static readonly ERROR_INVALID_USER_ID = 'Invalid user ID';
 
   public static readonly ERROR_INVALID_TRAIL_ID = 'Invalid trail ID';
@@ -24,6 +26,10 @@ export class ResponseUtil {
 
   public static respondWithError(res: Response, message: string): void {
     this.respondWithStandardizedJson(res, false, message);
+  }
+
+  public static respondWithDatabaseUnreachable(res: Response): void {
+    this.respondWithError(res, this.ERROR_DATABASE_UNREACHABLE);
   }
 
   public static respondWithInvalidUserID(res: Response): void {

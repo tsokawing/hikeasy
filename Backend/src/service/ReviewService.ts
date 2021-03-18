@@ -18,10 +18,7 @@ export class ReviewService {
     const reviews = await HikEasyApp.Instance.EntityManager?.find(Review);
     if (reviews == undefined) {
       // failed to connect to database
-      res.json({
-        success: false,
-        message: 'Database unreachable',
-      });
+      ResponseUtil.respondWithDatabaseUnreachable(res);
     } else {
       // ok
       res.json({
@@ -118,10 +115,7 @@ export class ReviewService {
     // no problem, can insert!
     // side effect: in mysql, if nothing is changed, then it will not trigger row-update at all
     if (HikEasyApp.Instance.EntityManager == undefined) {
-      res.json({
-        success: false,
-        message: 'Database unreachable',
-      });
+      ResponseUtil.respondWithDatabaseUnreachable(res);
       return;
     }
     HikEasyApp.Instance.EntityManager.save(review);
