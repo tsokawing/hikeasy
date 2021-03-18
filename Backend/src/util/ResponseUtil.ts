@@ -28,7 +28,7 @@ export class ResponseUtil {
     this.respondWithError(res, this.ERROR_INVALID_TRAIL_ID);
   }
 
-  public static respondWithInvalidDifficulty(res: response): void {
+  public static respondWithInvalidDifficulty(res: Response): void {
     this.respondWithError(res, this.ERROR_INVALID_DIFFICULTY);
   }
 }
