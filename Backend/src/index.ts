@@ -36,6 +36,7 @@ app.get('/demo_sum', async function (req: Request, res: Response) {
 // we will leave this blank for now, this is currently empty project...
 export const appInstance = new HikEasyApp();
 const trailService = new TrailService(app);
+const userService = new UserService(app);
 
 // finally specify that we are starting the backend
 app.listen(port, () => {
