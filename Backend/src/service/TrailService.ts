@@ -1,6 +1,7 @@
 import { Application, Request, Response } from 'express';
 import { Trail } from '../entity/Trail';
 import { HikEasyApp } from '../HikEasyApp';
+import { ResponseUtil } from '../util/ResponseUtil';
 
 export class TrailService {
   public constructor(app: Application) {
@@ -31,10 +32,7 @@ export class TrailService {
   private async getSpecificTrail(req: Request, res: Response) {
     const targetTrailID = parseInt(req.params['trailID']);
     if (Number.isNaN(targetTrailID)) {
-      res.json({
-        success: false,
-        message: 'Invalid trail ID',
-      });
+      ResponseUtil.respondWithInvalidTrailID(res);
       return;
     }
     const trail = await HikEasyApp.Instance.EntityManager?.findOne(
@@ -76,10 +74,7 @@ export class TrailService {
       return;
     }
     if (trail.difficulty < 0 || trail.difficulty > 5) {
-      res.json({
-        success: false,
-        message: 'Invalid difficulty',
-      });
+      ResponseUtil.respondWithInvalidDifficulty(res);
       return;
     }
     // no problem, can insert!
@@ -102,10 +97,7 @@ export class TrailService {
   private async updateTrail(req: Request, res: Response) {
     const trailID = parseInt(req.params['trailID']);
     if (Number.isNaN(trailID)) {
-      res.json({
-        success: false,
-        message: 'Invalid trail ID',
-      });
+      ResponseUtil.respondWithInvalidTrailID(res);
       return;
     }
     // need to check whether something has changed, respond false if nothing was changed
@@ -145,10 +137,7 @@ export class TrailService {
     const updatedDifficulty = parseInt(req.body['trailDifficulty']);
     if (!Number.isNaN(updatedDifficulty)) {
       if (updatedDifficulty < 0 || updatedDifficulty > 5) {
-        res.json({
-          success: false,
-          message: 'Invalid difficulty',
-        });
+        ResponseUtil.respondWithInvalidDifficulty(res);
         return;
       }
       // difficulty is OK
@@ -191,10 +180,7 @@ export class TrailService {
   private async deleteTrail(req: Request, res: Response) {
     const targetTrailID = parseInt(req.params['trailID']);
     if (Number.isNaN(targetTrailID)) {
-      res.json({
-        success: false,
-        message: 'Invalid trail ID',
-      });
+      ResponseUtil.respondWithInvalidTrailID(res);
       return;
     }
     await HikEasyApp.Instance.EntityManager?.softDelete(Trail, targetTrailID);
