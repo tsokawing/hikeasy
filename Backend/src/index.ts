@@ -1,13 +1,13 @@
+// load dotenv as the first thing to do
+import * as dotenv from 'dotenv';
+dotenv.config();
+
 import { Application, Request, Response } from 'express';
 import { HikEasyApp } from './HikEasyApp';
 import { TrailService } from './service/TrailService';
 import { UserService } from './service/UserService';
 import { EventService } from './service/EventService';
-
-// load dotenv as the first thing to do
-import * as dotenv from 'dotenv';
 import { ReviewService } from './service/ReviewService';
-dotenv.config();
 
 const express = require('express');
 const app: Application = express();
