@@ -2,6 +2,8 @@ import React, { Component } from "react";
 
 import SearchBar from "../components/SearchBar";
 import TrailList from "../components/TrailList";
+import EmphasisButton from "../components/EmphasisButton";
+import "./TrailListPage.css";
 
 class TrailListPage extends Component {
   constructor() {
@@ -25,7 +27,14 @@ class TrailListPage extends Component {
   render() {
     return (
       <>
-        <h1>Trails Results:</h1>
+        <div className="trail-header">
+          <div className="trail-heading">
+            <h1>Hiking Trails: </h1>
+          </div>
+          <div className="trail-button">
+            <EmphasisButton />
+          </div>
+        </div>
         <SearchBar />
         <TrailList trailList={this.state.trailList} />
       </>

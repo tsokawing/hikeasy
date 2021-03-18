@@ -1,0 +1,9 @@
+.trail-header {
+  display: flex;
+  justify-content: space-between;
+  /* flex-wrap: wrap; */
+  width: 40em;
+  margin: auto;
+  margin-bottom: 3em;
+  margin-top: 3em;
+}
