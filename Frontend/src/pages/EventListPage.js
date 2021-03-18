@@ -1,11 +1,23 @@
 import React from "react";
+import SearchBar from "../components/SearchBar";
+import EmphasisButton from "../components/EmphasisButton";
+import "./EventListPage.css";
 
 const EventListPage = () => (
   <>
-    <h1>Events:</h1>
-    <p>&nbsp;</p>
-    <p>Click the <span >New</span> button to create your own event.&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;</p>
-    <h2>Hiking Events:</h2>
+    <div className="event-header">
+      <div className="event-heading">
+        <h1>Hiking Events: </h1>
+      </div>
+      <div className="event-button">
+        <EmphasisButton />
+      </div>
+    </div>
+
+    <SearchBar />
+    
+    <p>Click the New button to create your own event.&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;</p>
+
     <p>Below are the list of hiking events</p>
     
   </>
