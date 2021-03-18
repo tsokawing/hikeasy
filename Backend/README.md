@@ -42,7 +42,7 @@ To make development easier, it is highly recommended to enable some form of auto
 - In Visual Studio Code, follow these steps to enable "auto-lint on save":
   1. Install the ESLint extension
   2. Do `Ctrl` + `Shift` + `P`, search/select `Open Workspace Settings (JSON)`
-  3. A VS Code file `settings.json` is opened; paste this configuration inside the JSON object: `"editor.formatOnSave": true, "editor.codeActionsOnSave": { "source.fixAll.eslint": true },`
+  3. A VS Code file `settings.json` is opened; paste this configuration inside the JSON object: `"editor.codeActionsOnSave": { "source.fixAll.eslint": true },`
   4. Wait a few minutes; from previous experiences, commands and procedures are sometimes still being set up in the background, and there will be occasional "command not found" errors if you try to invoke the ESLint plugin during that time
 
 ## How to start the backend
