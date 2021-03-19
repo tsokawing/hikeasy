@@ -67,4 +67,8 @@ We have finished the prototype of some api, inside the 'service' directory and w
 3.UserService
 4.ReviewService
 
+To run the backend:
+Add '.env' to the './Backend' directory
+- Content of the '.env':
+  - `DB_HOST=18.188.120.239\n DB_USERNAME=csci3100\n DB_PASSWORD=hiking\n DB_DATABASE=hikeasy`
 
