@@ -40,7 +40,7 @@
   line-height: 1.4;
   font-size: 1.3em;
   font-weight: 500;
-  font-family: "Montserrat", sans-serif;
+  /* font-family: "Montserrat", sans-serif; */
   transition: all ease-in 100ms;
 }
 
