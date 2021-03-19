@@ -19,9 +19,8 @@ In `FrontEnd`, we use react.js to build the interface of the webpage,
 In initial code stage, we have built the:
 
 1. Homepage
-3. Event list page
-4. Log in page
-5. Trail list page
+2. Trail list page
+3. Log in page
 
 In `Backend`, we use node.js, express.js, typeorm to host the local host mysql database, connect to the server and get the database information 
 
