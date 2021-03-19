@@ -61,6 +61,10 @@ This will do 3 things:
 
 Later, as we deploy this to production server, the NPM module `forever` might be used to provide a keep-alive solution to the backend service.
 
-1. a
-2. a
-3. a
+We have finished the prototype of some api, inside the 'service' directory and we added endpoint for the api
+1.TrailService
+2.EventService
+3.UserService
+4.ReviewService
+
+
