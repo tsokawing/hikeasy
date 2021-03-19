@@ -61,6 +61,19 @@ This will do 3 things:
 
 Later, as we deploy this to production server, the NPM module `forever` might be used to provide a keep-alive solution to the backend service.
 
-1. a
-2. a
-3. a
+We have finished the prototype of some api, inside the 'service' directory and we added endpoint for the api:
+
+1. TrailService
+2. EventService
+3. UserService
+4. ReviewService
+
+
+To run the backend:
+Add `.env` to the `./Backend` directory
+- Content of the `.env`:
+  - `DB_HOST=18.188.120.239`
+  -  `DB_USERNAME=csci3100` 
+  -  `DB_PASSWORD=hiking` 
+  -  `DB_DATABASE=hikeasy`
+
