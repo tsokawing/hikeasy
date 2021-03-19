@@ -6,9 +6,12 @@ import { ResponseUtil } from '../util/ResponseUtil';
 export class TrailService {
   public constructor(app: Application) {
     app.get('/trails/get_all', this.getAllTrails);
+    app.get('/trails/get_specific', this.getSpecificTrail_NoTrailID);
     app.get('/trails/get_specific/:trailID', this.getSpecificTrail);
     app.post('/trails/add_trail', this.addTrail);
+    app.post('/trails/update_trail', this.updateTrail_NoTrailID);
     app.post('/trails/update_trail/:trailID', this.updateTrail);
+    app.post('/trails/delete_trail', this.deleteTrail_NoTrailID);
     app.post('/trails/delete_trail/:trailID', this.deleteTrail);
     app.get('/trails/fake_add', this.testFakeAddTrail);
     app.get('/trails/search_test', this.searchSomeTrailTest);
@@ -25,6 +28,10 @@ export class TrailService {
       // ok
       res.status(200).json(trails);
     }
+  }
+
+  private async getSpecificTrail_NoTrailID(req: Request, res: Response) {
+    ResponseUtil.respondWithMissingTrailID(res);
   }
 
   private async getSpecificTrail(req: Request, res: Response) {
@@ -87,6 +94,11 @@ export class TrailService {
       success: true,
       message: 'OK',
     });
+  }
+
+  private async updateTrail_NoTrailID(req: Request, res: Response) {
+    ResponseUtil.respondWithMissingTrailID(res);
+    return;
   }
 
   private async updateTrail(req: Request, res: Response) {
@@ -167,6 +179,10 @@ export class TrailService {
       message: 'OK',
     });
     return;
+  }
+
+  private async deleteTrail_NoTrailID(req: Request, res: Response) {
+    ResponseUtil.respondWithMissingTrailID(res);
   }
 
   private async deleteTrail(req: Request, res: Response) {

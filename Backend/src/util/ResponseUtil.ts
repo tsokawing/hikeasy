@@ -6,8 +6,10 @@ import { Response } from 'express';
 export class ResponseUtil {
   public static readonly ERROR_DATABASE_UNREACHABLE = 'Database unreachable';
 
+  public static readonly ERROR_MISSING_USER_ID = 'Missing user ID';
   public static readonly ERROR_INVALID_USER_ID = 'Invalid user ID';
 
+  public static readonly ERROR_MISSING_TRAIL_ID = 'Missing trail ID';
   public static readonly ERROR_INVALID_TRAIL_ID = 'Invalid trail ID';
   public static readonly ERROR_INVALID_DIFFICULTY = 'Invalid difficulty';
 
@@ -32,8 +34,16 @@ export class ResponseUtil {
     this.respondWithError(res, this.ERROR_DATABASE_UNREACHABLE);
   }
 
+  public static respondWithMissingUserID(res: Response): void {
+    this.respondWithError(res, this.ERROR_MISSING_USER_ID);
+  }
+
   public static respondWithInvalidUserID(res: Response): void {
     this.respondWithError(res, this.ERROR_INVALID_USER_ID);
+  }
+
+  public static respondWithMissingTrailID(res: Response): void {
+    this.respondWithError(res, this.ERROR_MISSING_TRAIL_ID);
   }
 
   public static respondWithInvalidTrailID(res: Response): void {

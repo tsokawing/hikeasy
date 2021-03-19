@@ -8,9 +8,13 @@ import { ResponseUtil } from '../util/ResponseUtil';
 export class ReviewService {
   public constructor(app: Application) {
     app.get('/review/get_all', this.getAllReviews);
+    app.get('/review/get_all_by_trail', this.getAllReviewOfTrail_NoTrailID);
     app.get('/review/get_all_by_trail/:trailID', this.getAllReviewsOfTrail);
+    app.get('/review/get_all_by_user', this.getAllReviewsByUser_NoUserID);
     app.get('/review/get_all_by_user/:userID', this.getAllReviewsByUser);
+    app.post('/review/publish_review', this.publishReview_NoUserID);
     app.post('/review/publish_review/:trailID', this.publishReview);
+    app.post('/review/delete_review', this.deleteReview_NoUserID);
     app.post('/review/delete_review/:trailID', this.deleteReview);
   }
 
@@ -26,6 +30,10 @@ export class ReviewService {
         response: reviews,
       });
     }
+  }
+
+  private async getAllReviewOfTrail_NoTrailID(req: Request, res: Response) {
+    ResponseUtil.respondWithMissingTrailID(res);
   }
 
   private async getAllReviewsOfTrail(req: Request, res: Response) {
@@ -44,6 +52,10 @@ export class ReviewService {
     return;
   }
 
+  private async getAllReviewsByUser_NoUserID(req: Request, res: Response) {
+    ResponseUtil.respondWithMissingUserID(res);
+  }
+
   private async getAllReviewsByUser(req: Request, res: Response) {
     const targetUserID = parseInt(req.params['userID']);
     if (Number.isNaN(targetUserID)) {
@@ -58,6 +70,10 @@ export class ReviewService {
       response: reviews,
     });
     return;
+  }
+
+  private async publishReview_NoUserID(req: Request, res: Response) {
+    ResponseUtil.respondWithMissingUserID(res);
   }
 
   private async publishReview(req: Request, res: Response) {
@@ -125,6 +141,10 @@ export class ReviewService {
       success: true,
       message: 'OK',
     });
+  }
+
+  private async deleteReview_NoUserID(req: Request, res: Response) {
+    ResponseUtil.respondWithMissingUserID(res);
   }
 
   private async deleteReview(req: Request, res: Response) {
