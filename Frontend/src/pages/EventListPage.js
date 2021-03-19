@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import SearchBar from "../components/SearchBar";
+import SearchBarComponent from "../components/SearchBarComponent";
 import TrailList from "../components/TrailList";
 import EmphasisButton from "../components/EmphasisButton";
 import "./EventListPage.css";
@@ -35,7 +35,7 @@ class EventListPage extends Component {
           </div>
         </div>
 
-        <SearchBar />
+        <SearchBarComponent />
         <TrailList trailList={this.state.trailList} />
       </>
     );

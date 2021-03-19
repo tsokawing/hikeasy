@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 
-import SearchBar from "../components/SearchBar";
+import SearchBarComponent from "../components/SearchBarComponent";
 import TrailList from "../components/TrailList";
 import EmphasisButton from "../components/EmphasisButton";
 import "./TrailListPage.css";
@@ -35,7 +35,7 @@ class TrailListPage extends Component {
             <EmphasisButton />
           </div>
         </div>
-        <SearchBar />
+        <SearchBarComponent />
         <TrailList trailList={this.state.trailList} />
       </>
     );
