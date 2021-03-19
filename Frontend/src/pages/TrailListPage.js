@@ -14,10 +14,11 @@ class TrailListPage extends Component {
   }
 
   componentDidMount() {
-    fetch("./trails.json")
+    fetch("http://localhost:8080/trails/get_all")
       .then((response) => response.json())
       .then((result) => {
         const trails = result.map((item) => {
+          console.log(item);
           return item;
         });
         this.setState({ trailList: trails });
