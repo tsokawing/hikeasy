@@ -29,6 +29,10 @@
   align-items: center;
 }
 
+.navbar-logo:hover {
+  color: #9ecca4;
+}
+
 .fa-typo3 {
   margin-left: 0.5rem;
   font-size: 1.8rem;
@@ -61,6 +65,8 @@
 .nav-links:hover {
   border-bottom: 4px solid #fff;
   transition: all 0.2s ease-out;
+  color: #9ecca4;
+  border-radius: 0;
 }
 
 .fa,
@@ -114,12 +120,6 @@
     display: table;
   }
 
-  .nav-links:hover {
-    background-color: #fff;
-    color: #242424;
-    border-radius: 0;
-  }
-
   .navbar-logo {
     position: absolute;
     top: 0;
@@ -159,7 +159,7 @@
 
   .nav-links-mobile:hover {
     background: #ccffbd;
-    color: #rgb(0, 81, 0);
+    /* color: #9ecca4; */
     transition: 250ms;
   }
 }
