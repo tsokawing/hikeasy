@@ -63,6 +63,12 @@
   transition: all 0.2s ease-out;
 }
 
+.fa,
+.far,
+.fas {
+  font-family: "Font Awesome 5 Free" !important;
+}
+
 .fa-bars {
   color: #fff;
 }
@@ -73,6 +79,7 @@
 
 .menu-icon {
   display: none;
+  font-family: Lato, "Helvetica Neue", Arial, Helvetica, sans-serif !important;
 }
 
 @media screen and (max-width: 960px) {
