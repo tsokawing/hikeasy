@@ -73,11 +73,10 @@ To run the backend:
 Add `.env` to the `./Backend` directory
 - Content of the `.env`:
   ```
-    DB_HOST=18.188.120.239
-    DB_USERNAME=csci3100  
-    DB_PASSWORD=hiking  
-    DB_DATABASE=hikeasy
-    
+  DB_HOST=18.188.120.239
+  DB_USERNAME=csci3100  
+  DB_PASSWORD=hiking  
+  DB_DATABASE=hikeasy  
   ```
 
 
