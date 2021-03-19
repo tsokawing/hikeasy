@@ -9,7 +9,7 @@ class TrailList extends Component {
         {this.props.trailList.map((item) => (
           <TrailCard
             img="https://picsum.photos/id/1018/400/300"
-            title={item.trailName}
+            title={item.name}
             description={item.description}
             author="Admin"
           />
