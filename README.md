@@ -25,7 +25,7 @@ In initial code stage, we have built the:
 
 In `Backend`, we use node.js, express.js, typeorm to host the local host mysql database, connect to the server and get the database information 
 
-In initial code stage, we have built the prototype api for users, trails, events and review
+In initial code stage, we have built the prototype api for users, trails, events and reviews
 
 1. http://localhost:8080/users/
   - get_all
