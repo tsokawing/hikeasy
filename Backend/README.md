@@ -14,6 +14,8 @@ Database connection is handled by typeorm.
 
 Code style enforcement/linting is handled by Prettier, with the assistance of some IDE plugins.
 
+Deployment is handled by PM2. While originally, the NPM module "forever" was nominated to assist deployment, there was a problem in getting "forever" to work with the actual deployment, so PM2 is used instead.
+
 # Build Instructions
 
 This section describes the steps needed to prepare and use the environment of the backend sub-repo.
@@ -47,7 +49,7 @@ To make development easier, it is highly recommended to enable some form of auto
 
 ## How to start the backend
 
-You only need to run this command:
+To run the backend locally for quick testing, you only need to run this command:
 
 ```
 npm start
@@ -59,15 +61,25 @@ This will do 3 things:
 2. Compile the TypeScript files
 3. Start the backend service (should be at port 8080)
 
-Later, as we deploy this to production server, the NPM module `forever` might be used to provide a keep-alive solution to the backend service.
+As we finalize our changes locally, we are ready to deploy the code in production.
 
-We have finished the prototype of some api, inside the 'service' directory and we added endpoint for the api:
+## Production deployment
 
-1. TrailService
-2. EventService
-3. UserService
-4. ReviewService
+As mentioned above, we utilize the NPM module `PM2` to keep the backend service alive through crashes and faults.
 
+We still need to manually install `PM2` beforehand though.
+
+1. Install `PM2` globally by `npm install pm2 -g`
+2. As a first-time user, also do `pm2 ls`. This will list the processes that PM2 is currently managing (which should be empty), with the side effect of awakening PM2 from slumber.
+3. (Recommended) To allow PM2 to auto-start when the server restarts, do `pm2 startup` and follow their instructions to complete the necessary setup.
+
+After PM2 is properly configured, simply execute the dedicated server starting script by doing `sh ./prod_server_start.sh`. This will do the following things, which is very similar to what `npm start` does but with a bit of variation:
+
+1. Pull the latest code; here you will need to input your GitHub credentials to let Git pull latest code
+2. Ensure packages are latest (through NPM)
+3. Compile the TypeScript files
+4. Using PM2, start the backend service
+5. Release the command line and allow further commands; the backend is now running
 
 To run the backend:
 Add `.env` to the `./Backend` directory
@@ -79,4 +91,10 @@ Add `.env` to the `./Backend` directory
   DB_DATABASE=hikeasy  
   ```
 
+# Backend Contents
+We have finished the prototype of some api, inside the 'service' directory and we added endpoint for the api:
 
+1. TrailService
+2. EventService
+3. UserService
+4. ReviewService
