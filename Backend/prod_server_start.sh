@@ -7,7 +7,7 @@ git pull
 echo "> npm install"
 npm install
 echo "Compiling TypeScript..."
-tsc
+npx tsc
 echo "Stopping the correct PM2 process..."
 pm2 stop build/index.js
 
