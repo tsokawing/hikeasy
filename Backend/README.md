@@ -61,6 +61,16 @@ This will do 3 things:
 2. Compile the TypeScript files
 3. Start the backend service (should be at port 8080)
 
+To run the backend:
+Add `.env` to the `./Backend` directory
+- Content of the `.env`:
+  ```
+  DB_HOST=18.188.120.239
+  DB_USERNAME=csci3100  
+  DB_PASSWORD=hiking  
+  DB_DATABASE=hikeasy  
+  ```
+
 As we finalize our changes locally, we are ready to deploy the code in production.
 
 ## Production deployment
@@ -81,15 +91,12 @@ After PM2 is properly configured, simply execute the dedicated server starting s
 4. Using PM2, start the backend service
 5. Release the command line and allow further commands; the backend is now running
 
-To run the backend:
-Add `.env` to the `./Backend` directory
-- Content of the `.env`:
-  ```
-  DB_HOST=18.188.120.239
-  DB_USERNAME=csci3100  
-  DB_PASSWORD=hiking  
-  DB_DATABASE=hikeasy  
-  ```
+Of course, a `.env` file is needed at the root (refer to above section for more info). However, in production deployment, the database is most likely hosted in the same machine as the backend is hosted. Depending on the deployment details, edit `.env` and update the `DB_HOST` to the correct address. For example:
+
+```
+# Database is in the same machine as the backend, so I put localhost here
+DB_HOST=localhost
+```
 
 # Backend Contents
 We have finished the prototype of some api, inside the 'service' directory and we added endpoint for the api:
