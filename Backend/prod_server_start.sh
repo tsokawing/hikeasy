@@ -19,6 +19,6 @@ echo "Starting a new forever process..."
 forever start -o $outputlog_name -e $errorlog_name build/index.js
 
 #See if we started the forever process successfully:
-sleep 1
+sleep 5
 echo "Should have started a new forever process. Listing running forever processes:"
 forever list
