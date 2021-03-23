@@ -73,7 +73,7 @@ We still need to manually install `PM2` beforehand though.
 2. As a first-time user, also do `pm2 ls`. This will list the processes that PM2 is currently managing (which should be empty), with the side effect of awakening PM2 from slumber.
 3. (Recommended) To allow PM2 to auto-start when the server restarts, do `pm2 startup` and follow their instructions to complete the necessary setup.
 
-After PM2 is properly configured, simply execute the dedicated server starting script by doing `sh ./prod_server_start.sh`. This will do the following things, which is very similar to what `npm start` does but with a bit of variation:
+After PM2 is properly configured, simply execute the dedicated server starting script by doing `sh prod_server_start.sh`. This will do the following things, which is very similar to what `npm start` does but with a bit of variation:
 
 1. Pull the latest code; here you will need to input your GitHub credentials to let Git pull latest code
 2. Ensure packages are latest (through NPM)
