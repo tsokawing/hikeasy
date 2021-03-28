@@ -1,4 +1,4 @@
-import { Application, Request, Response } from 'express';
+import express, { Application, Request, Response } from 'express';
 import { Trail } from '../entity/Trail';
 import { User } from '../entity/User';
 import { HikEasyApp } from '../HikEasyApp';
@@ -16,6 +16,8 @@ export class TrailService {
     app.post('/trails/delete_trail/:trailID', this.deleteTrail);
 
     app.post('/trails/upload_photo', this.uploadPhotosForTrail);
+    app.get('/trails/get_photo/:fileName', this.returnPhotoWithFileName);
+    app.get('/trails/get_photo', this.returnPhotoButThereIsNoGivenFileName);
     app.post('/trails/delete_photo');
 
     app.get('/trails/fake_add', this.testFakeAddTrail);
@@ -300,6 +302,22 @@ export class TrailService {
         message: err,
       });
     }
+  }
+
+  private async returnPhotoWithFileName(req: Request, res: Response) {
+    const fileName = req.params['fileName'];
+    // assume must exist
+    res.download('uploads/' + fileName, function () {
+      // whatever reason, we cannot load/find the file
+      res.sendStatus(404);
+    });
+  }
+
+  private async returnPhotoButThereIsNoGivenFileName(
+    req: Request,
+    res: Response
+  ) {
+    ResponseUtil.respondWithError(res, 'Missing file name');
   }
 
   private async searchSomeTrailTest(req: Request, res: Response) {
