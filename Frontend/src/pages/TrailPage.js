@@ -33,7 +33,7 @@ class TrailPage extends Component {
     if (this.state.trailList.length > 0) {
       console.log(this.state.trailList[0].id);
     }
-    
+
     return (
       <div>TEST</div>
     );
