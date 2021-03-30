@@ -1,8 +1,8 @@
 import React, { Component } from "react";
-
 import SearchBarComponent from "../components/SearchBarComponent";
 import TrailList from "../components/TrailList";
 import EmphasisButton from "../components/EmphasisButton";
+
 import "./TrailListPage.css";
 
 class TrailListPage extends Component {
@@ -14,7 +14,8 @@ class TrailListPage extends Component {
   }
 
   componentDidMount() {
-    fetch("http://localhost:8080/trails/get_all")
+    //alllow cors to fetch ==> install cors extension for chrome
+    fetch("http://ec2-18-188-120-239.us-east-2.compute.amazonaws.com:8080/trails/get_all")
       .then((response) => response.json())
       .then((result) => {
         const trails = result.map((item) => {
