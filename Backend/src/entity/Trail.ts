@@ -7,6 +7,7 @@ import {
   DeleteDateColumn,
   OneToMany,
 } from 'typeorm';
+import { Photo } from './Photo';
 import { Review } from './Review';
 
 @Entity()
@@ -42,6 +43,9 @@ export class Trail {
 
   @OneToMany(() => Review, (review) => review.trail)
   reviews!: Review[];
+
+  @OneToMany(() => Photo, (photo) => photo.trail)
+  photos!: Photo[];
 
   @CreateDateColumn()
   createdAt!: Date;

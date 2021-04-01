@@ -1,6 +1,7 @@
 import { Entity, PrimaryGeneratedColumn, Column, OneToMany } from 'typeorm';
 import { Event } from './Event';
 import { Review } from './Review';
+import { Photo } from './Photo';
 
 @Entity()
 export class User {
@@ -34,4 +35,7 @@ export class User {
 
   @OneToMany(() => Event, (event) => event.user)
   events: Event[] | undefined;
+
+  @OneToMany(() => Photo, (photo) => photo.user)
+  photos!: Photo[];
 }

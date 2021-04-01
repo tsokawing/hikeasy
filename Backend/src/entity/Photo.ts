@@ -5,26 +5,25 @@ import {
   CreateDateColumn,
   ManyToOne,
 } from 'typeorm';
+import { Trail } from './Trail';
 import { User } from './User';
 
 @Entity()
-export class Event {
+export class Photo {
   @PrimaryGeneratedColumn()
   id!: number;
 
   @Column({
     default: '',
   })
-  name!: string;
-
-  @Column({
-    default: '',
-  })
-  description!: string;
+  url!: string;
 
   @CreateDateColumn()
   createdAt!: Date;
 
-  @ManyToOne(() => User, (user) => user.events)
+  @ManyToOne(() => User, (user) => user.photos)
   user: User | undefined;
+
+  @ManyToOne(() => Trail, (trail) => trail.photos)
+  trail: Trail | undefined;
 }
