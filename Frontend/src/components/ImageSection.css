@@ -11,12 +11,27 @@ video {
     center center/cover no-repeat;
   height: 70vh;
   width: 100%;
+  text-align: left;
   display: flex;
+  text-align: left;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   box-shadow: inset 0 0 0 1000px rgba(0, 0, 0, 0.2);
   object-fit: contain;
+}
+.image-inner-container {
+  padding: 20px;
+}
+
+.image-header {
+  width: 100%;
+  text-align: left;
+  font-size: 50px;
+}
+
+.image-description {
+  font-size: 38px;
 }
 
 .image-container > h1 {

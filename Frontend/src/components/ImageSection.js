@@ -12,41 +12,45 @@ class ImageSection extends Component {
 
     return (
       <div className="image-container">
-        <h1>{trail ? trail.name : null}</h1>
-        <p>{trail ? trail.description : null}</p>
-        <div className="image-btn-container">
-          <div className="trail-info-container">
-            <Rating
-              name="read-only"
-              value={trail ? trail.difficulty : 0}
-              size="large"
-              readOnly
-            />
-            <p class="trail-info">Shatin, NT 28KM</p>
-          </div>
+        <div className="image-inner-container">
+          <h1 className="image-header">{trail ? trail.name : null}</h1>
+          <p className="image-description">
+            {trail ? trail.description : null}
+          </p>
+          <div className="image-btn-container">
+            <div className="trail-info-container">
+              <Rating
+                name="read-only"
+                value={trail ? trail.difficulty : 0}
+                size="large"
+                readOnly
+              />
+              <p class="trail-info">Shatin, NT 28KM</p>
+            </div>
 
-          <div className="image-btns">
-            <ImageButton
-              className="image-btns"
-              buttonStyle="image-btn--outline"
-              buttonSize="image-btn--large"
-            >
-              LIKE
-            </ImageButton>
-            <ImageButton
-              className="image-btns"
-              buttonStyle="image-btn--outline"
-              buttonSize="image-btn--large"
-            >
-              SHARE
-            </ImageButton>
-            <ImageButton
-              className="image-btns"
-              buttonStyle="image-btn--outline"
-              buttonSize="image-btn--large"
-            >
-              RATE
-            </ImageButton>
+            <div className="image-btns">
+              <ImageButton
+                className="image-btns"
+                buttonStyle="image-btn--outline"
+                buttonSize="image-btn--large"
+              >
+                LIKE
+              </ImageButton>
+              <ImageButton
+                className="image-btns"
+                buttonStyle="image-btn--outline"
+                buttonSize="image-btn--large"
+              >
+                SHARE
+              </ImageButton>
+              <ImageButton
+                className="image-btns"
+                buttonStyle="image-btn--outline"
+                buttonSize="image-btn--large"
+              >
+                RATE
+              </ImageButton>
+            </div>
           </div>
         </div>
       </div>
