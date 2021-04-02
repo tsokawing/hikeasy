@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import HeroSection from "../components/HeroSection";
+import ImageSection from "../components/ImageSection";
 
 class TrailPage extends Component {
   constructor() {
@@ -37,11 +37,14 @@ class TrailPage extends Component {
     }
 
     return (
-      <div>
-        {this.state.trailList.length > 0
-          ? this.state.trailList[0].id
-          : "LOADING"}
-      </div>
+      <>
+        <div>
+          {this.state.trailList.length > 0
+            ? this.state.trailList[0].id
+            : "LOADING"}
+        </div>
+        <ImageSection trail={this.state.trailList[0]} />
+      </>
     );
   }
 }
