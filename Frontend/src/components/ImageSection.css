@@ -32,6 +32,20 @@ video {
   /* font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande",
     "Lucida Sans", Arial, sans-serif; */
 }
+.image-btn-container {
+  align-items: flex-end;
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+}
+
+.trail-info-container {
+  text-align: left;
+}
+
+.trail-info {
+  font-size: 38px;
+}
 
 .image-btns {
   margin-top: 32px;
