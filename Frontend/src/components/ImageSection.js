@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import "../App.css";
-import { Button } from "./Button";
+import { ImageButton } from "./ImageButton";
 import "./ImageSection.css";
 
 class ImageSection extends Component {
@@ -14,13 +14,27 @@ class ImageSection extends Component {
         <h1>{trail ? trail.name : null}</h1>
         <p>{trail ? trail.description : null}</p>
         <div className="image-btns">
-          <Button
-            className="btns"
-            buttonStyle="btn--outline"
-            buttonSize="btn--large"
+          <ImageButton
+            className="image-btns"
+            buttonStyle="image-btn--outline"
+            buttonSize="image-btn--large"
           >
-            GET STARTED
-          </Button>
+            LIKE
+          </ImageButton>
+          <ImageButton
+            className="image-btns"
+            buttonStyle="image-btn--outline"
+            buttonSize="image-btn--large"
+          >
+            SHARE
+          </ImageButton>
+          <ImageButton
+            className="image-btns"
+            buttonStyle="image-btn--outline"
+            buttonSize="image-btn--large"
+          >
+            RATE
+          </ImageButton>
         </div>
       </div>
     );

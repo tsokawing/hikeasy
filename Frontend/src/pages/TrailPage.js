@@ -32,17 +32,8 @@ class TrailPage extends Component {
   }
 
   render() {
-    if (this.state.trailList.length > 0) {
-      console.log(this.state.trailList[0].id);
-    }
-
     return (
       <>
-        <div>
-          {this.state.trailList.length > 0
-            ? this.state.trailList[0].id
-            : "LOADING"}
-        </div>
         <ImageSection trail={this.state.trailList[0]} />
       </>
     );
