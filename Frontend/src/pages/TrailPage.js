@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import HeroSection from "../components/HeroSection";
 
 class TrailPage extends Component {
   constructor() {
@@ -26,14 +27,6 @@ class TrailPage extends Component {
             return item;
           }
         });
-
-        // const trails = result.map((item) => {
-        //   if (item.id == id) {
-        //     return item;
-        //   } else {
-        //     return null;
-        //   }
-        // });
         this.setState({ trailList: trails });
       });
   }
