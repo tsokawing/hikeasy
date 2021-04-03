@@ -12,7 +12,6 @@ export class ResponseUtil {
   public static readonly ERROR_MISSING_TRAIL_ID = 'Missing trail ID';
   public static readonly ERROR_INVALID_TRAIL_ID = 'Invalid trail ID';
   public static readonly ERROR_INVALID_DIFFICULTY = 'Invalid difficulty';
-  public static readonly ERROR_NO_SUCH_TRAIL = 'No such trail';
 
   public static respondWithStandardizedJson(
     res: Response,
@@ -53,9 +52,5 @@ export class ResponseUtil {
 
   public static respondWithInvalidDifficulty(res: Response): void {
     this.respondWithError(res, this.ERROR_INVALID_DIFFICULTY);
-  }
-
-  public static respondWithNoSuchTrail(res: Response): void {
-    this.respondWithError(res, this.ERROR_NO_SUCH_TRAIL);
   }
 }
