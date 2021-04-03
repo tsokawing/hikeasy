@@ -37,6 +37,10 @@ export class ReviewService {
   }
 
   private async getAllReviewsOfTrail(req: Request, res: Response) {
+    if (HikEasyApp.Instance.EntityManager == undefined) {
+      ResponseUtil.respondWithDatabaseUnreachable(res);
+      return;
+    }
     const targetTrailID = parseInt(req.params['trailID']);
     if (Number.isNaN(targetTrailID)) {
       ResponseUtil.respondWithInvalidTrailID(res);
