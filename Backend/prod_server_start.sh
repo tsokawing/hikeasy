@@ -2,14 +2,14 @@
 
 cd ~/csci3100hiking/Backend
 
+echo "Stopping the correct PM2 process..."
+pm2 stop build/index.js
 echo "Pulling latest code..."
 git pull
 echo "> npm install"
 npm install
 echo "Compiling TypeScript..."
 npx tsc
-echo "Stopping the correct PM2 process..."
-pm2 stop build/index.js
 
 current_timestamp=$(date +'%Y%m%d_%H%M%S')
 #outputlog_name="foreverlogs/${current_timestamp}_out.log"
