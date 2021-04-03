@@ -22,8 +22,8 @@ export class Photo {
   createdAt!: Date;
 
   @ManyToOne(() => User, (user) => user.photos)
-  user: User | undefined;
+  user!: User | undefined;
 
   @ManyToOne(() => Trail, (trail) => trail.photos)
-  trail: Trail | undefined;
+  trail!: Trail | undefined;
 }
