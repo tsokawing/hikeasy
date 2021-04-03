@@ -1,5 +1,6 @@
 import React, { Component } from "react";
-import SearchBarComponent from "../components/SearchBarComponent";
+import "../components/SearchBarComponent.css";
+import SearchBar from "material-ui-search-bar";
 import TrailList from "../components/TrailList";
 import EmphasisButton from "../components/EmphasisButton";
 
@@ -10,6 +11,8 @@ class TrailListPage extends Component {
     super();
     this.state = {
       trailList: [],
+      keyword: "",
+      filteredList: [],
     };
   }
 
@@ -27,6 +30,15 @@ class TrailListPage extends Component {
       });
   }
 
+  filterTrails = (keyword) => {
+    let filteredList = this.state.trailList.filter((trailList) =>
+      JSON.stringify(trailList)
+        .toLowerCase()
+        .includes(this.state.keyword.toLowerCase())
+    );
+    this.setState({ filteredList: filteredList });
+  };
+
   render() {
     return (
       <>
@@ -38,8 +50,18 @@ class TrailListPage extends Component {
             <EmphasisButton />
           </div>
         </div>
-        <SearchBarComponent />
-        <TrailList trailList={this.state.trailList} />
+        <SearchBar
+          value={this.state.keyword}
+          onChange={(newValue) => this.setState({ keyword: newValue })}
+          onRequestSearch={() => this.filterTrails(this.state.keyword)}
+        />
+        <TrailList
+          trailList={
+            this.state.filteredList.length > 0
+              ? this.state.filteredList
+              : this.state.trailList
+          }
+        />
       </>
     );
   }
