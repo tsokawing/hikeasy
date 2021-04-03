@@ -18,6 +18,8 @@ export class TrailService {
 
     app.post('/trails/upload_photo', this.uploadPhotosForTrail_NoTrailID);
     app.post('/trails/upload_photo/:trailID', this.uploadPhotosForTrail);
+    app.get('/trails/get_trail_photos', this.getTrailPhotos_NoTrailID);
+    app.get('/trails/get_trail_photos/:trailID', this.getTrailPhotos);
     app.get('/trails/get_photo/:fileName', this.returnPhotoWithFileName);
     app.get('/trails/get_photo', this.returnPhotoButThereIsNoGivenFileName);
     app.post('/trails/delete_photo');
@@ -335,6 +337,39 @@ export class TrailService {
         message: err,
       });
     }
+  }
+
+  private async getTrailPhotos_NoTrailID(req: Request, res: Response) {
+    ResponseUtil.respondWithMissingTrailID(res);
+    return;
+  }
+
+  private async getTrailPhotos(req: Request, res: Response) {
+    if (HikEasyApp.Instance.EntityManager == undefined) {
+      ResponseUtil.respondWithDatabaseUnreachable(res);
+      return;
+    }
+    const targetTrailID = req.params['trailID'];
+    const subjectTrail = HikEasyApp.Instance.EntityManager.findOne(
+      Trail,
+      targetTrailID
+    );
+    if (subjectTrail === undefined) {
+      ResponseUtil.respondWithInvalidTrailID(res);
+      return;
+    }
+    // then find the photos' file names
+    const photos = await HikEasyApp.Instance.EntityManager.find(Photo, {
+      select: ['fileName'],
+      where: { trail: targetTrailID },
+    });
+    // transform the array a bit
+    const fileNameArray = new Array<string>();
+    photos.forEach((foundPhoto) => {
+      fileNameArray.push(foundPhoto.fileName);
+    });
+    // then return the json
+    res.json({ success: true, photoFileNames: fileNameArray });
   }
 
   private async returnPhotoWithFileName(req: Request, res: Response) {
