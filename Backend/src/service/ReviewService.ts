@@ -42,11 +42,15 @@ export class ReviewService {
       ResponseUtil.respondWithInvalidTrailID(res);
       return;
     }
-    // const reviews = await HikEasyApp.Instance.EntityManager?.find(Review, {
-    //   where: [{ trailId: targetTrailID }],
-    const reviews = await HikEasyApp.Instance.EntityManager?.createQueryBuilder(Review,"review")
-      .where("review.trailId = :trailId", { trailId: targetTrailID })
-      .getMany();
+    const reviews = await HikEasyApp.Instance.EntityManager?.find(Review, {
+      where: [{ trail: targetTrailID }],
+    });
+    // const reviews = await HikEasyApp.Instance.EntityManager?.createQueryBuilder(
+    // Review,
+    // 'review'
+    // )
+    // .where('review.trailId = :trailId', { trailId: targetTrailID })
+    // .getMany();
     res.json({
       success: true,
       response: reviews,
@@ -64,12 +68,15 @@ export class ReviewService {
       ResponseUtil.respondWithInvalidUserID(res);
       return;
     }
-    // const reviews = await HikEasyApp.Instance.EntityManager?.find(Review, {
-    //   where: [{ userID: targetUserID }],
-    // });
-    const reviews = await HikEasyApp.Instance.EntityManager?.createQueryBuilder(Review,"review")
-    .where("review.trailId = :trailId", { trailId: targetUserID })
-    .getMany();
+    const reviews = await HikEasyApp.Instance.EntityManager?.find(Review, {
+      where: [{ user: targetUserID }],
+    });
+    // const reviews = await HikEasyApp.Instance.EntityManager?.createQueryBuilder(
+    // Review,
+    // 'review'
+    // )
+    // .where('review.trailId = :trailId', { trailId: targetUserID })
+    // .getMany();
     res.json({
       success: true,
       response: reviews,
