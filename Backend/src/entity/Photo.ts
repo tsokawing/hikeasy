@@ -16,7 +16,7 @@ export class Photo {
   @Column({
     default: '',
   })
-  url!: string;
+  fileName!: string;
 
   @CreateDateColumn()
   createdAt!: Date;
