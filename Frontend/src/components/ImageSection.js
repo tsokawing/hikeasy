@@ -3,13 +3,11 @@ import "../App.css";
 import { ImageButton } from "./ImageButton";
 import "./ImageSection.css";
 import Rating from "@material-ui/lab/Rating";
+import Typography from "@material-ui/core/Typography";
 
 class ImageSection extends Component {
   render() {
     let trail = this.props.trail;
-
-    console.log(trail);
-
     return (
       <div className="image-container">
         <div className="image-inner-container">
@@ -19,6 +17,7 @@ class ImageSection extends Component {
           </p>
           <div className="image-btn-container">
             <div className="trail-info-container">
+              <Typography component="legend">Difficulty</Typography>
               <Rating
                 name="read-only"
                 value={trail ? trail.difficulty : 0}

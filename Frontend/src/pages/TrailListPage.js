@@ -15,11 +15,12 @@ class TrailListPage extends Component {
 
   componentDidMount() {
     //alllow cors to fetch ==> install cors extension for chrome
-    fetch("http://ec2-18-188-120-239.us-east-2.compute.amazonaws.com:8080/trails/get_all")
+    fetch(
+      "http://ec2-18-188-120-239.us-east-2.compute.amazonaws.com:8080/trails/get_all"
+    )
       .then((response) => response.json())
       .then((result) => {
         const trails = result.map((item) => {
-          console.log(item);
           return item;
         });
         this.setState({ trailList: trails });
