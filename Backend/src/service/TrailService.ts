@@ -1,4 +1,4 @@
-import express, { Application, Request, Response } from 'express';
+import { Application, Request, Response } from 'express';
 import { Trail } from '../entity/Trail';
 import { User } from '../entity/User';
 import { HikEasyApp } from '../HikEasyApp';
