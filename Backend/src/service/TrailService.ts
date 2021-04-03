@@ -1,4 +1,5 @@
 import { Application, Request, Response } from 'express';
+import { Photo } from '../entity/Photo';
 import { Trail } from '../entity/Trail';
 import { User } from '../entity/User';
 import { HikEasyApp } from '../HikEasyApp';
@@ -15,7 +16,8 @@ export class TrailService {
     app.post('/trails/delete_trail', this.deleteTrail_NoTrailID);
     app.post('/trails/delete_trail/:trailID', this.deleteTrail);
 
-    app.post('/trails/upload_photo', this.uploadPhotosForTrail);
+    app.post('/trails/upload_photo', this.uploadPhotosForTrail_NoTrailID);
+    app.post('/trails/upload_photo/:trailID', this.uploadPhotosForTrail);
     app.get('/trails/get_photo/:fileName', this.returnPhotoWithFileName);
     app.get('/trails/get_photo', this.returnPhotoButThereIsNoGivenFileName);
     app.post('/trails/delete_photo');
@@ -206,6 +208,10 @@ export class TrailService {
     return;
   }
 
+  private async uploadPhotosForTrail_NoTrailID(req: Request, res: Response) {
+    ResponseUtil.respondWithMissingTrailID(res);
+  }
+
   private async uploadPhotosForTrail(req: Request, res: Response) {
     // check userID exists!
     const userID = req.body['userID'];
@@ -224,6 +230,16 @@ export class TrailService {
     );
     if (uploaderUser === undefined) {
       ResponseUtil.respondWithInvalidUserID(res);
+      return;
+    }
+    // load trailInfo, check it exists
+    const targetTrailID = req.params['trailID'];
+    const subjectTrail = await HikEasyApp.Instance.EntityManager.findOne(
+      Trail,
+      targetTrailID
+    );
+    if (subjectTrail === undefined) {
+      ResponseUtil.respondWithInvalidTrailID(res);
       return;
     }
     try {
@@ -275,16 +291,33 @@ export class TrailService {
               photoIndex.toString() +
               '.' +
               fileExtensionNoDot;
-            // we save as a new name, keep the original name so that frontend approx knows what happened
-            // and then move it to storage
-            photo.mv('./uploads/' + newName);
-            uploadStatus.push({
-              name: photo.name,
-              newName: newName,
-              mimetype: photo.mimetype,
-              size: photo.size,
-              accepted: true,
-            });
+            if (HikEasyApp.Instance.EntityManager == null) {
+              // this should not happen but typescript keeps complaining about this
+              uploadStatus.push({
+                name: photo.name,
+                mimetype: photo.mimetype,
+                size: photo.size,
+                accepted: false,
+              });
+            } else {
+              // we save as a new name, keep the original name so that frontend approx knows what happened
+              // and then move it to storage
+              photo.mv('./uploads/' + newName);
+              uploadStatus.push({
+                name: photo.name,
+                newName: newName,
+                mimetype: photo.mimetype,
+                size: photo.size,
+                accepted: true,
+              });
+
+              // and important! we must write down the names of the files, so that we can later get them back
+              const uploadingPhoto = new Photo();
+              uploadingPhoto.trail = subjectTrail;
+              uploadingPhoto.user = uploaderUser;
+              uploadingPhoto.fileName = newName;
+              HikEasyApp.Instance.EntityManager.save(uploadingPhoto);
+            }
           }
         });
 
