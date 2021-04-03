@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import ImageSection from "../components/ImageSection";
+import Comments from "../components/Comments";
 
 class TrailPage extends Component {
   constructor() {
@@ -35,6 +36,7 @@ class TrailPage extends Component {
     return (
       <>
         <ImageSection trail={this.state.trailList[0]} />
+        <Comments />
       </>
     );
   }
