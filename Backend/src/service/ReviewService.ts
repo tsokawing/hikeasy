@@ -46,7 +46,14 @@ export class ReviewService {
       ResponseUtil.respondWithInvalidTrailID(res);
       return;
     }
+    // todo need to remove e.g. the user password fields! we cant just make it be like this!
     const reviews = await HikEasyApp.Instance.EntityManager?.find(Review, {
+      join: {
+        alias: 'review',
+        leftJoinAndSelect: {
+          user: 'review.user',
+        },
+      },
       where: [{ trail: targetTrailID }],
     });
     // const reviews = await HikEasyApp.Instance.EntityManager?.createQueryBuilder(
