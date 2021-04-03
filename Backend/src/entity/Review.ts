@@ -19,10 +19,10 @@ export class Review {
   @PrimaryGeneratedColumn()
   id!: number;
 
-  @ManyToOne(() => User, (user) => user.id, { cascade: true })
+  @ManyToOne(() => User, (user) => user.reviews, { cascade: true })
   user!: User;
 
-  @ManyToOne(() => Trail, (trail) => trail.id, { cascade: true })
+  @ManyToOne(() => Trail, (trail) => trail.reviews, { cascade: true })
   trail!: Trail;
 
   @Column()
