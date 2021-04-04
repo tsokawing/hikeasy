@@ -4,6 +4,7 @@ import Comments from "../components/Comments";
 import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
 import "./TrailPage.css";
+import MapSection from "../components/MapSection";
 
 class TrailPage extends Component {
   constructor() {
@@ -55,7 +56,7 @@ class TrailPage extends Component {
         <Comments reviews={this.state.reviewList} />
 
         <div className={"trail-map"}>
-          <MapContainer
+          {/* <MapContainer
             center={[51.505, -0.09]}
             zoom={12}
             scrollWheelZoom={false}
@@ -69,7 +70,8 @@ class TrailPage extends Component {
                 A pretty CSS3 popup. <br /> Easily customizable.
               </Popup>
             </Marker>
-          </MapContainer>
+          </MapContainer> */}
+          <MapSection/>
         </div>
       </>
     );
