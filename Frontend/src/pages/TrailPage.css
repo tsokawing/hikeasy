@@ -1,0 +1,8 @@
+.trail-map {
+  height: 500px;
+  margin: 100px 400px;
+}
+
+.leaflet-container {
+  height: 100% !important;
+}
