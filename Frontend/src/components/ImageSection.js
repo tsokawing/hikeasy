@@ -8,8 +8,22 @@ import Typography from "@material-ui/core/Typography";
 class ImageSection extends Component {
   render() {
     let trail = this.props.trail;
+
+    let getPhoto = "http://18.188.120.239:8080/trails/get_photo/";
+    let defaultBackground =
+      "https://cdn1.i-scmp.com/sites/default/files/images/methode/2017/05/02/35cc35e2-2a41-11e7-acff-d77f13c4971d_image_hires_150136.JPG";
+    let Background = this.props.trail
+      ? this.props.trail.profilePic
+        ? getPhoto.concat(this.props.trail.profilePic)
+        : defaultBackground
+      : defaultBackground;
     return (
-      <div className="image-container">
+      <div
+        className="image-container"
+        style={{
+          backgroundImage: `url(${Background})`,
+        }}
+      >
         <div className="image-inner-container">
           <h1 className="image-header">{trail ? trail.name : null}</h1>
           <p className="image-description">
