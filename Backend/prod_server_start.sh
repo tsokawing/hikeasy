@@ -17,7 +17,7 @@ current_timestamp=$(date +'%Y%m%d_%H%M%S')
 pm2log_name="pm2_logs/${current_timestamp}.log"
 
 echo "Starting the backend via PC2..."
-pm2 start build/index.js --time --log pm2log_name
+pm2 start build/index.js --time --log $pm2log_name
 #forever start -o $outputlog_name -e $errorlog_name build/index.js
 
 #See if we started the forever process successfully:
