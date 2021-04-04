@@ -41,6 +41,11 @@ export class Trail {
   })
   isShown!: boolean;
 
+  @Column({
+    default: '',
+  })
+  waypoints!: string;
+
   @OneToMany(() => Review, (review) => review.trail)
   reviews!: Review[];
 
