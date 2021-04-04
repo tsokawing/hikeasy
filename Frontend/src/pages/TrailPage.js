@@ -54,24 +54,10 @@ class TrailPage extends Component {
       <>
         <ImageSection trail={this.state.trailList[0]} />
         <Comments reviews={this.state.reviewList} />
-
+        <div style={{width:"100%"}}>
         <div className={"trail-map"}>
-          {/* <MapContainer
-            center={[51.505, -0.09]}
-            zoom={12}
-            scrollWheelZoom={false}
-          >
-            <TileLayer
-              attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
-              url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-            />
-            <Marker position={[51.505, -0.09]}>
-              <Popup>
-                A pretty CSS3 popup. <br /> Easily customizable.
-              </Popup>
-            </Marker>
-          </MapContainer> */}
           <MapSection/>
+        </div>
         </div>
       </>
     );

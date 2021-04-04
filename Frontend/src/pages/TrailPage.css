@@ -1,6 +1,7 @@
 .trail-map {
-  height: 500px;
-  margin: 100px 400px;
+  margin: auto;
+  height: 700px;
+  width: 700px;
 }
 
 .leaflet-container {
