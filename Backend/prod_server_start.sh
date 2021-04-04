@@ -4,7 +4,7 @@ cd ~/csci3100hiking/Backend
 
 echo "Stopping the correct PM2 process..."
 pm2 stop build/index.js
-echo "Pulling latest code..."
+echo "Pulling latest code... (type wrong credentials to skip)"
 git pull
 echo "> npm install"
 npm install
