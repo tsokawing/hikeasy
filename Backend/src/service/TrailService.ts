@@ -18,6 +18,14 @@ export class TrailService {
 
     app.post('/trails/upload_photo', this.uploadPhotosForTrail_NoTrailID);
     app.post('/trails/upload_photo/:trailID', this.uploadPhotosForTrail);
+    app.post(
+      '/trails/upload_profile_pic',
+      this.uploadProfilePicForTrail_NoTrailID
+    );
+    app.post(
+      '/trails/upload_profile_pic/:trailID',
+      this.uploadProfilePicForTrail
+    );
     app.get('/trails/get_trail_photos', this.getTrailPhotos_NoTrailID);
     app.get('/trails/get_trail_photos/:trailID', this.getTrailPhotos);
     app.get('/trails/get_photo/:fileName', this.returnPhotoWithFileName);
@@ -333,6 +341,144 @@ export class TrailService {
     } catch (err) {
       // sth bad happened! probably related to file saving etc
       res.status(500).json({
+        success: false,
+        message: err,
+      });
+    }
+  }
+
+  private async uploadProfilePicForTrail_NoTrailID(
+    req: Request,
+    res: Response
+  ) {
+    ResponseUtil.respondWithMissingTrailID(res);
+  }
+
+  private async uploadProfilePicForTrail(req: Request, res: Response) {
+    // check userID exists!
+    const userID = req.body['userID'];
+    if (userID === undefined) {
+      ResponseUtil.respondWithMissingUserID(res);
+      return;
+    }
+    if (HikEasyApp.Instance.EntityManager == undefined) {
+      ResponseUtil.respondWithDatabaseUnreachable(res);
+      return;
+    }
+    // load user object/check user exists
+    const uploaderUser = await HikEasyApp.Instance.EntityManager.findOne(
+      User,
+      userID
+    );
+    if (uploaderUser === undefined) {
+      ResponseUtil.respondWithInvalidUserID(res);
+      return;
+    }
+    // load trailInfo, check it exists
+    const targetTrailID = req.params['trailID'];
+    const subjectTrail = await HikEasyApp.Instance.EntityManager.findOne(
+      Trail,
+      targetTrailID
+    );
+    if (subjectTrail === undefined) {
+      ResponseUtil.respondWithInvalidTrailID(res);
+      return;
+    }
+    try {
+      if (!req.files) {
+        // no files are uploaded
+        ResponseUtil.respondWithError(res, 'No files were uploaded');
+        return;
+      } else {
+        // todo: standardize with an iterface so that we can change <object> to <ModelName>
+        // refer to the UploadedFile type from express-fileupload
+        const uploadStatus: Array<object> = [];
+
+        // determine if it is single file or multi file
+        // also unify the data types
+        // note: profile pic can only be single file!
+        const arrayOfPhotos = Array.isArray(req.files['photos'])
+          ? req.files['photos']
+          : [req.files['photos']];
+        if (arrayOfPhotos.length > 1) {
+          ResponseUtil.respondWithError(res, 'Too many files');
+        }
+        const nowTime = new Date();
+        const profilePic = arrayOfPhotos[0];
+
+        // ensure it is a photo
+        if (
+          !profilePic.mimetype.startsWith('image/') ||
+          (!profilePic.name.endsWith('.jpg') &&
+            !profilePic.name.endsWith('.jpeg') &&
+            !profilePic.name.endsWith('.png'))
+        ) {
+          // not a photo! or, not accepted photo type! rejected
+          uploadStatus.push({
+            name: profilePic.name,
+            mimetype: profilePic.mimetype,
+            size: profilePic.size,
+            accepted: false,
+          });
+        } else {
+          // is a photo, can accept
+          // refer to comments at the upload_photos endpoint, things are basically the same
+          const fileNameSplit = profilePic.name.split('.');
+          const fileExtensionNoDot = fileNameSplit[fileNameSplit.length - 1];
+          const newName =
+            uploaderUser.id.toString() +
+            '-' +
+            nowTime.getTime().toString() +
+            '-0.' +
+            fileExtensionNoDot;
+          if (HikEasyApp.Instance.EntityManager == null) {
+            // this should not happen but typescript keeps complaining about this
+            uploadStatus.push({
+              name: profilePic.name,
+              mimetype: profilePic.mimetype,
+              size: profilePic.size,
+              accepted: false,
+            });
+          } else {
+            // we save as a new name, keep the original name so that frontend approx knows what happened
+            // and then move it to storage
+            profilePic.mv('./uploads/' + newName);
+            uploadStatus.push({
+              name: profilePic.name,
+              newName: newName,
+              mimetype: profilePic.mimetype,
+              size: profilePic.size,
+              accepted: true,
+            });
+
+            // and important! we must write down the names of the files, so that we can later get them back
+            if (HikEasyApp.Instance.EntityManager == undefined) {
+              ResponseUtil.respondWithDatabaseUnreachable(res);
+              return;
+            }
+            const targetTrail = await HikEasyApp.Instance.EntityManager.findOne(
+              Trail,
+              targetTrailID
+            );
+            if (targetTrail === undefined) {
+              ResponseUtil.respondWithError(res, 'No such trail');
+              return;
+            }
+            targetTrail.profilePic = newName;
+            HikEasyApp.Instance.EntityManager.save(targetTrail);
+          }
+        }
+
+        //return response
+        res.send({
+          success: true,
+          message: 'OK; please see details',
+          response: uploadStatus,
+        });
+      }
+    } catch (err) {
+      // sth bad happened! probably related to file saving etc
+      res.json({
         success: false,
         message: err,
       });
