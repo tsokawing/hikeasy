@@ -523,9 +523,13 @@ export class TrailService {
     // assume must exist
     // it could be "not found" because of testing data also getting an entry at prod server: they are same db
     // frontend need to handle that
-    res.download('uploads/' + fileName, function () {
-      // whatever reason, we cannot load/find the file
-      res.sendStatus(404);
+    res.download('uploads/' + fileName, fileName, function (err: unknown) {
+      if (err) {
+        // some error occured
+        res.sendStatus(404);
+        const fullFileName = 'uploads/' + fileName;
+        console.error(`Failed to send photo (${fullFileName}): ` + err);
+      }
     });
   }
 
