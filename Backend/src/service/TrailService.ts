@@ -182,6 +182,11 @@ export class TrailService {
       // todo also check for admin status
       targetedTrail.isShown = updatedDidsplayStatus ? true : false;
     }
+    const updatedWaypoints = req.body['waypoints'];
+    if (updatedWaypoints !== undefined) {
+      // todo confirm what kind of waypoint we are receivinn: stringified or encoded?
+      targetedTrail.waypoints = updatedWaypoints;
+    }
     // other checks, yadda yadda
     if (!somethingWasChanged) {
       res.json({
