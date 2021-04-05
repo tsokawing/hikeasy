@@ -25,17 +25,17 @@
 // //         points.push(marker.getLatLng());
 // //       },
 // //     })
-  
+
 // //     return (
 // //       <>
-// //         {markers.map(marker => 
+// //         {markers.map(marker =>
 // //           <Marker position ={marker}>
 // //           </Marker>
 // //         )}
-// //       </> 
+// //       </>
 // //     )
 // //   }
-  
+
 // class MapSection extends Component{
 
 //     polyline = undefined;
@@ -44,7 +44,7 @@
 //         this.state = {
 //             points: [],
 //             mapList: [],
-            
+
 //         };
 //         // polyline = L.polyline([], {color:'orange'}).addTo(map);
 //         this.handler = this.handler.bind(this)
@@ -74,10 +74,10 @@
 //         if (this.state.polyline === []) {
 //             // polyline = L.polyline([], {color:'orange'}).addTo(map);
 //         }
-      
+
 //         return (
 //           <>
-//             {markers.map(marker => 
+//             {markers.map(marker =>
 //               <Marker position ={marker}>
 //               </Marker>
 //             )}
@@ -102,24 +102,31 @@
 //                 attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
 //                 url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
 //             />
-            
-//         </MapContainer>    
+
+//         </MapContainer>
 //         )
 //     }
 // }
 // export default MapSection
 
-import React, { Component, useState  } from "react";
-import { MapContainer, TileLayer, Marker, Popup ,useMapEvents } from "react-leaflet";
+import React, { Component, useState } from "react";
+import {
+  MapContainer,
+  TileLayer,
+  Marker,
+  Popup,
+  Polyline,
+  useMapEvents,
+} from "react-leaflet";
 import "leaflet/dist/leaflet.css";
 import "leaflet/dist/images/marker-shadow.png";
-import L from 'leaflet';
+import L from "leaflet";
 const icon = L.icon({
   iconSize: [25, 41],
   iconAnchor: [10, 41],
   popupAnchor: [2, -40],
   iconUrl: "https://unpkg.com/leaflet@1.6/dist/images/marker-icon.png",
-  shadowUrl: "https://unpkg.com/leaflet@1.6/dist/images/marker-shadow.png"
+  shadowUrl: "https://unpkg.com/leaflet@1.6/dist/images/marker-shadow.png",
 });
 
 function MyComponent({ saveMarkers }) {
@@ -128,7 +135,7 @@ function MyComponent({ saveMarkers }) {
       const { lat, lng } = e.latlng;
       L.marker([lat, lng], { icon }).addTo(map);
       saveMarkers([lat, lng]);
-    }
+    },
   });
   return null;
 }
@@ -138,33 +145,37 @@ class MapSection extends Component {
     super(props);
     this.state = {
       markers: [[40.7, -74]],
-      point: []
+      point: [],
     };
   }
 
   saveMarkers = (newMarkerCoords) => {
-    const point= [...this.state.point, newMarkerCoords];
+    const point = [...this.state.point, newMarkerCoords];
     this.setState((prevState) => ({ ...prevState, point }));
   };
 
   render() {
     console.log(this.state.point);
     return (
-        <MapContainer
-          className="Map"
-          center={[22.302711, 114.177216]}
-          zoom={15}
-          scrollWheelZoom={false}
+      <MapContainer
+        className="Map"
+        center={[22.302711, 114.177216]}
+        zoom={15}
+        scrollWheelZoom={false}
         //   style={{ height: "100vh" }}
-        >
-          <TileLayer
-            attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
-            url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-          />
-          <MyComponent saveMarkers={this.saveMarkers} />
-        </MapContainer>
-    )
+      >
+        <TileLayer
+          attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+          url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+        />
+        <MyComponent saveMarkers={this.saveMarkers} />
+        <Polyline
+          pathOptions={{ color: "lime" }}
+          positions={this.state.point}
+        />
+      </MapContainer>
+    );
   }
 }
 
-export default MapSection
+export default MapSection;
