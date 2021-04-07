@@ -47,7 +47,7 @@ class TrailListPage extends Component {
             <h1>Hiking Trails: </h1>
           </div>
           <div className="trail-button">
-            <EmphasisButton />
+            <EmphasisButton type="trail" />
           </div>
         </div>
         <SearchBar

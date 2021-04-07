@@ -1,10 +1,20 @@
-import React from 'react'
-import { Button } from 'semantic-ui-react'
+import React, { Component } from "react";
+import { Button } from "semantic-ui-react";
+import { BrowserRouter as Router, Route, Switch, Link } from "react-router-dom";
 
-const EmphasisButton = () => (
-  <div>
-    <Button size = 'mini' secondary>New</Button>
-  </div>
-)
+class EmphasisButton extends Component {
+  render() {
+    let type = this.props.type;
+    return (
+      <>
+        <Link to={`../new-trail`}>
+          <Button onClick="" size="mini" secondary>
+            New
+          </Button>
+        </Link>
+      </>
+    );
+  }
+}
 
-export default EmphasisButton
+export default EmphasisButton;
