@@ -3,148 +3,28 @@ import TextField from "@material-ui/core/TextField";
 import { makeStyles } from "@material-ui/core/styles";
 import MenuItem from "@material-ui/core/MenuItem";
 
-// import Select from "react-select";
-
-// const options = [
-//   { value: "chocolate", label: "Chocolate" },
-//   { value: "strawberry", label: "Strawberry" },
-//   { value: "vanilla", label: "Vanilla" },
-// ];
-
-const currencies = [
+const difficulties = [
   {
-    value: "USD",
-    label: "$",
+    value: "5",
+    label: "Expert",
   },
   {
-    value: "EUR",
-    label: "€",
+    value: "4",
+    label: "Advanced",
   },
   {
-    value: "BTC",
-    label: "฿",
+    value: "3",
+    label: "Intermediate",
   },
   {
-    value: "JPY",
-    label: "¥",
+    value: "2",
+    label: "Elementary",
+  },
+  {
+    value: "1",
+    label: "Beginner",
   },
 ];
-// export default function MultilineTextFields() {
-//     const classes = useStyles();
-//     const [currency, setCurrency] = React.useState('EUR');
-
-//     const handleChange = (event) => {
-//       setCurrency(event.target.value);
-//     };
-
-//     return (
-//       <form className={classes.root} noValidate autoComplete="off">
-//         <div>
-//           <TextField
-//             id="standard-select-currency"
-//             select
-//             label="Select"
-//             value={currency}
-//             onChange={handleChange}
-//             helperText="Please select your currency"
-//           >
-//             {currencies.map((option) => (
-//               <MenuItem key={option.value} value={option.value}>
-//                 {option.label}
-//               </MenuItem>
-//             ))}
-//           </TextField>
-//           <TextField
-//             id="standard-select-currency-native"
-//             select
-//             label="Native select"
-//             value={currency}
-//             onChange={handleChange}
-//             SelectProps={{
-//               native: true,
-//             }}
-//             helperText="Please select your currency"
-//           >
-//             {currencies.map((option) => (
-//               <option key={option.value} value={option.value}>
-//                 {option.label}
-//               </option>
-//             ))}
-//           </TextField>
-//         </div>
-//         <div>
-//           <TextField
-//             id="filled-select-currency"
-//             select
-//             label="Select"
-//             value={currency}
-//             onChange={handleChange}
-//             helperText="Please select your currency"
-//             variant="filled"
-//           >
-//             {currencies.map((option) => (
-//               <MenuItem key={option.value} value={option.value}>
-//                 {option.label}
-//               </MenuItem>
-//             ))}
-//           </TextField>
-//           <TextField
-//             id="filled-select-currency-native"
-//             select
-//             label="Native select"
-//             value={currency}
-//             onChange={handleChange}
-//             SelectProps={{
-//               native: true,
-//             }}
-//             helperText="Please select your currency"
-//             variant="filled"
-//           >
-//             {currencies.map((option) => (
-//               <option key={option.value} value={option.value}>
-//                 {option.label}
-//               </option>
-//             ))}
-//           </TextField>
-//         </div>
-//         <div>
-//           <TextField
-//             id="outlined-select-currency"
-//             select
-//             label="Select"
-//             value={currency}
-//             onChange={handleChange}
-//             helperText="Please select your currency"
-//             variant="outlined"
-//           >
-//             {currencies.map((option) => (
-//               <MenuItem key={option.value} value={option.value}>
-//                 {option.label}
-//               </MenuItem>
-//             ))}
-//           </TextField>
-//           <TextField
-//             id="outlined-select-currency-native"
-//             select
-//             label="Native select"
-//             value={currency}
-//             onChange={handleChange}
-//             SelectProps={{
-//               native: true,
-//             }}
-//             helperText="Please select your currency"
-//             variant="outlined"
-//           >
-//             {currencies.map((option) => (
-//               <option key={option.value} value={option.value}>
-//                 {option.label}
-//               </option>
-//             ))}
-//           </TextField>
-//         </div>
-//       </form>
-//     );
-//   }
 
 class NewTrailPage extends Component {
   constructor() {
@@ -154,13 +34,13 @@ class NewTrailPage extends Component {
       description: [],
       length: [],
       city: [],
-
-      currency: "EUR",
+      difficulty: "1",
     };
   }
 
   clicked = () => {
-    // return console.log(this.state.test.value);
+    console.log(this.state.title.value);
+    console.log(this.state.difficulty.value);
   };
 
   render() {
@@ -203,30 +83,18 @@ class NewTrailPage extends Component {
             label="Required"
             defaultValue="City"
           />
-          {/* <TextField
-            id="standard-select-currency"
-            select
-            label="Select"
-            value={currency}
-            onChange={handleChange}
-            helperText="Please select your currency"
-          >
-            {currencies.map((option) => (
-              <MenuItem key={option.value} value={option.value}>
-                {option.label}
-              </MenuItem>
-            ))}
-          </TextField> */}
-          {/* <Select options={options} />; */}
           <TextField
-            id="standard-select-currency"
+            id="standard-select-difficulty"
             select
             label="Select"
-            value={this.currency}
+            value={this.difficulty}
+            inputRef={(c) => {
+              this.state.difficulty = c;
+            }}
             onChange={this.clicked}
-            helperText="Please select your currency"
+            helperText="Please select your difficulty"
           >
-            {currencies.map((option) => (
+            {difficulties.map((option) => (
               <MenuItem key={option.value} value={option.value}>
                 {option.label}
               </MenuItem>
