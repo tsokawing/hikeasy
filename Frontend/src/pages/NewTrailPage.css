@@ -1,0 +1,44 @@
+.newtrailpage-container {
+  margin: auto;
+  margin: 100px;
+  display: flex;
+  flex-direction: column;
+}
+
+.trail-map {
+  margin: auto;
+  margin: 20px;
+  height: 700px;
+  width: 700px;
+}
+
+.leaflet-container {
+  height: 100% !important;
+}
+
+.newtrail-info-section {
+  display: flex;
+}
+
+.newtrail-details {
+  margin: 20px;
+}
+
+.newtrail-details > div {
+  margin-top: 10px;
+  margin-left: 20px;
+}
+
+.info-section-right {
+  display: flex;
+  flex-direction: column;
+  flex-basis: 40%;
+}
+.my20 {
+  width: 100%;
+}
+
+.image-section {
+  width: 100%;
+  margin-left: 38px;
+}
