@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import TextField from "@material-ui/core/TextField";
 import { makeStyles } from "@material-ui/core/styles";
 import MenuItem from "@material-ui/core/MenuItem";
+import UploadImages from "../components/UploadImages";
 
 const difficulties = [
   {
@@ -101,6 +102,7 @@ class NewTrailPage extends Component {
             ))}
           </TextField>
         </div>
+        <UploadImages />
         <div onClick={this.clicked}>new trail page</div>
       </>
     );
