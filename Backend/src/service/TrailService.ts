@@ -106,12 +106,12 @@ export class TrailService {
       ResponseUtil.respondWithDatabaseUnreachable(res);
       return;
     }
-    HikEasyApp.Instance.EntityManager.save(trail);
+   const test = await getRepository(Trail).save(trail);
     // successfully inserted
     // todo what if we failed to insert at db level
     res.json({
       success: true,
-      message: 'OK',
+      message: test.id,
     });
   }
 
