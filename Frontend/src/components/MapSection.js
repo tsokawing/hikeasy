@@ -165,8 +165,8 @@ class MapSection extends Component {
         //   style={{ height: "100vh" }}
       >
         <TileLayer
-          attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
-          url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+          attribution='<a href="http://jawg.io" title="Tiles Courtesy of Jawg Maps" target="_blank" class="jawg-attrib">© <b>Jawg</b>Maps</a> | <a href="https://www.openstreetmap.org/copyright" title="OpenStreetMap is open data licensed under ODbL" target="_blank" class="osm-attrib">© OSM contributors</a>'
+          url="https://{s}.tile.jawg.io/jawg-terrain/{z}/{x}/{y}{r}.png?access-token=XizVS9BuQftVgJAFcw6YteSaCP9OyCzJIYI6vqXeFWQjo7EbAaeYfIVc34YfUWzZ"
         />
         <MyComponent saveMarkers={this.saveMarkers} />
         <Polyline
