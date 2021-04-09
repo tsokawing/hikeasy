@@ -4,6 +4,7 @@ import { Trail } from '../entity/Trail';
 import { User } from '../entity/User';
 import { HikEasyApp } from '../HikEasyApp';
 import { ResponseUtil } from '../util/ResponseUtil';
+import { getRepository } from 'typeorm';
 
 export class TrailService {
   public constructor(app: Application) {
