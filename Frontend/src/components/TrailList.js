@@ -5,7 +5,7 @@ import "./TrailList.css";
 
 class TrailList extends Component {
   render() {
-    console.log(this.props.trailList);
+    // console.log(this.props.trailList);
     return (
       <div className="trail-list">
         {this.props.trailList.map((item) => (

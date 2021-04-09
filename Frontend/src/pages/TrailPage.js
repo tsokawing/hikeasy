@@ -18,8 +18,9 @@ class TrailPage extends Component {
   componentDidMount() {
     // Allow cors to fetch ==> install cors extension for chrome
 
-    var get_all =
-      "http://ec2-18-188-120-239.us-east-2.compute.amazonaws.com:8080/trails/get_all/";
+    var get_all = "http://localhost:8080/trails/get_all/";
+    // var get_all =
+    //   "http://ec2-18-188-120-239.us-east-2.compute.amazonaws.com:8080/trails/get_all/";
 
     var id = this.props.match.params.trailID;
     var get_review = "http://ec2-18-188-120-239.us-east-2.compute.amazonaws.com:8080/review/get_all_by_trail/".concat(
@@ -50,14 +51,17 @@ class TrailPage extends Component {
   }
 
   render() {
+    console.log(this.state.trailList[0]);
     return (
       <>
         <ImageSection trail={this.state.trailList[0]} />
         <Comments reviews={this.state.reviewList} />
-        <div style={{width:"100%"}}>
-        <div className={"trail-map"}>
-          <MapSection/>
-        </div>
+        <div style={{ width: "100%" }}>
+          <div className={"trail-map"}>
+            {this.state.trailList.length > 0 ? (
+              <MapSection trail={this.state.trailList[0]} />
+            ) : null}
+          </div>
         </div>
       </>
     );
