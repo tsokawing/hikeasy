@@ -35,7 +35,21 @@ function renderLoggedIn() {
     <div className="loggedIn-wrapper">
       <h1>You are logged in!</h1>
       <div>
-        <Button onClick={() => auth.signOut()} color="red">
+        <Button
+          onClick={() =>
+            auth
+              .signOut()
+              .then(() => {
+                // Sign-out successful.
+                console.log("Logged out");
+              })
+              .catch((error) => {
+                // An error happened.
+                console.log(error);
+              })
+          }
+          color="red"
+        >
           Log out
         </Button>
       </div>
