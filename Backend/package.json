@@ -17,6 +17,8 @@
     "@types/express": "^4.17.11",
     "@types/express-fileupload": "^1.1.6",
     "@types/node": "^14.14.34",
+    "@types/passport": "^1.0.6",
+    "@types/passport-jwt": "^3.0.5",
     "@types/polyline": "^0.1.29",
     "@typescript-eslint/eslint-plugin": "^4.18.0",
     "@typescript-eslint/parser": "^4.18.0",
@@ -34,6 +36,8 @@
     "express": "^4.17.1",
     "express-fileupload": "^1.2.1",
     "mysql": "^2.14.1",
+    "passport": "^0.4.1",
+    "passport-jwt-firebase": "^2.0.0",
     "reflect-metadata": "^0.1.10",
     "typeorm": "^0.2.31"
   }
