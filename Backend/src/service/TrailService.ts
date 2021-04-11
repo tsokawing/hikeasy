@@ -77,6 +77,7 @@ export class TrailService {
     trail.name = req.body['trailName'];
     trail.difficulty = req.body['trailDifficulty'];
     trail.description = req.body['trailDescription'] ?? '';
+    trail.waypoints = req.body['trailWaypoints'] ?? '';
     if (trail.name === undefined) {
       res.json({
         success: false,
@@ -102,12 +103,13 @@ export class TrailService {
       ResponseUtil.respondWithInvalidDifficulty(res);
       return;
     }
+    // we wont judge the waypoints from the client side, and directly store them
     // no problem, can insert!
     if (HikEasyApp.Instance.EntityManager == undefined) {
       ResponseUtil.respondWithDatabaseUnreachable(res);
       return;
     }
-   const test = await getRepository(Trail).save(trail);
+    const test = await getRepository(Trail).save(trail);
     // successfully inserted
     // todo what if we failed to insert at db level
     res.json({
