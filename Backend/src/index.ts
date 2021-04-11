@@ -8,14 +8,17 @@ import { TrailService } from './service/TrailService';
 import { UserService } from './service/UserService';
 import { EventService } from './service/EventService';
 import { ReviewService } from './service/ReviewService';
-import fileUpload, { FileArray, UploadedFile } from 'express-fileupload';
+import fileUpload, { UploadedFile } from 'express-fileupload';
 import cors from 'cors';
+import passport from 'passport';
+import FirebaseStrategy, { TokenLoader } from 'passport-jwt-firebase';
 
 const express = require('express');
 const app: Application = express();
 const port = 8080;
 
 // configure the express first so that we can unpack the body of incoming POST requests
+app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 // configure the CORS
@@ -27,6 +30,12 @@ app.use(
     createParentPath: true,
   })
 );
+
+// and also set up some basic firebase config;
+// we delegate the actual authentication action to the individual endpoints, because some may need auth but some may not need
+TokenLoader.Load();
+passport.use(new FirebaseStrategy());
+app.use(passport.initialize());
 
 // establish root endpoint
 // this is a sample on how to further extend the backend code
