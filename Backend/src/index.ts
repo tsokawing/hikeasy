@@ -8,7 +8,7 @@ import { TrailService } from './service/TrailService';
 import { UserService } from './service/UserService';
 import { EventService } from './service/EventService';
 import { ReviewService } from './service/ReviewService';
-import fileUpload, { FileArray, UploadedFile } from 'express-fileupload';
+import fileUpload, { UploadedFile } from 'express-fileupload';
 import cors from 'cors';
 
 const express = require('express');
