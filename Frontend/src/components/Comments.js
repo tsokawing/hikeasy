@@ -14,18 +14,19 @@ class Comments extends Component {
     };
   }
 
+  setRating = (value) => {
+    this.setState({ rating: value });
+  };
+
   handleChange = (e, { value }) => {
     this.setState({ newComments: value });
-    console.log(this.state.newComments);
   };
 
   postComment = () => {
     let formData = new FormData();
     formData.append("userID", 7);
-    formData.append("rating", 2);
+    formData.append("rating", this.state.rating);
     formData.append("comment", this.state.newComments);
-
-    console.log("Add comments");
 
     http
       .post(
@@ -40,7 +41,6 @@ class Comments extends Component {
       .then((response) => {
         console.log(response);
       });
-    console.log(this.state.newComments);
   };
 
   render() {
@@ -94,6 +94,15 @@ class Comments extends Component {
             />
           </Form.Group>
         </Form>
+        <div>
+          <Typography component="legend">Rating</Typography>
+          <Rating
+            name="simple-controlled"
+            onChange={(event, newValue) => {
+              this.setRating(newValue);
+            }}
+          />
+        </div>
       </Comment.Group>
     );
   }
