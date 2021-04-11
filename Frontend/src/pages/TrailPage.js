@@ -5,6 +5,7 @@ import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
 import "./TrailPage.css";
 import MapSection from "../components/MapSection";
+import GallerySection from "../components/GallerySection";
 
 class TrailPage extends Component {
   constructor() {
@@ -55,6 +56,7 @@ class TrailPage extends Component {
     return (
       <>
         <ImageSection trail={this.state.trailList[0]} />
+        <GallerySection />
         <Comments reviews={this.state.reviewList} />
         <div style={{ width: "100%" }}>
           <div className={"trail-map"}>
