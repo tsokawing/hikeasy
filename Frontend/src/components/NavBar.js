@@ -1,11 +1,14 @@
 import React, { useState, useEffect } from "react";
 import { Button } from "./Button";
 import { Link } from "react-router-dom";
+import firebase from "firebase";
+import { auth, authUI } from "../firebase";
 import "./NavBar.css";
 
 function NavBar() {
   const [click, setClick] = useState(false);
   const [button, setButton] = useState(true);
+  const [isLoggedIn, setIsLoggedIn] = useState(true);
 
   const handleClick = () => setClick(!click);
   const closeMobileMenu = () => setClick(false);
@@ -16,6 +19,16 @@ function NavBar() {
     } else {
       setButton(true);
     }
+
+    // Check whether the user is signed in
+    console.log("CHECK login");
+    firebase.auth().onAuthStateChanged(function (user) {
+      if (user) {
+        setIsLoggedIn(true);
+      } else {
+        setIsLoggedIn(false);
+      }
+    });
   };
 
   useEffect(() => {
@@ -69,7 +82,32 @@ function NavBar() {
               </Link>
             </li>
           </ul>
-          {button && <Button buttonStyle="btn--outline">Login</Button>}
+          {button &&
+            (isLoggedIn ? (
+              <Link to="/" className="btn-mobile">
+                <Button
+                  buttonStyle="btn--outline"
+                  onClick={() =>
+                    auth
+                      .signOut()
+                      .then(() => {
+                        // Sign-out successful.
+                        showButton();
+                      })
+                      .catch((error) => {
+                        // An error happened.
+                        console.log(error);
+                      })
+                  }
+                >
+                  Logout
+                </Button>
+              </Link>
+            ) : (
+              <Link to="/login" className="btn-mobile">
+                <Button buttonStyle="btn--outline">Login</Button>
+              </Link>
+            ))}
         </div>
       </nav>
     </>

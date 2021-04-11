@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import Rating from "@material-ui/lab/Rating";
 import Typography from "@material-ui/core/Typography";
 import { Button, Comment, Form, Header } from "semantic-ui-react";
+
 import "./Comments.css";
 import http from "../http-common";
 
