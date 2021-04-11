@@ -1,6 +1,6 @@
 import { useState, Fragment, useEffect } from "react";
 import { Card, Menu, Form, Button } from "semantic-ui-react";
-
+import { Redirect } from "react-router";
 import { auth, authUI } from "../firebase";
 
 import "../css/AuthForm.css";
@@ -31,30 +31,7 @@ async function authenticateUser(email, password, isLogin) {
 }
 
 function renderLoggedIn() {
-  return (
-    <div className="loggedIn-wrapper">
-      <h1>You are logged in!</h1>
-      <div>
-        <Button
-          onClick={() =>
-            auth
-              .signOut()
-              .then(() => {
-                // Sign-out successful.
-                console.log("Logged out");
-              })
-              .catch((error) => {
-                // An error happened.
-                console.log(error);
-              })
-          }
-          color="red"
-        >
-          Log out
-        </Button>
-      </div>
-    </div>
-  );
+  return <Redirect to="/" />;
 }
 
 function AuthForm() {
