@@ -12,9 +12,9 @@ export class ReviewService {
     app.get('/review/get_all_by_trail/:trailID', this.getAllReviewsOfTrail);
     app.get('/review/get_all_by_user', this.getAllReviewsByUser_NoUserID);
     app.get('/review/get_all_by_user/:userID', this.getAllReviewsByUser);
-    app.post('/review/publish_review', this.publishReview_NoUserID);
+    app.post('/review/publish_review', this.publishReview_NoTrailID);
     app.post('/review/publish_review/:trailID', this.publishReview);
-    app.post('/review/delete_review', this.deleteReview_NoUserID);
+    app.post('/review/delete_review', this.deleteReview_NoTrailID);
     app.post('/review/delete_review/:trailID', this.deleteReview);
   }
 
@@ -95,8 +95,8 @@ export class ReviewService {
     return;
   }
 
-  private async publishReview_NoUserID(req: Request, res: Response) {
-    ResponseUtil.respondWithMissingUserID(res);
+  private async publishReview_NoTrailID(req: Request, res: Response) {
+    ResponseUtil.respondWithMissingTrailID(res);
   }
 
   private async publishReview(req: Request, res: Response) {
@@ -166,8 +166,8 @@ export class ReviewService {
     });
   }
 
-  private async deleteReview_NoUserID(req: Request, res: Response) {
-    ResponseUtil.respondWithMissingUserID(res);
+  private async deleteReview_NoTrailID(req: Request, res: Response) {
+    ResponseUtil.respondWithMissingTrailID(res);
   }
 
   private async deleteReview(req: Request, res: Response) {
