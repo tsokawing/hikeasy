@@ -2,13 +2,14 @@ import firebase from 'firebase';
 import * as firebaseui from 'firebaseui';
 
 const firebaseConfig = {
-    apiKey: "AIzaSyD4AEit3eiJRA1eaI9liIsyZGRW0IvHB2g",
-    authDomain: "hikeasy-7d6e1.firebaseapp.com",
-    projectId: "hikeasy-7d6e1",
-    storageBucket: "hikeasy-7d6e1.appspot.com",
-    messagingSenderId: "216736255415",
-    appId: "1:216736255415:web:a4a7f0992f95e337c36c32",
-    measurementId: "G-9XQRJFFZQM"
+    apiKey: "AIzaSyAoXEIkPzrDE3oOyyKqnN6r1WU2bIpqm2U",
+    authDomain: "hikeasy-4b1dd.firebaseapp.com",
+    projectId: "hikeasy-4b1dd",
+    storageBucket: "hikeasy-4b1dd.appspot.com",
+    messagingSenderId: "197760013635",
+    appId: "1:197760013635:web:c964c7b34728f1598d0bf6",
+    measurementId: "G-71JM5L06RQ"
+
    
 };
 
