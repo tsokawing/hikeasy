@@ -41,7 +41,7 @@ class MapSection extends Component {
   componentDidMount() {
     if (this.props.trail) {
       var polyline = require("@mapbox/polyline");
-      let waypoints = polyline.decode(this.props.trail.waypoints, 6);
+      let waypoints = polyline.decode(this.props.trail.waypoints, 5);
       this.setState({ point: waypoints });
     }
   }
@@ -56,7 +56,7 @@ class MapSection extends Component {
     return (
       <MapContainer
         className="Map"
-        center={[2.231054, 11.416962]}
+        center={[22.28552, 114.15769]}
         zoom={15}
         scrollWheelZoom={false}
       >
