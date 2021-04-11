@@ -184,3 +184,27 @@
     * `No files were uploaded`  
     * `Invalid userID` 
     * `Invalid trailID` 
+
+***************************************************************************************************************************
+ 
+ * ** /trails/get_trail_photos/:trailID Params**
+     
+   **Required:**
+   `trailID = int`
+
+   **Optional:**
+    `NA`
+    
+* **Body Form-Data Params**
+  
+    `NA`
+
+* **Success Response:**
+<_ photoFileNames is a array contains all the filenames of the photo _>
+  * **Success:** `true`
+    **Resonpse:** `{photoFileNames: fileNameArray}`
+ 
+* **Error Response:**
+
+  * **Resonpse:** 
+    * `Invalid trailID` 
