@@ -30,14 +30,14 @@
     * <_ http://ec2-18-188-120-239.us-east-2.compute.amazonaws.com:8080/trails/upload_photo/:trailID _>  `POST` 
  
   * Get filename of photo with trail 
-    * <_ http://localhost:8080/trails/get_trail_photos/:trailID _>  `POST` 
+    * <_ http://localhost:8080/trails/get_trail_photos/:trailID _>  `GET`
   
-    * <_ http://ec2-18-188-120-239.us-east-2.compute.amazonaws.com:8080/trails/get_trail_photos/:trailID _>  `POST`     
+    * <_ http://ec2-18-188-120-239.us-east-2.compute.amazonaws.com:8080/trails/get_trail_photos/:trailID _>  `GET`     
  
   * Get photo for with filename 
-    * <_ http://localhost:8080/trails/get_photo/:fileName _>  `POST` 
+    * <_ http://localhost:8080/trails/get_photo/:fileName _>  `GET` 
   
-    * <_ http://ec2-18-188-120-239.us-east-2.compute.amazonaws.com:8080/trails/get_photo/:fileName _>  `POST` 
+    * <_ http://ec2-18-188-120-239.us-east-2.compute.amazonaws.com:8080/trails/get_photo/:fileName _>  `GET` 
 ***************************************************************************************************************************
 
 * ** /trails/get_all URL Params**
@@ -196,7 +196,6 @@
     `NA`
     
 * **Body Form-Data Params**
-  
     `NA`
 
 * **Success Response:**
@@ -208,3 +207,27 @@
 
   * **Resonpse:** 
     * `Invalid trailID` 
+
+***************************************************************************************************************************
+ 
+ * ** /trails/get_photo/:fileName Params**
+     
+   **Required:**
+   `fileName = string`
+
+   **Optional:**
+    `NA`
+    
+* **Body Form-Data Params**
+    `NA`
+
+* **Success Response:**
+<_ photoFileNames is a array contains all the filenames of the photo _>
+  * **Success:** `true`
+    **Resonpse:** `{photo file}`
+ 
+* **Error Response:**
+  * **Code:** 
+    * `404` 
+  * **Resonpse:** 
+    * `Failed to send photo (${fullFileName}): ` + err` 
