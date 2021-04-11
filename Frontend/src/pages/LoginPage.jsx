@@ -13,6 +13,18 @@ async function authenticateUser(email, password, isLogin) {
       ? await auth.signInWithEmailAndPassword(email, password)
       : await auth.createUserWithEmailAndPassword(email, password);
     console.log(user);
+    // Get JWT for backend verification
+    firebase
+      .auth()
+      .currentUser.getIdToken(true)
+      .then(function (idToken) {
+        // Send token to backend via HTTPS
+        console.log(idToken);
+      })
+      .catch(function (error) {
+        // Handle error
+        console.log(error);
+      });
   } catch (err) {
     console.log(err);
   }
@@ -40,7 +52,7 @@ function AuthForm() {
 
   const [signupEmail, setSignupEmail] = useState("");
   const [signupPassword, setSignupPassword] = useState("");
-  
+
   auth.onAuthStateChanged((user) => setUser(user));
 
   useEffect(() => {
@@ -97,7 +109,9 @@ function AuthForm() {
                       ></input>
                     </Form.Field>
                     <Button
-                      onClick={() => authenticateUser(loginEmail, loginPassword, true)}
+                      onClick={() =>
+                        authenticateUser(loginEmail, loginPassword, true)
+                      }
                       className="auth-form-buttons"
                       color="blue"
                     >
@@ -132,7 +146,9 @@ function AuthForm() {
                     <Button
                       className="auth-form-buttons"
                       color="green"
-                      onClick={() => authenticateUser(signupEmail, signupPassword, false)}
+                      onClick={() =>
+                        authenticateUser(signupEmail, signupPassword, false)
+                      }
                     >
                       Register an account for HikEasy
                     </Button>
