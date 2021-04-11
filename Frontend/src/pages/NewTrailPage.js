@@ -86,10 +86,8 @@ class NewTrailPage extends Component {
 
           formData.append(
             "waypoints",
-            polyline.encode(currentWaypointsRef.state.point)
+            polyline.encode(currentWaypointsRef.state.point, 6)
           );
-          console.log(polyline.encode(currentWaypointsRef.state.point));
-          console.log("update");
 
           http
             .post("http://localhost:8080/trails/update_trail/2", formData, {
