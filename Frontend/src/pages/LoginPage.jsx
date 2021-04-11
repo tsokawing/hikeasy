@@ -12,25 +12,25 @@ async function authenticateUser(email, password, isLogin) {
     const user = isLogin
       ? await auth.signInWithEmailAndPassword(email, password)
       : await auth.createUserWithEmailAndPassword(email, password);
-    console.log(user);
-    // Get JWT for backend verification
-    firebase
-      .auth()
-      .currentUser.getIdToken(true)
-      .then(function (idToken) {
-        // Send token to backend via HTTPS
-        console.log(idToken);
-      })
-      .catch(function (error) {
-        // Handle error
-        console.log(error);
-      });
   } catch (err) {
     console.log(err);
   }
 }
 
 function renderLoggedIn() {
+  // Get JWT for backend verification
+  firebase
+    .auth()
+    .currentUser.getIdToken(true)
+    .then(function (idToken) {
+      // Send token to backend via HTTPS
+      console.log(idToken);
+    })
+    .catch(function (error) {
+      // Handle error
+      console.log(error);
+    });
+
   return <Redirect to="/" />;
 }
 
