@@ -12,6 +12,9 @@ export class User {
   id!: number;
 
   @Column()
+  firebaseId!: string;
+
+  @Column()
   firstName!: string;
 
   @Column()
