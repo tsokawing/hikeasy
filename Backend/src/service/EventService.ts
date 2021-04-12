@@ -40,7 +40,7 @@ export class EventService {
 
   private async addEvent(req: Request, res: Response) {
     const event = new Event();
-    const trailID = Number.parseInt(req.params['trailID']);
+    const trailID = Number.parseInt(req.body['trailID']);
     if (Number.isNaN(trailID)) {
       ResponseUtil.respondWithInvalidTrailID(res);
       return;
