@@ -13,6 +13,8 @@ export class ResponseUtil {
   public static readonly ERROR_INVALID_TRAIL_ID = 'Invalid trail ID';
   public static readonly ERROR_INVALID_DIFFICULTY = 'Invalid difficulty';
 
+  public static readonly ERROR_MISSING_EVENT_ID = 'Missing event ID';
+
   public static respondWithStandardizedJson(
     res: Response,
     success: boolean,
@@ -66,5 +68,9 @@ export class ResponseUtil {
 
   public static respondWithInvalidDifficulty(res: Response): void {
     this.respondWithError(res, this.ERROR_INVALID_DIFFICULTY);
+  }
+
+  public static respondWithMissingEventID(res: Response): void {
+    this.respondWithError(res, this.ERROR_MISSING_EVENT_ID);
   }
 }
