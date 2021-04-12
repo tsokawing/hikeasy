@@ -54,16 +54,6 @@ export class ImageService {
       ResponseUtil.respondWithInvalidUserID(res);
       return;
     }
-    // load trailInfo, check it exists
-    const targetTrailID = req.params['trailID'];
-    const subjectTrail = await HikEasyApp.Instance.EntityManager.findOne(
-      Trail,
-      targetTrailID
-    );
-    if (subjectTrail === undefined) {
-      ResponseUtil.respondWithInvalidTrailID(res);
-      return;
-    }
     try {
       if (!req.files) {
         // no files are uploaded
@@ -135,7 +125,6 @@ export class ImageService {
 
               // and important! we must write down the names of the files, so that we can later get them back
               const uploadingPhoto = new Photo();
-              uploadingPhoto.trail = subjectTrail;
               uploadingPhoto.user = uploaderUser;
               uploadingPhoto.fileName = newName;
               HikEasyApp.Instance.EntityManager.save(uploadingPhoto);
