@@ -2,6 +2,7 @@ import { NextFunction, Request, Response } from 'express';
 import passport from 'passport';
 import { User } from './entity/User';
 import { HikEasyApp } from './HikEasyApp';
+import { ResponseUtil } from './util/ResponseUtil';
 
 export class FirebaseAuthenticator {
   /**
@@ -33,7 +34,7 @@ export class FirebaseAuthenticator {
     // Firebase authentication passed
     // based on the userID, find back the user ID and return it
     if (HikEasyApp.Instance?.EntityManager === undefined) {
-      return undefined;
+      throw ResponseUtil.ERROR_DATABASE_UNREACHABLE;
     }
     // database is ready, now lets check the stuff
     const firebaseID = FirebaseAuthenticator.extractFirebaseIdFromAuth(req);

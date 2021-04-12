@@ -117,9 +117,12 @@ export class ReviewService {
     // read req.user.user_id to obtain Firebase user ID for user lookup
     // console.log(req.user);
 
-    const targetUser = await FirebaseAuthenticator.extractProperUserFromAuth(
-      req
-    );
+    let targetUser = undefined;
+    try {
+      targetUser = await FirebaseAuthenticator.extractProperUserFromAuth(req);
+    } catch (error: unknown) {
+      ResponseUtil.respondWithError_DirectlyFromException(res, error);
+    }
     if (targetUser === undefined) {
       // auth failed
       ResponseUtil.respondWithInvalidUserID(res);
@@ -179,9 +182,13 @@ export class ReviewService {
   }
 
   private async deleteReview(req: Request, res: Response) {
-    const targetUser = await FirebaseAuthenticator.extractProperUserFromAuth(
-      req
-    );
+    let targetUser = undefined;
+    try {
+      targetUser = await FirebaseAuthenticator.extractProperUserFromAuth(req);
+    } catch (error: unknown) {
+      ResponseUtil.respondWithError_DirectlyFromException(res, error);
+      return;
+    }
     if (targetUser === undefined) {
       // auth failed
       ResponseUtil.respondWithInvalidUserID(res);

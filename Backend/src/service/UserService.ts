@@ -36,14 +36,15 @@ export class UserService {
   private async checkUserRegistration(req: Request, res: Response) {
     // check whether the user has been registered before
     // so that client side knows whether should also provide initial user info
-    if (HikEasyApp.Instance.EntityManager === undefined) {
-      // we need to differentiate between cant connect to db and no such user!
-      ResponseUtil.respondWithDatabaseUnreachable(res);
-      return;
+    let requestedUser = undefined;
+    try {
+      requestedUser = await FirebaseAuthenticator.extractProperUserFromAuth(
+        req
+      );
+    } catch (error: unknown) {
+      ResponseUtil.respondWithError_DirectlyFromException(res, error);
     }
-    const isRegistered =
-      (await FirebaseAuthenticator.extractProperUserFromAuth(req)) !==
-      undefined;
+    const isRegistered = requestedUser !== undefined;
     res.json({
       success: true,
       isRegistered: isRegistered,
@@ -52,9 +53,14 @@ export class UserService {
 
   private async loginOrRegisterUser(req: Request, res: Response) {
     // need to check whether we are existing user login or new user register
-    const requestedUser = await FirebaseAuthenticator.extractProperUserFromAuth(
-      req
-    );
+    let requestedUser = undefined;
+    try {
+      requestedUser = await FirebaseAuthenticator.extractProperUserFromAuth(
+        req
+      );
+    } catch (error: unknown) {
+      ResponseUtil.respondWithError_DirectlyFromException(res, error);
+    }
     if (requestedUser !== undefined) {
       // existing user, also passed firebase
       res.json({
