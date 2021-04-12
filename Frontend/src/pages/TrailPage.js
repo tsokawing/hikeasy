@@ -70,14 +70,16 @@ class TrailPage extends Component {
         {this.state.showGallery ? (
           <GallerySection />
         ) : (
-          <div>
-            <Comments reviews={this.state.reviewList} />
-            <div style={{ width: "100%" }}>
+          <div className={"trail-main-section"}>
+            <div>
               <div className={"trail-map"}>
                 {this.state.trailList.length > 0 ? (
                   <MapSection trail={this.state.trailList[0]} />
                 ) : null}
               </div>
+            </div>
+            <div className={"comment-section"}>
+              <Comments reviews={this.state.reviewList} />
             </div>
           </div>
         )}
