@@ -28,7 +28,9 @@ export class Event {
   @Column({ default: () => 'CURRENT_TIMESTAMP' })
   time!: Date;
 
-  @Column()
+  @Column({
+    default: null,
+  })
   photoName!: string;
 
   @CreateDateColumn()
