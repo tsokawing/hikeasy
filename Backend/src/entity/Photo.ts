@@ -4,9 +4,11 @@ import {
   Column,
   CreateDateColumn,
   ManyToOne,
+  OneToOne,
 } from 'typeorm';
 import { Trail } from './Trail';
 import { User } from './User';
+import { Event } from './Event';
 
 @Entity()
 export class Photo {
@@ -26,4 +28,7 @@ export class Photo {
 
   @ManyToOne(() => Trail, (trail) => trail.photos)
   trail!: Trail | undefined;
+
+  @OneToOne(() => Event, (event) => event.photo)
+  event!: Event | undefined;
 }

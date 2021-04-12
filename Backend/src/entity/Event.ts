@@ -6,9 +6,11 @@ import {
   ManyToOne,
   ManyToMany,
   JoinTable,
+  OneToOne,
 } from 'typeorm';
 import { User } from './User';
 import { Trail } from './Trail';
+import { Photo } from './Photo';
 
 @Entity()
 export class Event {
@@ -28,10 +30,8 @@ export class Event {
   @Column({ default: () => 'CURRENT_TIMESTAMP' })
   time!: Date;
 
-  @Column({
-    default: null,
-  })
-  photoName!: string;
+  @OneToOne(() => Photo, (photo) => photo.event)
+  photo!: Photo;
 
   @CreateDateColumn()
   createdAt!: Date;
