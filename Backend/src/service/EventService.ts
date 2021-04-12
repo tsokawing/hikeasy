@@ -2,6 +2,7 @@ import { Application, Request, Response } from 'express';
 import { Event } from '../entity/Event';
 import { Trail } from '../entity/Trail';
 import { Photo } from '../entity/Photo';
+import { User } from '../entity/User';
 import { HikEasyApp } from '../HikEasyApp';
 import { ResponseUtil } from '../util/ResponseUtil';
 
@@ -98,11 +99,10 @@ export class EventService {
 
   private async updateEvent(req: Request, res: Response) {
     const eventID = parseInt(req.params['eventID']);
-    console.log(eventID);
     if (Number.isNaN(eventID)) {
       res.json({
         success: false,
-        message: 'Missing event name',
+        message: 'Missing event ID',
       });
       return;
     }
@@ -120,8 +120,20 @@ export class EventService {
       });
       return;
     }
+    const userID = Number.parseInt(req.body['userID']);
+    if (Number.isNaN(userID)) {
+      ResponseUtil.respondWithInvalidUserID(res);
+      return;
+    }
+    const targetUser = await HikEasyApp.Instance.EntityManager?.findOne(
+      User,
+      userID
+    );
+    if (targetUser === undefined) {
+      ResponseUtil.respondWithError(res, 'User not found');
+      return;
+    }
     let somethingWasChanged = false;
-    console.log(req.body['eventName']);
     const updatedEventName = req.body['eventName'];
     if (updatedEventName !== undefined) {
       if (updatedEventName.length == 0) {
@@ -135,10 +147,22 @@ export class EventService {
       targetedEvent.name = updatedEventName;
       somethingWasChanged = true;
     }
-    console.log(req.body['eventDescription']);
+    // console.log(req.body['eventDescription']);
     const updatedDescription = req.body['eventDescription'];
     if (updatedDescription !== undefined) {
       targetedEvent.description = updatedDescription;
+    }
+    if (!somethingWasChanged) {
+      res.json({
+        success: false,
+        message: 'Nothing to update',
+      });
+      return;
+    }
+    const eventTimestampStringified = req.body['eventTime'];
+    const eventTime_MiddleValue: number = Date.parse(eventTimestampStringified);
+    if (updatedDescription !== undefined) {
+      targetedEvent.time = new Date(eventTime_MiddleValue);
     }
     if (!somethingWasChanged) {
       res.json({
