@@ -14,6 +14,7 @@ export class ResponseUtil {
   public static readonly ERROR_INVALID_DIFFICULTY = 'Invalid difficulty';
 
   public static readonly ERROR_MISSING_EVENT_ID = 'Missing event ID';
+  public static readonly ERROR_INVALID_EVENT_ID = 'Invalid event ID';
 
   public static respondWithStandardizedJson(
     res: Response,
@@ -72,5 +73,9 @@ export class ResponseUtil {
 
   public static respondWithMissingEventID(res: Response): void {
     this.respondWithError(res, this.ERROR_MISSING_EVENT_ID);
+  }
+
+  public static respondWithInvalidEventID(): void {
+    this.respondWithError(res, this.ERROR_INVALID_EVENT_ID);
   }
 }
