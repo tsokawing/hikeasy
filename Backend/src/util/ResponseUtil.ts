@@ -26,6 +26,20 @@ export class ResponseUtil {
     });
   }
 
+  public static respondWithError_DirectlyFromException(
+    res: Response,
+    message: unknown
+  ): void {
+    if (typeof message === 'string') {
+      this.respondWithError(res, message);
+    } else {
+      this.respondWithError(
+        res,
+        'Some error occured but failed to extract error message'
+      );
+    }
+  }
+
   public static respondWithError(res: Response, message: string): void {
     this.respondWithStandardizedJson(res, false, message);
   }
