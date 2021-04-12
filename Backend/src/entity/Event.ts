@@ -39,5 +39,4 @@ export class Event {
 
   @ManyToOne(() => Trail, (trail) => trail.events)
   trail: Trail | undefined;
-
 }
