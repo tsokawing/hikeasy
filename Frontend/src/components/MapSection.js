@@ -69,7 +69,7 @@ class MapSection extends Component {
           <Marker position={[item[0], item[1]]} icon={icon} />
         ))}
         <Polyline
-          pathOptions={{ color: "lime" }}
+          pathOptions={{ color: "#9b3675" }}
           positions={this.state.point}
         />
       </MapContainer>
