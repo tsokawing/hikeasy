@@ -29,6 +29,6 @@ export class Photo {
   @ManyToOne(() => Trail, (trail) => trail.photos)
   trail!: Trail | undefined;
 
-  @OneToOne(() => Event, (event) => event.photo)
+  @ManyToOne(() => Event, (event) => event.photos)
   event!: Event | undefined;
 }
