@@ -25,7 +25,7 @@ class Comments extends Component {
 
   postComment = () => {
     let formData = new FormData();
-    formData.append("userID", 7);
+    formData.append("userID", 3);
     formData.append("rating", this.state.rating);
     formData.append("comment", this.state.newComments);
 
@@ -41,6 +41,7 @@ class Comments extends Component {
       )
       .then((response) => {
         console.log(response);
+        this.props.reloadComments();
       });
   };
 

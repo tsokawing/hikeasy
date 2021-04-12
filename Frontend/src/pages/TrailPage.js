@@ -17,11 +17,8 @@ class TrailPage extends Component {
     };
   }
 
-  componentDidMount() {
-    // Allow cors to fetch ==> install cors extension for chrome
-
+  loadComments = () => {
     var get_all = "http://localhost:8080/trails/get_all/";
-    // var get_all =
     //   "http://ec2-18-188-120-239.us-east-2.compute.amazonaws.com:8080/trails/get_all/";
 
     var id = this.props.match.params.trailID;
@@ -50,6 +47,12 @@ class TrailPage extends Component {
         });
         this.setState({ reviewList: reviews });
       });
+
+    console.log("RELOAD");
+  };
+
+  componentDidMount() {
+    this.loadComments();
   }
 
   toggleGallery = () => {
@@ -79,7 +82,10 @@ class TrailPage extends Component {
               </div>
             </div>
             <div className={"comment-section"}>
-              <Comments reviews={this.state.reviewList} />
+              <Comments
+                reviews={this.state.reviewList}
+                reloadComments={this.loadComments}
+              />
             </div>
           </div>
         )}
