@@ -40,7 +40,6 @@ class ImageSection extends Component {
               />
               <p class="trail-info">Shatin, NT 28KM</p>
             </div>
-
             <div className="image-btns">
               <ImageButton
                 className="image-btns"
@@ -65,6 +64,23 @@ class ImageSection extends Component {
               </ImageButton>
             </div>
           </div>
+        </div>
+        <div className={"gallery-toggle-section"}>
+          {this.props.showGallery ? (
+            <button
+              onClick={this.props.toggleGallery}
+              className={"image-btn gallery-toggle-btn"}
+            >
+              see comments...
+            </button>
+          ) : (
+            <button
+              onClick={this.props.toggleGallery}
+              className={"image-btn gallery-toggle-btn"}
+            >
+              see photos...
+            </button>
+          )}
         </div>
       </div>
     );
