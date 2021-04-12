@@ -1,6 +1,8 @@
 import { Application, Request, Response } from 'express';
 import { Event } from '../entity/Event';
 import { Trail } from '../entity/Trail';
+import { Photo } from '../entity/Photo';
+import { User } from '../entity/User';
 import { HikEasyApp } from '../HikEasyApp';
 import { ResponseUtil } from '../util/ResponseUtil';
 
@@ -10,6 +12,7 @@ export class EventService {
     app.get('/events/get_specific/:eventID', this.getSpecificEvent);
     app.post('/events/add_event', this.addEvent);
     app.post('/events/update_event/:eventID', this.updateEvent);
+    app.get('/events/get_photo/:eventID', this.getPhoto);
   }
 
   private async getAllEvents(req: Request, res: Response) {
@@ -96,12 +99,8 @@ export class EventService {
 
   private async updateEvent(req: Request, res: Response) {
     const eventID = parseInt(req.params['eventID']);
-    console.log(eventID);
     if (Number.isNaN(eventID)) {
-      res.json({
-        success: false,
-        message: 'Missing event name',
-      });
+      ResponseUtil.respondWithInvalidEventID(res);
       return;
     }
     // need to check whether something has changed, respond false if nothing was changed
@@ -118,8 +117,20 @@ export class EventService {
       });
       return;
     }
+    const userID = Number.parseInt(req.body['userID']);
+    if (Number.isNaN(userID)) {
+      ResponseUtil.respondWithInvalidUserID(res);
+      return;
+    }
+    const targetUser = await HikEasyApp.Instance.EntityManager?.findOne(
+      User,
+      userID
+    );
+    if (targetUser === undefined) {
+      ResponseUtil.respondWithError(res, 'User not found');
+      return;
+    }
     let somethingWasChanged = false;
-    console.log(req.body['eventName']);
     const updatedEventName = req.body['eventName'];
     if (updatedEventName !== undefined) {
       if (updatedEventName.length == 0) {
@@ -133,10 +144,22 @@ export class EventService {
       targetedEvent.name = updatedEventName;
       somethingWasChanged = true;
     }
-    console.log(req.body['eventDescription']);
+    // console.log(req.body['eventDescription']);
     const updatedDescription = req.body['eventDescription'];
     if (updatedDescription !== undefined) {
       targetedEvent.description = updatedDescription;
+    }
+    if (!somethingWasChanged) {
+      res.json({
+        success: false,
+        message: 'Nothing to update',
+      });
+      return;
+    }
+    const eventTimestampStringified = req.body['eventTime'];
+    const eventTime_MiddleValue: number = Date.parse(eventTimestampStringified);
+    if (updatedDescription !== undefined) {
+      targetedEvent.time = new Date(eventTime_MiddleValue);
     }
     if (!somethingWasChanged) {
       res.json({
@@ -151,5 +174,27 @@ export class EventService {
       message: 'UpdatedEvent',
     });
     return;
+  }
+
+  private async getPhoto(req: Request, res: Response) {
+    const eventID = parseInt(req.params['eventID']);
+    if (HikEasyApp.Instance.EntityManager == undefined) {
+      ResponseUtil.respondWithDatabaseUnreachable(res);
+      return;
+    }
+    const subjectEvent = HikEasyApp.Instance.EntityManager.findOne(
+      Event,
+      eventID
+    );
+    if (subjectEvent === undefined) {
+      ResponseUtil.respondWithInvalidTrailID(res);
+      return;
+    }
+    // then find the photos' file names
+    const photos = await HikEasyApp.Instance.EntityManager.find(Photo, {
+      select: ['fileName'],
+      where: { event: eventID },
+    });
+    res.json({ success: true, photoFileNames: photos });
   }
 }

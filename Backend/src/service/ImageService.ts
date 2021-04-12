@@ -2,6 +2,7 @@ import { Application, Request, Response } from 'express';
 import { Photo } from '../entity/Photo';
 import { Trail } from '../entity/Trail';
 import { User } from '../entity/User';
+import { Event } from '../entity/Event';
 import { HikEasyApp } from '../HikEasyApp';
 import { ResponseUtil } from '../util/ResponseUtil';
 
@@ -51,6 +52,24 @@ export class ImageService {
       userID
     );
     if (uploaderUser === undefined) {
+      ResponseUtil.respondWithInvalidUserID(res);
+      return;
+    }
+    const eventID = req.body['eventID'];
+    if (eventID === undefined) {
+      ResponseUtil.respondWithMissingUserID(res);
+      return;
+    }
+    if (HikEasyApp.Instance.EntityManager == undefined) {
+      ResponseUtil.respondWithDatabaseUnreachable(res);
+      return;
+    }
+    // load user object/check user exists
+    const uploaderEvent = await HikEasyApp.Instance.EntityManager.findOne(
+      Event,
+      eventID
+    );
+    if (uploaderEvent === undefined) {
       ResponseUtil.respondWithInvalidUserID(res);
       return;
     }
@@ -126,6 +145,7 @@ export class ImageService {
               // and important! we must write down the names of the files, so that we can later get them back
               const uploadingPhoto = new Photo();
               uploadingPhoto.user = uploaderUser;
+              uploadingPhoto.event = uploaderEvent;
               uploadingPhoto.fileName = newName;
               HikEasyApp.Instance.EntityManager.save(uploadingPhoto);
             }

@@ -4,6 +4,7 @@ import {
   Column,
   CreateDateColumn,
   ManyToOne,
+  OneToMany,
   ManyToMany,
   JoinTable,
   OneToOne,
@@ -30,15 +31,11 @@ export class Event {
   @Column({ default: () => 'CURRENT_TIMESTAMP' })
   time!: Date;
 
-  @OneToOne(() => Photo, (photo) => photo.event)
-  photo!: Photo;
+  @OneToMany(() => Photo, (photo) => photo.event)
+  photos!: Photo[];
 
   @CreateDateColumn()
   createdAt!: Date;
-
-  @ManyToMany(() => User)
-  @JoinTable()
-  user: User | undefined;
 
   @ManyToOne(() => Trail, (trail) => trail.events)
   trail: Trail | undefined;

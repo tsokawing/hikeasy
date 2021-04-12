@@ -13,6 +13,9 @@ export class ResponseUtil {
   public static readonly ERROR_INVALID_TRAIL_ID = 'Invalid trail ID';
   public static readonly ERROR_INVALID_DIFFICULTY = 'Invalid difficulty';
 
+  public static readonly ERROR_MISSING_EVENT_ID = 'Missing event ID';
+  public static readonly ERROR_INVALID_EVENT_ID = 'Invalid event ID';
+
   public static respondWithStandardizedJson(
     res: Response,
     success: boolean,
@@ -24,6 +27,20 @@ export class ResponseUtil {
       message: message.length > 0 ? message : undefined,
       response: response,
     });
+  }
+
+  public static respondWithError_DirectlyFromException(
+    res: Response,
+    message: unknown
+  ): void {
+    if (typeof message === 'string') {
+      this.respondWithError(res, message);
+    } else {
+      this.respondWithError(
+        res,
+        'Some error occured but failed to extract error message'
+      );
+    }
   }
 
   public static respondWithError(res: Response, message: string): void {
@@ -52,5 +69,13 @@ export class ResponseUtil {
 
   public static respondWithInvalidDifficulty(res: Response): void {
     this.respondWithError(res, this.ERROR_INVALID_DIFFICULTY);
+  }
+
+  public static respondWithMissingEventID(res: Response): void {
+    this.respondWithError(res, this.ERROR_MISSING_EVENT_ID);
+  }
+
+  public static respondWithInvalidEventID(res: Response): void {
+    this.respondWithError(res, this.ERROR_INVALID_EVENT_ID);
   }
 }
