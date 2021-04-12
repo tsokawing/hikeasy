@@ -1,7 +1,7 @@
 import { Application, Request, Response } from 'express';
 import { Review } from '../entity/Review';
 import { Trail } from '../entity/Trail';
-import { User } from '../entity/User';
+import { FirebaseAuthenticator } from '../FirebaseAuthenticator';
 import { HikEasyApp } from '../HikEasyApp';
 import { ResponseUtil } from '../util/ResponseUtil';
 
@@ -13,9 +13,20 @@ export class ReviewService {
     app.get('/review/get_all_by_user', this.getAllReviewsByUser_NoUserID);
     app.get('/review/get_all_by_user/:userID', this.getAllReviewsByUser);
     app.post('/review/publish_review', this.publishReview_NoTrailID);
-    app.post('/review/publish_review/:trailID', this.publishReview);
+    app.post(
+      '/review/publish_review/:trailID',
+      FirebaseAuthenticator.authenticate,
+      // function (req: Request, res: Response, next: NextFunction) {
+      //   passport.authenticate('jwt', { session: false })(req, res, next);
+      // },
+      this.publishReview
+    );
     app.post('/review/delete_review', this.deleteReview_NoTrailID);
-    app.post('/review/delete_review/:trailID', this.deleteReview);
+    app.post(
+      '/review/delete_review/:trailID',
+      FirebaseAuthenticator.authenticate,
+      this.deleteReview
+    );
   }
 
   private async getAllReviews(req: Request, res: Response) {
@@ -103,23 +114,20 @@ export class ReviewService {
     // can be a new review, can be an updated review
     // check that all required details are here.
 
-    const userID = Number.parseInt(req.body['userID']);
-    if (Number.isNaN(userID)) {
+    // read req.user.user_id to obtain Firebase user ID for user lookup
+    // console.log(req.user);
+
+    const targetUser = await FirebaseAuthenticator.extractProperUserFromAuth(
+      req
+    );
+    if (targetUser === undefined) {
+      // auth failed
       ResponseUtil.respondWithInvalidUserID(res);
       return;
     }
     const trailID = Number.parseInt(req.params['trailID']);
     if (Number.isNaN(trailID)) {
       ResponseUtil.respondWithInvalidTrailID(res);
-      return;
-    }
-
-    const targetUser = await HikEasyApp.Instance.EntityManager?.findOne(
-      User,
-      userID
-    );
-    if (targetUser === undefined) {
-      ResponseUtil.respondWithError(res, 'User not found');
       return;
     }
     const targetTrail = await HikEasyApp.Instance.EntityManager?.findOne(
@@ -171,23 +179,18 @@ export class ReviewService {
   }
 
   private async deleteReview(req: Request, res: Response) {
-    const userID = Number.parseInt(req.body['userID']);
-    if (Number.isNaN(userID)) {
+    const targetUser = await FirebaseAuthenticator.extractProperUserFromAuth(
+      req
+    );
+    if (targetUser === undefined) {
+      // auth failed
       ResponseUtil.respondWithInvalidUserID(res);
       return;
     }
+
     const trailID = Number.parseInt(req.params['trailID']);
     if (Number.isNaN(trailID)) {
       ResponseUtil.respondWithInvalidTrailID(res);
-      return;
-    }
-
-    const targetUser = await HikEasyApp.Instance.EntityManager?.findOne(
-      User,
-      userID
-    );
-    if (targetUser === undefined) {
-      ResponseUtil.respondWithError(res, 'User not found');
       return;
     }
     const targetTrail = await HikEasyApp.Instance.EntityManager?.findOne(
