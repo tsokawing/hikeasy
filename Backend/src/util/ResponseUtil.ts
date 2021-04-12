@@ -75,7 +75,7 @@ export class ResponseUtil {
     this.respondWithError(res, this.ERROR_MISSING_EVENT_ID);
   }
 
-  public static respondWithInvalidEventID(): void {
+  public static respondWithInvalidEventID(res: Response): void {
     this.respondWithError(res, this.ERROR_INVALID_EVENT_ID);
   }
 }
