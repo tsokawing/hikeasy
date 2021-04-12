@@ -13,6 +13,7 @@ class TrailPage extends Component {
     this.state = {
       trailList: [],
       reviewList: [],
+      showGallery: false,
     };
   }
 
@@ -51,20 +52,35 @@ class TrailPage extends Component {
       });
   }
 
+  toggleGallery = () => {
+    this.state.showGallery
+      ? this.setState({ showGallery: false })
+      : this.setState({ showGallery: true });
+  };
+
   render() {
-    console.log(this.state.trailList[0]);
     return (
       <>
-        <ImageSection trail={this.state.trailList[0]} />
-        <GallerySection />
-        <Comments reviews={this.state.reviewList} />
-        <div style={{ width: "100%" }}>
-          <div className={"trail-map"}>
-            {this.state.trailList.length > 0 ? (
-              <MapSection trail={this.state.trailList[0]} />
-            ) : null}
+        <ImageSection
+          trail={this.state.trailList[0]}
+          ref={this.imageSectionRef}
+          toggleGallery={this.toggleGallery}
+          showGallery={this.state.showGallery}
+        />
+        {this.state.showGallery ? (
+          <GallerySection />
+        ) : (
+          <div>
+            <Comments reviews={this.state.reviewList} />
+            <div style={{ width: "100%" }}>
+              <div className={"trail-map"}>
+                {this.state.trailList.length > 0 ? (
+                  <MapSection trail={this.state.trailList[0]} />
+                ) : null}
+              </div>
+            </div>
           </div>
-        </div>
+        )}
       </>
     );
   }

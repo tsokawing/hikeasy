@@ -100,3 +100,20 @@ video {
     width: 100%;
   }
 }
+
+/* Gallery toggle button */
+
+.gallery-toggle-section {
+  width: 100%;
+  margin-right: 70px;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.gallery-toggle-btn {
+  color: white;
+  background: transparent;
+  font-size: 20px;
+  border-bottom: 1px solid currentColor;
+  padding: 3px;
+}
