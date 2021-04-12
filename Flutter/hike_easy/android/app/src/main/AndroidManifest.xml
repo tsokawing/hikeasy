@@ -11,7 +11,7 @@
 
     <application
         android:name="io.flutter.app.FlutterApplication"
-        android:label="hikEasy"
+        android:label="HikEasy"
         android:icon="@mipmap/ic_launcher">
         <meta-data android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyDbmYo2H30O6A3eDpWIgF8R1rOgfR-2a8k"/>
