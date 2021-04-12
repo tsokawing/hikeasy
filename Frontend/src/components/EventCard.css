@@ -1,0 +1,14 @@
+.root {
+  width: 350px;
+}
+.media {
+  width: 350px;
+  height: 140px;
+}
+.card-container {
+  width: 100px;
+}
+.grid-container > ul {
+  width: 80%;
+  margin: auto;
+}
