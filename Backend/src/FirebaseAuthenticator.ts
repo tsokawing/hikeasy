@@ -25,6 +25,8 @@ export class FirebaseAuthenticator {
 
   /**
    * AFTER AUTHENTICATION, loads the user from the database with the given Firebase user ID.
+   * WILL THROW EXCEPTIONS directly as a string:
+   * - ResponseUtil.ERROR_DATABASE_UNREACHABLE (when database is unreachable)
    * @param req
    * @returns
    */
