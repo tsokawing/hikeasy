@@ -14,6 +14,14 @@ export class FirebaseAuthenticator {
     passport.authenticate('jwt', { session: false })(req, res, next);
   }
 
+  static extractFirebaseIdFromAuth(req: Request): string | undefined {
+    interface TempUser {
+      user_id: string;
+    }
+    const firebaseID = (req.user as TempUser)['user_id'] ?? undefined;
+    return firebaseID;
+  }
+
   /**
    * AFTER AUTHENTICATION, loads the user from the database with the given Firebase user ID.
    * @param req
@@ -28,11 +36,8 @@ export class FirebaseAuthenticator {
       return undefined;
     }
     // database is ready, now lets check the stuff
-    interface TempUser {
-      user_id: string;
-    }
-    const firebaseID = (req.user as TempUser)['user_id'] ?? undefined;
-    if (firebaseID.length === undefined) {
+    const firebaseID = FirebaseAuthenticator.extractFirebaseIdFromAuth(req);
+    if (firebaseID === undefined) {
       return undefined;
     }
     const userObject = await HikEasyApp.Instance.EntityManager.findOne(User, {
