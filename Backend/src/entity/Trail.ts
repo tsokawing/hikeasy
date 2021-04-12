@@ -7,6 +7,7 @@ import {
   DeleteDateColumn,
   OneToMany,
 } from 'typeorm';
+import { Event } from './Event';
 import { Photo } from './Photo';
 import { Review } from './Review';
 
@@ -51,6 +52,9 @@ export class Trail {
 
   @OneToMany(() => Photo, (photo) => photo.trail)
   photos!: Photo[];
+
+  @OneToMany(() => Event, (event) => event.trail)
+  events!: Event[];
 
   @CreateDateColumn()
   createdAt!: Date;

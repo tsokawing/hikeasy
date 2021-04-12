@@ -1,4 +1,10 @@
-import { Entity, PrimaryGeneratedColumn, Column, OneToMany } from 'typeorm';
+import {
+  Entity,
+  PrimaryGeneratedColumn,
+  Column,
+  OneToMany,
+  ManyToMany,
+} from 'typeorm';
 import { Event } from './Event';
 import { Review } from './Review';
 import { Photo } from './Photo';
@@ -36,7 +42,7 @@ export class User {
   @OneToMany(() => Review, (review) => review.user)
   reviews!: Review[];
 
-  @OneToMany(() => Event, (event) => event.user)
+  @ManyToMany(() => Event)
   events: Event[] | undefined;
 
   @OneToMany(() => Photo, (photo) => photo.user)
