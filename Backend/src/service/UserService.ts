@@ -9,6 +9,11 @@ export class UserService {
     app.get('/users/get_all', this.getAllUsers);
     app.post('/users/add_user', this.addNewUsers);
     app.post(
+      '/users/check_registry',
+      FirebaseAuthenticator.authenticate,
+      this.checkUserRegistration
+    );
+    app.post(
       '/users/login_or_register/',
       FirebaseAuthenticator.authenticate,
       this.loginOrRegisterUser
@@ -26,6 +31,23 @@ export class UserService {
       // ok
       res.status(200).json(users);
     }
+  }
+
+  private async checkUserRegistration(req: Request, res: Response) {
+    // check whether the user has been registered before
+    // so that client side knows whether should also provide initial user info
+    if (HikEasyApp.Instance.EntityManager === undefined) {
+      // we need to differentiate between cant connect to db and no such user!
+      ResponseUtil.respondWithDatabaseUnreachable(res);
+      return;
+    }
+    const isRegistered =
+      (await FirebaseAuthenticator.extractProperUserFromAuth(req)) !==
+      undefined;
+    res.json({
+      success: true,
+      isRegistered: isRegistered,
+    });
   }
 
   private async loginOrRegisterUser(req: Request, res: Response) {
