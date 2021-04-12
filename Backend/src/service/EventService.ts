@@ -1,5 +1,6 @@
 import { Application, Request, Response } from 'express';
 import { Event } from '../entity/Event';
+import { Trail } from '../entity/Trail';
 import { HikEasyApp } from '../HikEasyApp';
 import { ResponseUtil } from '../util/ResponseUtil';
 
@@ -39,8 +40,34 @@ export class EventService {
 
   private async addEvent(req: Request, res: Response) {
     const event = new Event();
+    const trailID = Number.parseInt(req.params['trailID']);
+    if (Number.isNaN(trailID)) {
+      ResponseUtil.respondWithInvalidTrailID(res);
+      return;
+    }
+    const targetTrail = await HikEasyApp.Instance.EntityManager?.findOne(
+      Trail,
+      trailID
+    );
+    if (targetTrail === undefined) {
+      ResponseUtil.respondWithError(res, 'Trail not found');
+      return;
+    }
+    event.trail = targetTrail;
     event.name = req.body['eventName'];
     event.description = req.body['eventDescription'] ?? '';
+    // client string in the format of yyyy-mm-dd HH:MM:ss (assume hkt)
+    const eventTimestampStringified = req.body['eventTime'];
+    const eventTime_MiddleValue: number = Date.parse(eventTimestampStringified);
+    if (
+      Number.isNaN(eventTime_MiddleValue) ||
+      eventTime_MiddleValue < Date.now()
+    ) {
+      // invalid date: can be invalid format or "past date"
+      ResponseUtil.respondWithError(res, 'Invalid date');
+      return;
+    }
+    event.time = new Date(eventTime_MiddleValue);
     if (event.name === undefined) {
       res.json({
         success: false,
@@ -71,10 +98,10 @@ export class EventService {
     const eventID = parseInt(req.params['eventID']);
     console.log(eventID);
     if (Number.isNaN(eventID)) {
-        res.json({
-            success: false,
-            message: 'Missing event name',
-        });
+      res.json({
+        success: false,
+        message: 'Missing event name',
+      });
       return;
     }
     // need to check whether something has changed, respond false if nothing was changed
