@@ -49,61 +49,60 @@ class Comments extends Component {
 
     return (
       <Comment.Group>
-        <Header as="h3" dividing>
-          Comments
-        </Header>
-        {reviews.map((item) => (
-          <div className="review-block">
-            <Comment>
-              <Comment.Avatar src="https://react.semantic-ui.com/images/avatar/small/matt.jpg" />
-              <Comment.Content>
-                <Comment.Author as="a">{item.id}</Comment.Author>
-                <Comment.Metadata>
-                  <div>{item.createdAt}</div>
-                </Comment.Metadata>
-                <Comment.Text>{item.comment}</Comment.Text>
-                {/* <Comment.Actions>
+        <div className="comment-display-section">
+          <Header as="h3" dividing>
+            Comments
+          </Header>
+          {reviews.map((item) => (
+            <div className="review-block">
+              <Comment>
+                <Comment.Avatar src="https://react.semantic-ui.com/images/avatar/small/matt.jpg" />
+                <Comment.Content>
+                  <Comment.Author as="a">{item.id}</Comment.Author>
+                  <Comment.Metadata>
+                    <div>{item.createdAt}</div>
+                  </Comment.Metadata>
+                  <Comment.Text>{item.comment}</Comment.Text>
+                  {/* <Comment.Actions>
                   <Comment.Action> Reply </Comment.Action>
                 </Comment.Actions> */}
-              </Comment.Content>
-            </Comment>
-            <div>
-              <Typography component="legend">Rating</Typography>
-              <Rating
-                name="read-only"
-                value={item.rating}
-                size="large"
-                readOnly
-              />
+                </Comment.Content>
+              </Comment>
+              <div>
+                <Typography component="legend">Rating</Typography>
+                <Rating
+                  name="read-only"
+                  value={item.rating}
+                  size="medium"
+                  readOnly
+                />
+              </div>
             </div>
-          </div>
-        ))}
-        <Form>
+          ))}
+        </div>
+        <Form clasName="add-comment">
           <Form.Group>
             <Form.TextArea
-              placeholder="Name"
+              placeholder="Share your views!"
               name="name"
               // value={coommen}
               onChange={this.handleChange}
             />
-            <Form.Button
-              content="Add Reply"
-              labelPosition="left"
-              icon="edit"
-              onClick={this.postComment}
-              primary
-            />
+            <div className="comment-buttons">
+              <div>
+                <Typography component="legend">Rating</Typography>
+                <Rating
+                  size="large"
+                  name="simple-controlled"
+                  onChange={(event, newValue) => {
+                    this.setRating(newValue);
+                  }}
+                />
+              </div>
+              <Button content="Submit" onClick={this.postComment} />
+            </div>
           </Form.Group>
         </Form>
-        <div>
-          <Typography component="legend">Rating</Typography>
-          <Rating
-            name="simple-controlled"
-            onChange={(event, newValue) => {
-              this.setRating(newValue);
-            }}
-          />
-        </div>
       </Comment.Group>
     );
   }
