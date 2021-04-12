@@ -4,6 +4,7 @@ import { ImageButton } from "./ImageButton";
 import "./ImageSection.css";
 import Rating from "@material-ui/lab/Rating";
 import Typography from "@material-ui/core/Typography";
+import Toggle from "react-toggle";
 
 class ImageSection extends Component {
   render() {
@@ -66,21 +67,14 @@ class ImageSection extends Component {
           </div>
         </div>
         <div className={"gallery-toggle-section"}>
-          {this.props.showGallery ? (
-            <button
-              onClick={this.props.toggleGallery}
-              className={"image-btn gallery-toggle-btn"}
-            >
-              see comments...
-            </button>
-          ) : (
-            <button
-              onClick={this.props.toggleGallery}
-              className={"image-btn gallery-toggle-btn"}
-            >
-              see photos...
-            </button>
-          )}
+          <p className={"toggle-title"}>Show photos</p>
+          <label>
+            <Toggle
+              defaultChecked={this.props.showGallery}
+              icons={false}
+              onChange={this.props.toggleGallery}
+            />
+          </label>
         </div>
       </div>
     );
