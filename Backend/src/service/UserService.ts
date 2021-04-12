@@ -9,6 +9,11 @@ export class UserService {
     app.get('/users/get_all', this.getAllUsers);
     app.post('/users/add_user', this.addNewUsers);
     app.post(
+      '/users/check_registry',
+      FirebaseAuthenticator.authenticate,
+      this.checkUserRegistration
+    );
+    app.post(
       '/users/login_or_register/',
       FirebaseAuthenticator.authenticate,
       this.loginOrRegisterUser
@@ -28,11 +33,34 @@ export class UserService {
     }
   }
 
+  private async checkUserRegistration(req: Request, res: Response) {
+    // check whether the user has been registered before
+    // so that client side knows whether should also provide initial user info
+    let requestedUser = undefined;
+    try {
+      requestedUser = await FirebaseAuthenticator.extractProperUserFromAuth(
+        req
+      );
+    } catch (error: unknown) {
+      ResponseUtil.respondWithError_DirectlyFromException(res, error);
+    }
+    const isRegistered = requestedUser !== undefined;
+    res.json({
+      success: true,
+      isRegistered: isRegistered,
+    });
+  }
+
   private async loginOrRegisterUser(req: Request, res: Response) {
     // need to check whether we are existing user login or new user register
-    const requestedUser = await FirebaseAuthenticator.extractProperUserFromAuth(
-      req
-    );
+    let requestedUser = undefined;
+    try {
+      requestedUser = await FirebaseAuthenticator.extractProperUserFromAuth(
+        req
+      );
+    } catch (error: unknown) {
+      ResponseUtil.respondWithError_DirectlyFromException(res, error);
+    }
     if (requestedUser !== undefined) {
       // existing user, also passed firebase
       res.json({
