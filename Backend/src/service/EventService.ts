@@ -100,10 +100,7 @@ export class EventService {
   private async updateEvent(req: Request, res: Response) {
     const eventID = parseInt(req.params['eventID']);
     if (Number.isNaN(eventID)) {
-      res.json({
-        success: false,
-        message: 'Missing event ID',
-      });
+      ResponseUtil.respondWithInvalidEventID(res);
       return;
     }
     // need to check whether something has changed, respond false if nothing was changed
