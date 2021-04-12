@@ -69,7 +69,7 @@ class Comments extends Component {
                 </Comment.Content>
               </Comment>
               <div>
-                <Typography component="legend">Rating</Typography>
+                <Typography component="legend">Rated</Typography>
                 <Rating
                   name="read-only"
                   value={item.rating}
@@ -90,7 +90,7 @@ class Comments extends Component {
             />
             <div className="comment-buttons">
               <div>
-                <Typography component="legend">Rating</Typography>
+                <Typography component="legend">Rate this trail!</Typography>
                 <Rating
                   size="large"
                   name="simple-controlled"
