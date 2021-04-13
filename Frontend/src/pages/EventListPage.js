@@ -1,12 +1,10 @@
 import React, { Component } from "react";
-import SearchBarComponent from "../components/SearchBarComponent";
-import TrailList from "../components/TrailList";
-import EmphasisButton from "../components/EmphasisButton";
+import SearchBar from "material-ui-search-bar";
 import "./EventListPage.css";
 import { SpringGrid } from "react-stonecutter";
 import EventCard from "../components/EventCard";
-
-import { BrowserRouter as Router, Route, Switch, Link } from "react-router-dom";
+import { Button } from "semantic-ui-react";
+import { Link } from "react-router-dom";
 
 class EventListPage extends Component {
   constructor() {
@@ -31,15 +29,19 @@ class EventListPage extends Component {
     return (
       <>
         <div className="event-header">
-          <div className="event-heading">
-            <h1>Hiking Events: </h1>
-          </div>
+          <SearchBar
+          // value={this.state.keyword}
+          // onChange={(newValue) => this.setState({ keyword: newValue })}
+          // onRequestSearch={() => this.filterTrails(this.state.keyword)}
+          />
           <div className="event-button">
-            <EmphasisButton />
+            <Link to="/new-event">
+              <Button content="New Event" />
+            </Link>
           </div>
         </div>
 
-        <SearchBarComponent />
+        {/* <SearchBarComponent /> */}
         <div className="grid-container">
           <SpringGrid
             component="ul"
