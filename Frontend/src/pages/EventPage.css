@@ -4,6 +4,7 @@
 
 .event-pane {
   margin-top: 100px;
+  padding: 30px;
 }
 
 .sidenav---sidenav---_2tBP {
@@ -19,7 +20,7 @@
 .pane-header {
   display: flex;
   width: 400px;
-  padding: 40px;
+  padding: 20px;
   align-items: center;
 }
 
@@ -35,6 +36,11 @@
 .time-display {
   padding: 40px;
   font-size: 30px;
+}
+
+.event-participant {
+  display: flex;
+  align-items: center;
 }
 
 /* Trail map */
