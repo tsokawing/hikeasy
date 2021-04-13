@@ -3,6 +3,10 @@
   margin: 100px;
 }
 
+/* .MuiFormLabel-root.Mui-focused {
+  color: greenyellow !important;
+} */
+
 .trail-map {
   margin: auto;
   height: 700px;

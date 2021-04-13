@@ -7,6 +7,15 @@ import "./TrailPage.css";
 import MapSection from "../components/MapSection";
 import GallerySection from "../components/GallerySection";
 
+// New event form dialog
+import Button from "@material-ui/core/Button";
+import TextField from "@material-ui/core/TextField";
+import Dialog from "@material-ui/core/Dialog";
+import DialogActions from "@material-ui/core/DialogActions";
+import DialogContent from "@material-ui/core/DialogContent";
+import DialogContentText from "@material-ui/core/DialogContentText";
+import DialogTitle from "@material-ui/core/DialogTitle";
+
 class TrailPage extends Component {
   constructor() {
     super();
@@ -14,8 +23,22 @@ class TrailPage extends Component {
       trailList: [],
       reviewList: [],
       showGallery: false,
+      showEventForm: false,
     };
   }
+
+  // Handle new event dialog
+  handleClickOpen = () => {
+    // setOpen(true);
+    this.setState({ showEventForm: true });
+  };
+
+  handleClose = () => {
+    // setOpen(false);
+    this.setState({ showEventForm: false });
+  };
+
+  // Load trail info
 
   loadComments = () => {
     var get_all = "http://localhost:8080/trails/get_all/";
@@ -89,6 +112,69 @@ class TrailPage extends Component {
             </div>
           </div>
         )}
+        <Dialog
+          open={this.state.showEventForm}
+          onClose={this.handleClose}
+          aria-labelledby="form-dialog-title"
+        >
+          <DialogTitle id="form-dialog-title">New Event</DialogTitle>
+          <DialogContent>
+            <DialogContentText>
+              To subscribe to this website, please enter your email address
+              here. We will send updates occasionally.
+            </DialogContentText>
+            <TextField
+              autoFocus
+              margin="dense"
+              id="name"
+              label="Event Name"
+              // type="email"
+              // fullWidth
+            />
+            <TextField
+              id="datetime-local"
+              class="primary"
+              // label="Next appointment"
+              type="datetime-local"
+              // defaultValue={new Date()}
+              className={"datetime-picker"}
+              InputLabelProps={{
+                shrink: true,
+              }}
+            />
+            <TextField
+              autoFocus
+              margin="dense"
+              id="name"
+              label="Discription"
+              // type="email"
+              // fullWidth
+            />
+            <TextField
+              autoFocus
+              margin="dense"
+              id="name"
+              label="Email Address"
+              type="email"
+              fullWidth
+            />
+          </DialogContent>
+          <DialogActions>
+            <Button onClick={this.handleClose} color="primary">
+              Cancel
+            </Button>
+            <Button onClick={this.handleClose} color="primary">
+              Submit
+            </Button>
+          </DialogActions>
+        </Dialog>
+        <Button
+          variant="outlined"
+          color="primary"
+          onClick={this.handleClickOpen}
+        >
+          Open form dialog
+        </Button>
       </>
     );
   }
