@@ -2,6 +2,10 @@
   min-height: 94vh;
 }
 
+.event-pane {
+  margin-top: 100px;
+}
+
 .sidenav---sidenav---_2tBP {
   top: 80px !important;
   background: #1f441e !important;
@@ -32,4 +36,9 @@
 .comment-section {
   flex-basis: 40%;
   margin: 35px;
+}
+
+.event-description {
+  width: 400px !important;
+  overflow-wrap: break-word !important;
 }

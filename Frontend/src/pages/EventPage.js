@@ -8,6 +8,7 @@ import MapSection from "../components/MapSection";
 import GallerySection from "../components/GallerySection";
 import { SplitPane } from "react-collapse-pane";
 import { Button } from "semantic-ui-react";
+import CalendarIcon from "react-calendar-icon";
 import SideNav, {
   Toggle,
   Nav,
@@ -22,6 +23,8 @@ class EventPage extends Component {
     super();
     this.state = {
       event: [],
+      showPane: false,
+      Date: [],
     };
   }
 
@@ -67,6 +70,11 @@ class EventPage extends Component {
       .then((response) => response.json())
       .then((result) => {
         this.setState({ event: result.response });
+        const timestring = new Date(this.state.event.time);
+        const dateobj = [];
+        timestring.getDate();
+        timestring.getTime();
+        this.setState({ Date: timestring.toString() });
       });
   }
 
@@ -78,21 +86,42 @@ class EventPage extends Component {
             onSelect={(selected) => {
               // Add your code here
             }}
+            onToggle={() => {
+              this.setState({ showPane: !this.state.showPane });
+            }}
           >
             <SideNav.Toggle />
             <SideNav.Nav defaultSelected="home">
               <NavItem eventKey="home">
                 <NavIcon>
                   <i
-                    className="fa fa-fw fa-home"
+                    class="fa fa-calendar"
+                    aria-hidden="true"
                     style={{ fontSize: "1.75em" }}
                   />
                 </NavIcon>
-                <NavText>
-                  <div>A div here...</div>
-                </NavText>
+                {/* <NavText>
+                  <div class="event-pane">
+                    <div>Test</div>
+                    <div>{this.state.event.name}</div>
+                    <p className="event-description">
+                      {this.state.event.description}
+                    </p>
+                    <div>{this.state.event.time}</div>
+                  </div>
+                </NavText> */}
               </NavItem>
             </SideNav.Nav>
+            {this.state.showPane ? (
+              <div class="event-pane">
+                <div>Test</div>
+                <div>{this.state.event.name}</div>
+                <div className="event-description">
+                  {this.state.event.description}
+                </div>
+                <CalendarIcon date={new Date(this.state.event.time)} />
+              </div>
+            ) : null}
           </SideNav>
           <div className={"event-trail-map"}>
             {this.state.event["trail"] ? (
