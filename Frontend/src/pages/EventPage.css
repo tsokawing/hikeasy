@@ -19,16 +19,22 @@
 .pane-header {
   display: flex;
   width: 400px;
-  padding: 4px;
+  padding: 40px;
   align-items: center;
 }
 
 .pane-calendar {
-  transform: scale(0.6, 0.6);
+  transform: scale(1.4, 1.4);
+  color: black;
 }
 
 .event-pane-title {
   font-size: 22px;
+}
+
+.time-display {
+  padding: 40px;
+  font-size: 30px;
 }
 
 /* Trail map */

@@ -110,15 +110,17 @@ class EventPage extends Component {
               </NavItem>
             </SideNav.Nav>
             {this.state.showPane ? (
-              <div class="event-pane">
-                <div class="pane-header">
-                  <div class="pane-calendar">
+              <div className="event-pane">
+                <div className="event-pane-title">{this.state.event.name}</div>
+                <div className="pane-header">
+                  <div className="pane-calendar">
                     <ThemeProvider theme={calendarTheme}>
                       <CalendarIcon date={new Date(this.state.event.time)} />
                     </ThemeProvider>
                   </div>
-
-                  <div class="event-pane-title">{this.state.event.name}</div>
+                  <div className="time-display">
+                    {new Date(this.state.event.time).toLocaleTimeString()}
+                  </div>
                 </div>
 
                 <div className="event-description">
