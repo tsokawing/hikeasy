@@ -37,6 +37,6 @@ export class Event {
   @CreateDateColumn()
   createdAt!: Date;
 
-  @ManyToOne(() => Trail, (trail) => trail.events)
+  @ManyToOne(() => Trail, (trail) => trail.events, { eager: true })
   trail: Trail | undefined;
 }
