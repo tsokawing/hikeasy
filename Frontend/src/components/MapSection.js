@@ -49,7 +49,6 @@ class MapSection extends Component {
   saveMarkers = (newMarkerCoords) => {
     const point = [...this.state.point, newMarkerCoords];
     this.setState((prevState) => ({ ...prevState, point }));
-    // console.log(this.state.point);
   };
 
   render() {

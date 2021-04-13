@@ -21,8 +21,7 @@ class EventPage extends Component {
   constructor() {
     super();
     this.state = {
-      eventList: [],
-      reviewList: [],
+      event: [],
     };
   }
 
@@ -56,12 +55,19 @@ class EventPage extends Component {
         });
         this.setState({ reviewList: reviews });
       });
-
-    console.log("RELOAD");
   };
 
   componentDidMount() {
     // this.loadComments();
+    let get_event = "http://localhost:8080/events/get_specific/".concat(
+      this.props.match.params.eventID
+    );
+
+    fetch(get_event)
+      .then((response) => response.json())
+      .then((result) => {
+        this.setState({ event: result.response });
+      });
   }
 
   render() {
@@ -89,24 +95,9 @@ class EventPage extends Component {
             </SideNav.Nav>
           </SideNav>
           <div className={"event-trail-map"}>
-            {
-              <MapSection
-                trail={{
-                  id: 2,
-                  name: "Trail 22",
-                  difficulty: 3,
-                  description: "wefowej",
-                  isVerified: true,
-                  profilePic: "1-1617525286566-0.jpg",
-                  isShown: true,
-                  waypoints:
-                    "mxnoi@mozuxE`s@afH|pAajAhZg}Ccx@mbC`}@akFh}AimDnlCylA|fA}~L",
-                  createdAt: "2021-03-17T00:28:36.744Z",
-                  updatedAt: "2021-04-11T01:00:31.000Z",
-                  deletedAt: null,
-                }}
-              />
-            }
+            {this.state.event["trail"] ? (
+              <MapSection trail={this.state.event["trail"]} />
+            ) : null}
           </div>
         </div>
       </>
