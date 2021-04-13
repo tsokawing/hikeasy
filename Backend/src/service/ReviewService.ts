@@ -73,6 +73,12 @@ export class ReviewService {
     // )
     // .where('review.trailId = :trailId', { trailId: targetTrailID })
     // .getMany();
+    reviews.forEach((item) => {
+      const userObject = item['user'];
+      delete userObject.firebaseId;
+      delete userObject.email;
+      delete userObject.password;
+    });
     res.json({
       success: true,
       response: reviews,
