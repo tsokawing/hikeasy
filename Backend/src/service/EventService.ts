@@ -15,6 +15,7 @@ export class EventService {
     app.get('/events/get_photo/:eventID', this.getPhoto);
 
     app.post('/events/join_event/:eventID', this.handleUserJoinEvent);
+    app.post('/events/exit_event/:eventID', this.handleUserExitEvent);
   }
 
   private async getAllEvents(req: Request, res: Response) {
@@ -237,27 +238,34 @@ export class EventService {
       ResponseUtil.respondWithDatabaseUnreachable(res);
       return;
     }
-    const hypotheticalUser = await HikEasyApp.Instance.EntityManager.findOne(
+    const userID = req.body['userID'];
+    const targetUser = await HikEasyApp.Instance.EntityManager?.findOne(
       User,
-      2
+      userID
     );
-    const hypotheticalEvent = await HikEasyApp.Instance.EntityManager.findOne(
+    const eventID = req.params['eventID'];
+    const targetEvent = await HikEasyApp.Instance.EntityManager?.findOne(
       Event,
-      4
+      eventID
     );
-    // console.log(hypotheticalUser);
-    let theBool = false;
-    if (hypotheticalUser !== undefined && hypotheticalEvent !== undefined) {
-      // console.log(hypotheticalEvent.participantUsers);
-      if (hypotheticalEvent.participantUsers === undefined) {
-        hypotheticalEvent.participantUsers = new Array<User>();
-      }
-      hypotheticalEvent.participantUsers.push(hypotheticalUser);
-      HikEasyApp.Instance.EntityManager.save(hypotheticalEvent);
-      theBool = true;
+    if (targetUser === undefined) {
+      ResponseUtil.respondWithInvalidUserID(res);
+      return;
     }
+    if (targetEvent === undefined) {
+      ResponseUtil.respondWithInvalidEventID(res);
+      return;
+    }
+    // directly remove the users; suggested from online docs
+    targetEvent.participantUsers = targetEvent.participantUsers.filter(
+      (participant) => {
+        return participant.id !== targetUser.id;
+      }
+    );
+    HikEasyApp.Instance.EntityManager.save(targetEvent);
     res.json({
-      success: theBool,
+      success: true,
+      message: 'OK',
     });
   }
 }
