@@ -40,7 +40,7 @@ export class Event {
   @ManyToOne(() => Trail, (trail) => trail.events, { eager: true })
   trail: Trail | undefined;
 
-  @ManyToMany(() => User, (user) => user.events, { eager: true })
+  @ManyToMany(() => User, (user) => user.events)
   @JoinTable()
-  participantUsers!: User[];
+  participants!: User[];
 }
