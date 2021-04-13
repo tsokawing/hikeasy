@@ -7,9 +7,9 @@ import "./EventPage.css";
 import MapSection from "../components/MapSection";
 import GallerySection from "../components/GallerySection";
 import { SplitPane } from "react-collapse-pane";
-import { Button } from "semantic-ui-react";
 import CalendarIcon from "react-calendar-icon";
 import { ThemeProvider } from "styled-components";
+import { Button, Comment } from "semantic-ui-react";
 import SideNav, {
   Toggle,
   Nav,
@@ -126,6 +126,14 @@ class EventPage extends Component {
                 <div className="event-description">
                   {this.state.event.description}
                 </div>
+                <br></br>
+                <div>Participant Users: </div>
+                {this.state.event.participantUsers.map((item) => (
+                  <div className="event-participant">
+                    <Comment.Avatar src="https://react.semantic-ui.com/images/avatar/small/matt.jpg" />
+                    {item.firstName} {item.lastName}
+                  </div>
+                ))}
               </div>
             ) : null}
           </SideNav>
