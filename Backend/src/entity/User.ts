@@ -42,7 +42,7 @@ export class User {
   @OneToMany(() => Review, (review) => review.user)
   reviews!: Review[];
 
-  @ManyToMany(() => Event, (event) => event.participants, { eager: true })
+  @ManyToMany(() => Event, (event) => event.participants)
   events!: Event[];
 
   @OneToMany(() => Photo, (photo) => photo.user)
