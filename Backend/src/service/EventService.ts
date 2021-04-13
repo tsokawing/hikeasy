@@ -205,6 +205,34 @@ export class EventService {
       ResponseUtil.respondWithDatabaseUnreachable(res);
       return;
     }
+    const userID = req.body['userID'];
+    const targetUser = await HikEasyApp.Instance.EntityManager?.findOne(
+      User,
+      userID
+    );
+    const eventID = req.params['eventID'];
+    const targetEvent = await HikEasyApp.Instance.EntityManager?.findOne(
+      Event,
+      eventID
+    );
+    if (targetUser === undefined || targetEvent === undefined) {
+      ResponseUtil.respondWithError(res, 'Either user/event ID was wrong');
+      return;
+    }
+    // I assume it will also remove duplicate, so should be fine doing this
+    targetEvent.participantUsers.push(targetUser);
+    HikEasyApp.Instance.EntityManager.save(targetEvent);
+    res.json({
+      success: true,
+      message: 'OK',
+    });
+  }
+
+  private async handleUserExitEvent(req: Request, res: Response) {
+    if (HikEasyApp.Instance.EntityManager === undefined) {
+      ResponseUtil.respondWithDatabaseUnreachable(res);
+      return;
+    }
     const hypotheticalUser = await HikEasyApp.Instance.EntityManager.findOne(
       User,
       2
