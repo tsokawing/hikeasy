@@ -225,6 +225,10 @@ export class EventService {
       return;
     }
     // I assume it will also remove duplicate, so should be fine doing this
+    if (targetEvent.participants === undefined) {
+      // we could be handling an event that has no prior participants (aka undefined)
+      targetEvent.participants = new Array<User>();
+    }
     targetEvent.participants.push(targetUser);
     HikEasyApp.Instance.EntityManager.save(targetEvent);
     res.json({
@@ -257,11 +261,14 @@ export class EventService {
       return;
     }
     // directly remove the users; suggested from online docs
-    targetEvent.participants = targetEvent.participants.filter(
-      (participant) => {
-        return participant.id !== targetUser.id;
-      }
-    );
+    if (targetEvent.participants !== undefined) {
+      // has participants; just ignore if we have no participants
+      targetEvent.participants = targetEvent.participants.filter(
+        (participant) => {
+          return participant.id !== targetUser.id;
+        }
+      );
+    }
     HikEasyApp.Instance.EntityManager.save(targetEvent);
     res.json({
       success: true,
