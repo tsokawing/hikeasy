@@ -19,9 +19,6 @@ function NavBar() {
     } else {
       setButton(true);
     }
-
-    // Check whether the user is signed in
-    console.log("CHECK login");
     firebase.auth().onAuthStateChanged(function (user) {
       if (user) {
         setIsLoggedIn(true);
