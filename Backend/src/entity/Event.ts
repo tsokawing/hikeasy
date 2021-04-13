@@ -42,5 +42,5 @@ export class Event {
 
   @ManyToMany(() => User, (user) => user.events, { eager: true })
   @JoinTable()
-  participantUsers: User[] | undefined;
+  participantUsers!: User[];
 }
