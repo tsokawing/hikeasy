@@ -1,3 +1,18 @@
+.event-main {
+  min-height: 94vh;
+}
+
+.sidenav---sidenav---_2tBP {
+  top: 80px !important;
+  background: #1f441e !important;
+}
+
+.sidenav---sidenav---_2tBP.sidenav---expanded---1KdUL {
+  min-width: 400px !important;
+}
+
+/* Trail map */
+
 .trail-main-section {
   display: flex;
   margin: 100px;

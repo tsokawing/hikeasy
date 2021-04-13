@@ -6,6 +6,16 @@ import "leaflet/dist/leaflet.css";
 import "./EventPage.css";
 import MapSection from "../components/MapSection";
 import GallerySection from "../components/GallerySection";
+import { SplitPane } from "react-collapse-pane";
+import { Button } from "semantic-ui-react";
+import SideNav, {
+  Toggle,
+  Nav,
+  NavItem,
+  NavIcon,
+  NavText,
+} from "@trendmicro/react-sidenav";
+import "@trendmicro/react-sidenav/dist/react-sidenav.css";
 
 class EventPage extends Component {
   constructor() {
@@ -57,25 +67,47 @@ class EventPage extends Component {
   render() {
     return (
       <>
-        <div className={"event-trail-map"}>
-          {
-            <MapSection
-              trail={{
-                id: 2,
-                name: "Trail 22",
-                difficulty: 3,
-                description: "wefowej",
-                isVerified: true,
-                profilePic: "1-1617525286566-0.jpg",
-                isShown: true,
-                waypoints:
-                  "mxnoi@mozuxE`s@afH|pAajAhZg}Ccx@mbC`}@akFh}AimDnlCylA|fA}~L",
-                createdAt: "2021-03-17T00:28:36.744Z",
-                updatedAt: "2021-04-11T01:00:31.000Z",
-                deletedAt: null,
-              }}
-            />
-          }
+        <div className="event-main">
+          <SideNav
+            onSelect={(selected) => {
+              // Add your code here
+            }}
+          >
+            <SideNav.Toggle />
+            <SideNav.Nav defaultSelected="home">
+              <NavItem eventKey="home">
+                <NavIcon>
+                  <i
+                    className="fa fa-fw fa-home"
+                    style={{ fontSize: "1.75em" }}
+                  />
+                </NavIcon>
+                <NavText>
+                  <div>A div here...</div>
+                </NavText>
+              </NavItem>
+            </SideNav.Nav>
+          </SideNav>
+          <div className={"event-trail-map"}>
+            {
+              <MapSection
+                trail={{
+                  id: 2,
+                  name: "Trail 22",
+                  difficulty: 3,
+                  description: "wefowej",
+                  isVerified: true,
+                  profilePic: "1-1617525286566-0.jpg",
+                  isShown: true,
+                  waypoints:
+                    "mxnoi@mozuxE`s@afH|pAajAhZg}Ccx@mbC`}@akFh}AimDnlCylA|fA}~L",
+                  createdAt: "2021-03-17T00:28:36.744Z",
+                  updatedAt: "2021-04-11T01:00:31.000Z",
+                  deletedAt: null,
+                }}
+              />
+            }
+          </div>
         </div>
       </>
     );
