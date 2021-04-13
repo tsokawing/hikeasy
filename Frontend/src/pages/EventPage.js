@@ -9,6 +9,7 @@ import GallerySection from "../components/GallerySection";
 import { SplitPane } from "react-collapse-pane";
 import { Button } from "semantic-ui-react";
 import CalendarIcon from "react-calendar-icon";
+import { ThemeProvider } from "styled-components";
 import SideNav, {
   Toggle,
   Nav,
@@ -17,6 +18,14 @@ import SideNav, {
   NavText,
 } from "@trendmicro/react-sidenav";
 import "@trendmicro/react-sidenav/dist/react-sidenav.css";
+
+const calendarTheme = {
+  calendarIcon: {
+    textColor: "white", // text color of the header and footer
+    primaryColor: "#0da472", // background of the header and footer
+    backgroundColor: "#fafafa",
+  },
+};
 
 class EventPage extends Component {
   constructor() {
@@ -83,9 +92,7 @@ class EventPage extends Component {
       <>
         <div className="event-main">
           <SideNav
-            onSelect={(selected) => {
-              // Add your code here
-            }}
+            onSelect={(selected) => {}}
             onToggle={() => {
               this.setState({ showPane: !this.state.showPane });
             }}
@@ -95,31 +102,28 @@ class EventPage extends Component {
               <NavItem eventKey="home">
                 <NavIcon>
                   <i
-                    class="fa fa-calendar"
+                    class="fas fa-angle-right"
                     aria-hidden="true"
                     style={{ fontSize: "1.75em" }}
                   />
                 </NavIcon>
-                {/* <NavText>
-                  <div class="event-pane">
-                    <div>Test</div>
-                    <div>{this.state.event.name}</div>
-                    <p className="event-description">
-                      {this.state.event.description}
-                    </p>
-                    <div>{this.state.event.time}</div>
-                  </div>
-                </NavText> */}
               </NavItem>
             </SideNav.Nav>
             {this.state.showPane ? (
               <div class="event-pane">
-                <div>Test</div>
-                <div>{this.state.event.name}</div>
+                <div class="pane-header">
+                  <div class="pane-calendar">
+                    <ThemeProvider theme={calendarTheme}>
+                      <CalendarIcon date={new Date(this.state.event.time)} />
+                    </ThemeProvider>
+                  </div>
+
+                  <div class="event-pane-title">{this.state.event.name}</div>
+                </div>
+
                 <div className="event-description">
                   {this.state.event.description}
                 </div>
-                <CalendarIcon date={new Date(this.state.event.time)} />
               </div>
             ) : null}
           </SideNav>

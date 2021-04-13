@@ -16,6 +16,21 @@
   min-width: 400px !important;
 }
 
+.pane-header {
+  display: flex;
+  width: 400px;
+  padding: 4px;
+  align-items: center;
+}
+
+.pane-calendar {
+  transform: scale(0.6, 0.6);
+}
+
+.event-pane-title {
+  font-size: 22px;
+}
+
 /* Trail map */
 
 .trail-main-section {
@@ -25,6 +40,7 @@
 
 .event-trail-map {
   margin: 0;
+  padding-left: 64px;
   width: 100%;
   height: 1000px;
 }
