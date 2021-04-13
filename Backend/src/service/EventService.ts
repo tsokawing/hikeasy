@@ -225,7 +225,7 @@ export class EventService {
       return;
     }
     // I assume it will also remove duplicate, so should be fine doing this
-    targetEvent.participantUsers.push(targetUser);
+    targetEvent.participants.push(targetUser);
     HikEasyApp.Instance.EntityManager.save(targetEvent);
     res.json({
       success: true,
@@ -257,7 +257,7 @@ export class EventService {
       return;
     }
     // directly remove the users; suggested from online docs
-    targetEvent.participantUsers = targetEvent.participantUsers.filter(
+    targetEvent.participants = targetEvent.participants.filter(
       (participant) => {
         return participant.id !== targetUser.id;
       }
