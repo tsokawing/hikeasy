@@ -46,8 +46,10 @@ class ImageSection extends Component {
                 className="image-btns"
                 buttonStyle="image-btn--outline"
                 buttonSize="image-btn--large"
+                eventClicked={this.props.newEvent}
+                // onClick={this.props.newEvent}
               >
-                LIKE
+                EVENT
               </ImageButton>
               <ImageButton
                 className="image-btns"

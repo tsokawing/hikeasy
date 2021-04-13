@@ -15,6 +15,7 @@ import DialogActions from "@material-ui/core/DialogActions";
 import DialogContent from "@material-ui/core/DialogContent";
 import DialogContentText from "@material-ui/core/DialogContentText";
 import DialogTitle from "@material-ui/core/DialogTitle";
+import http from "../http-common";
 
 class TrailPage extends Component {
   constructor() {
@@ -24,6 +25,9 @@ class TrailPage extends Component {
       reviewList: [],
       showGallery: false,
       showEventForm: false,
+      name: [],
+      description: [],
+      date: [],
     };
   }
 
@@ -36,6 +40,38 @@ class TrailPage extends Component {
   handleClose = () => {
     // setOpen(false);
     this.setState({ showEventForm: false });
+  };
+
+  submitEvent = () => {
+    // Get form data
+
+    console.log(this.state.name.value);
+    console.log(this.state.date.value);
+    console.log(this.state.description.value);
+    console.log(this.state.trailList[0].id);
+
+    let formData = new FormData();
+    formData.append("eventName", this.state.name.value);
+    formData.append("eventDescription", this.state.description.value);
+    formData.append("eventTime", this.state.date.value);
+    formData.append("trailID", this.state.trailList[0].id);
+    formData.append("userID", 2);
+    console.log("upload");
+
+    http
+      .post(
+        //deafault second user id : 2
+        "http://localhost:8080/events/add_event/",
+        formData,
+        {
+          header: {
+            "Content-Type": "multipart/form-data",
+          },
+        }
+      )
+      .then((response) => {
+        console.log(response);
+      });
   };
 
   // Load trail info
@@ -88,6 +124,7 @@ class TrailPage extends Component {
     return (
       <>
         <ImageSection
+          newEvent={this.handleClickOpen}
           trail={this.state.trailList[0]}
           ref={this.imageSectionRef}
           toggleGallery={this.toggleGallery}
@@ -120,27 +157,31 @@ class TrailPage extends Component {
           <DialogTitle id="form-dialog-title">New Event</DialogTitle>
           <DialogContent>
             <DialogContentText>
-              To subscribe to this website, please enter your email address
-              here. We will send updates occasionally.
+              Please fill in the event details !!!!
             </DialogContentText>
             <TextField
               autoFocus
               margin="dense"
               id="name"
               label="Event Name"
-              // type="email"
-              // fullWidth
+              inputRef={(c) => {
+                this.state.name = c;
+              }}
+              fullWidth
             />
             <TextField
               id="datetime-local"
-              class="primary"
-              // label="Next appointment"
+              label="Event Date"
               type="datetime-local"
               // defaultValue={new Date()}
               className={"datetime-picker"}
+              inputRef={(c) => {
+                this.state.date = c;
+              }}
               InputLabelProps={{
                 shrink: true,
               }}
+              fullWidth
             />
             <TextField
               autoFocus
@@ -148,33 +189,21 @@ class TrailPage extends Component {
               id="name"
               label="Discription"
               // type="email"
-              // fullWidth
-            />
-            <TextField
-              autoFocus
-              margin="dense"
-              id="name"
-              label="Email Address"
-              type="email"
               fullWidth
+              inputRef={(c) => {
+                this.state.description = c;
+              }}
             />
           </DialogContent>
           <DialogActions>
             <Button onClick={this.handleClose} color="primary">
               Cancel
             </Button>
-            <Button onClick={this.handleClose} color="primary">
+            <Button onClick={this.submitEvent} color="primary">
               Submit
             </Button>
           </DialogActions>
         </Dialog>
-        <Button
-          variant="outlined"
-          color="primary"
-          onClick={this.handleClickOpen}
-        >
-          Open form dialog
-        </Button>
       </>
     );
   }
