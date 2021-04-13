@@ -24,24 +24,37 @@ export class EventService {
       // failed to connect to database
       ResponseUtil.respondWithDatabaseUnreachable(res);
     } else {
+      events.forEach((event) => {
+        event.participants.forEach((participant) => {
+          UserUtil.stripSensitiveInfo(participant);
+        });
+      });
       res.status(200).json(events);
     }
   }
-  
+
   private async getSpecificEvent(req: Request, res: Response) {
     const targetEventID = parseInt(req.params['eventID']);
     if (Number.isNaN(targetEventID)) {
       res.json({
         message: 'No matching event',
-      })
-      return;
-    }
-    const event = await HikEasyApp.Instance.EntityManager?.findOne(Event,targetEventID);
-    res.json({
-        success: true,
-        response: event,
       });
       return;
+    }
+    const event = await HikEasyApp.Instance.EntityManager?.findOne(
+      Event,
+      targetEventID
+    );
+    if (event !== undefined) {
+      event.participants.forEach((participant) =>
+        UserUtil.stripSensitiveInfo(participant)
+      );
+    }
+    res.json({
+      success: true,
+      response: event,
+    });
+    return;
   }
 
   private async addEvent(req: Request, res: Response) {
