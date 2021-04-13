@@ -4,6 +4,7 @@ import { Trail } from '../entity/Trail';
 import { FirebaseAuthenticator } from '../FirebaseAuthenticator';
 import { HikEasyApp } from '../HikEasyApp';
 import { ResponseUtil } from '../util/ResponseUtil';
+import { UserUtil } from '../util/UserUtil';
 
 export class ReviewService {
   public constructor(app: Application) {
@@ -74,10 +75,7 @@ export class ReviewService {
     // .where('review.trailId = :trailId', { trailId: targetTrailID })
     // .getMany();
     reviews.forEach((item) => {
-      const userObject = item['user'];
-      delete userObject.firebaseId;
-      delete userObject.email;
-      delete userObject.password;
+      UserUtil.stripSensitiveInfo(item.user);
     });
     res.json({
       success: true,
