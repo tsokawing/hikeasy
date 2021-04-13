@@ -59,7 +59,9 @@ class Comments extends Component {
               <Comment>
                 <Comment.Avatar src="https://react.semantic-ui.com/images/avatar/small/matt.jpg" />
                 <Comment.Content>
-                  <Comment.Author as="a">{item.id}</Comment.Author>
+                  <Comment.Author as="a">
+                    {item.user.firstName} {item.user.lastName}
+                  </Comment.Author>
                   <Comment.Metadata>
                     <div>{item.createdAt}</div>
                   </Comment.Metadata>
