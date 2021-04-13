@@ -46,6 +46,11 @@ export default class UploadImages extends Component {
     });
   };
 
+  submit = () => {
+    this.upload();
+    this.props.submit();
+  };
+
   upload = () => {
     this.setState({
       progress: 0,
@@ -73,14 +78,6 @@ export default class UploadImages extends Component {
       });
   };
 
-  //   componentDidMount = () => {
-  //     UploadService.getFiles().then((response) => {
-  //       this.setState({
-  //         imageInfos: response.data,
-  //       });
-  //     });
-  //   };
-
   render() {
     const {
       currentFile,
@@ -106,31 +103,17 @@ export default class UploadImages extends Component {
             Choose Image
           </Button>
         </label>
-        <div className="file-name">{currentFile ? currentFile.name : null}</div>
+        {/* <div className="file-name">{currentFile ? currentFile.name : null}</div> */}
         <Button
           className="btn-upload"
           color="primary"
           variant="contained"
           component="span"
           disabled={!currentFile}
-          onClick={this.upload}
+          onClick={this.submit}
         >
-          Upload
+          Submit
         </Button>
-
-        {currentFile && (
-          <Box className="my20" display="flex" alignItems="center">
-            <Box width="100%" mr={1}>
-              <BorderLinearProgress variant="determinate" value={progress} />
-            </Box>
-            <Box minWidth={35}>
-              <Typography
-                variant="body2"
-                color="textSecondary"
-              >{`${progress}%`}</Typography>
-            </Box>
-          </Box>
-        )}
 
         {previewImage && (
           <div>
@@ -147,9 +130,6 @@ export default class UploadImages extends Component {
           </Typography>
         )}
 
-        {/* <Typography variant="h6" className="list-header">
-          List of Images
-        </Typography> */}
         <ul className="list-group">
           {imageInfos &&
             imageInfos.map((image, index) => (

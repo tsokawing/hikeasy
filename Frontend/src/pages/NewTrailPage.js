@@ -175,11 +175,11 @@ class NewTrailPage extends Component {
                 </TextField>
               </div>
               <div className="image-section">
-                <UploadImages />
+                <UploadImages submit={this.submitClicked} />
               </div>
             </div>
           </div>
-          <div onClick={this.submitClicked}>new trail page</div>
+          {/* <div onClick={this.submitClicked}>new trail page</div> */}
         </div>
       </>
     );

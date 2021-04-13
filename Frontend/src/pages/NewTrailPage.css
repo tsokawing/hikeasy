@@ -42,3 +42,12 @@
   width: 100%;
   margin-left: 38px;
 }
+
+.MuiButton-root {
+  margin-bottom: 21px !important;
+  margin-right: 150px !important;
+}
+
+.file-name .MuiBox-root {
+  display: none !important;
+}
