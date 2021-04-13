@@ -13,6 +13,8 @@ export class EventService {
     app.post('/events/add_event', this.addEvent);
     app.post('/events/update_event/:eventID', this.updateEvent);
     app.get('/events/get_photo/:eventID', this.getPhoto);
+
+    app.post('/events/join_event/:eventID', this.handleUserJoinEvent);
   }
 
   private async getAllEvents(req: Request, res: Response) {
@@ -196,5 +198,34 @@ export class EventService {
       where: { event: eventID },
     });
     res.json({ success: true, photoFileNames: photos });
+  }
+
+  private async handleUserJoinEvent(req: Request, res: Response) {
+    if (HikEasyApp.Instance.EntityManager === undefined) {
+      ResponseUtil.respondWithDatabaseUnreachable(res);
+      return;
+    }
+    const hypotheticalUser = await HikEasyApp.Instance.EntityManager.findOne(
+      User,
+      2
+    );
+    const hypotheticalEvent = await HikEasyApp.Instance.EntityManager.findOne(
+      Event,
+      4
+    );
+    // console.log(hypotheticalUser);
+    let theBool = false;
+    if (hypotheticalUser !== undefined && hypotheticalEvent !== undefined) {
+      // console.log(hypotheticalEvent.participantUsers);
+      if (hypotheticalEvent.participantUsers === undefined) {
+        hypotheticalEvent.participantUsers = new Array<User>();
+      }
+      hypotheticalEvent.participantUsers.push(hypotheticalUser);
+      HikEasyApp.Instance.EntityManager.save(hypotheticalEvent);
+      theBool = true;
+    }
+    res.json({
+      success: theBool,
+    });
   }
 }

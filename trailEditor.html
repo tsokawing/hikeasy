@@ -1,0 +1,48 @@
+<html>
+    <haed>
+        <title>Trail Editor</title>
+    </haed>
+    <body>
+        Navigation bar
+        <hr>
+        <h1>Trail Editor/Trail Details dual use page</h1>
+        <h2>Trail attributes</h2>
+        <form>
+            <albel>Created by</albel><br>
+            CUHK Student<br>
+            <label>Is verified</label><br>
+            <input type="checkbox" value="false"><br>
+            <label>Trail name</label><br>
+            <input type="text" value="name"><br>
+            <label>Trail description</label><br>
+            <input type="text" value="descr"><br>
+            <label>Expected length</label><br>
+            <input type="number" value="9.9"> km<br>
+            <label>Expected difficulty</label><br>
+            <select>
+                <option value="0">0 Star (developed urban area)</option>
+                <option value="1">1 Star</option>
+                <option value="2">2 Star</option>
+                <option value="3">3 Star</option>
+                <option value="4">4 Star</option>
+                <option value="5">5 Star</option>
+            </select><br>
+            <button>Cancel Changes</button>
+            <button>Save Changes</button>
+            <button>Save As New</button>
+        </form>
+        <hr>
+        <h2>Trail waypoints</h2>
+        <table style="width: 100%;">
+            <tr>
+                <td style="width: 50%;">
+                    Waypoint List <button>Cancel Changes</button> <button>Save changes</button><br>
+                    <b>Order</b> | <b>Latitude</b> | <b>Longitude</b><br>
+                    1 | 22.413726272020064, 114.20955006525679
+                    <button>Go to</button> <button>Top</button> <button>Up</button> <button>Down</button> <button>Bottom</button> <button>Delete This!</button>
+                </td>
+                <td style="width: 50%;">MAP</td>
+            </tr>
+        </table>
+    </body>
+</html>
