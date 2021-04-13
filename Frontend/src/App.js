@@ -3,6 +3,7 @@ import "./App.css";
 import HomePage from "./pages/HomePage";
 import TrailPage from "./pages/TrailPage";
 import NewTrailPage from "./pages/NewTrailPage";
+import EventPage from "./pages/EventPage";
 import TrailListPage from "./pages/TrailListPage";
 import EventListPage from "./pages/EventListPage";
 import LoginPage from "./pages/LoginPage";
@@ -23,6 +24,7 @@ function App() {
             <Route path="/login/" component={LoginPage} exact />
             <Route path="/trail/:trailID" component={TrailPage} exact />
             <Route path="/new-trail" component={NewTrailPage} exact />
+            <Route path="/event/:eventID" component={EventPage} exact />
             <Route component={NotFoundPage} />
           </Switch>
         </div>

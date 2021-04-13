@@ -1,0 +1,19 @@
+.trail-main-section {
+  display: flex;
+  margin: 100px;
+}
+
+.event-trail-map {
+  margin: 0;
+  width: 100%;
+  height: 1000px;
+}
+
+.leaflet-container {
+  height: 100% !important;
+}
+
+.comment-section {
+  flex-basis: 40%;
+  margin: 35px;
+}

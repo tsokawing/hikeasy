@@ -52,8 +52,9 @@ class EventListPage extends Component {
           >
             {this.state.eventList.map((item) => (
               <div>
-                <Link to={`../trail/${item.id}`}>
-                  <EventCard />
+                {/* <Link to={`../event/${item.id}`}> */}
+                <Link to={`../event/1`}>
+                  <EventCard eventList={this.state.eventList[0]} />
                 </Link>
               </div>
             ))}
