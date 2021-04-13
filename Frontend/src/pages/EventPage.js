@@ -127,8 +127,8 @@ class EventPage extends Component {
                   {this.state.event.description}
                 </div>
                 <br></br>
-                <div>Participant Users: </div>
-                {this.state.event.participantUsers.map((item) => (
+                <div>Participants: </div>
+                {this.state.event.participants.map((item) => (
                   <div className="event-participant">
                     <Comment.Avatar src="https://react.semantic-ui.com/images/avatar/small/matt.jpg" />
                     {item.firstName} {item.lastName}
