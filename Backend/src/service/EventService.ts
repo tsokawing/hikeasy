@@ -215,8 +215,12 @@ export class EventService {
       Event,
       eventID
     );
-    if (targetUser === undefined || targetEvent === undefined) {
-      ResponseUtil.respondWithError(res, 'Either user/event ID was wrong');
+    if (targetUser === undefined) {
+      ResponseUtil.respondWithInvalidUserID(res);
+      return;
+    }
+    if (targetEvent === undefined) {
+      ResponseUtil.respondWithInvalidEventID(res);
       return;
     }
     // I assume it will also remove duplicate, so should be fine doing this
