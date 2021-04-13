@@ -172,7 +172,7 @@ export class ReviewService {
       ResponseUtil.respondWithDatabaseUnreachable(res);
       return;
     }
-    HikEasyApp.Instance.EntityManager.save(review);
+    await HikEasyApp.Instance.EntityManager.save(review);
     // successfully inserted
     // todo what if we failed to insert at db level
     res.json({
