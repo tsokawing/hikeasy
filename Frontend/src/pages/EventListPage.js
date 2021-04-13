@@ -11,19 +11,57 @@ class EventListPage extends Component {
     super();
     this.state = {
       eventList: [],
+      eventPhotoNames: [],
     };
   }
 
   componentDidMount() {
+    // Get events
+    this.loadEvents();
+  }
+
+  loadEvents = () => {
+    // load all events
     fetch("http://localhost:8080/events/get_all")
       .then((response) => response.json())
       .then((result) => {
         const events = result.map((item) => {
           return item;
         });
-        this.setState({ eventList: events }, () => {});
+        this.setState({ eventList: events }, this.loadEventPhotos);
       });
-  }
+  };
+
+  loadEventPhotos = async function () {
+    // load list of event photos' names
+    var fileNameList = [];
+    let getImageFileOfSpecificEvent = async function (eventID) {
+      return new Promise((resolve, reject) => {
+        fetch("http://localhost:8080/events/get_photo/".concat(eventID))
+          .then((response) => response.json())
+          .then((result) => {
+            const fileNameOfThisPhoto =
+              result.photoFileNames[0]?.fileName ?? undefined;
+            resolve(fileNameOfThisPhoto);
+            // console.log(fileNameList);
+            // fileNameList = fileNameList.concat(fileNameOfThisPhoto);
+          })
+          .catch((e) => {
+            reject(e);
+          });
+      });
+    };
+    for (let index in this.state.eventList) {
+      let currentEvent = this.state.eventList[index];
+      let eventImageFileName = await getImageFileOfSpecificEvent(
+        currentEvent.id
+      );
+      fileNameList.push(eventImageFileName);
+    }
+    this.setState({ eventPhotoNames: fileNameList }, () => {
+      // console.log(this.state.eventPhotoNames);
+    });
+  };
 
   render() {
     return (
@@ -52,11 +90,11 @@ class EventListPage extends Component {
             itemHeight={350}
             // springConfig={{ stiffness: 170, damping: 26 }}
           >
-            {this.state.eventList.map((item) => (
+            {this.state.eventList.map((item, index) => (
               <div>
                 {/* <Link to={`../event/${item.id}`}> */}
                 <Link to={`../event/${item.id}`}>
-                  <EventCard eventList={this.state.eventList[0]} />
+                  <EventCard event={this.state.eventList[index]} />
                 </Link>
               </div>
             ))}
