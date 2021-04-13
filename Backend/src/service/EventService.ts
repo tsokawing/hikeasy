@@ -5,6 +5,7 @@ import { Photo } from '../entity/Photo';
 import { User } from '../entity/User';
 import { HikEasyApp } from '../HikEasyApp';
 import { ResponseUtil } from '../util/ResponseUtil';
+import { UserUtil } from '../util/UserUtil';
 
 export class EventService {
   public constructor(app: Application) {
