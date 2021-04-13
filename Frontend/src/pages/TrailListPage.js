@@ -2,7 +2,8 @@ import React, { Component } from "react";
 import "../components/SearchBarComponent.css";
 import SearchBar from "material-ui-search-bar";
 import TrailList from "../components/TrailList";
-import EmphasisButton from "../components/EmphasisButton";
+import { Button } from "semantic-ui-react";
+import { Link } from "react-router-dom";
 
 import "./TrailListPage.css";
 
@@ -42,26 +43,28 @@ class TrailListPage extends Component {
   render() {
     return (
       <>
-        <div className="trail-header">
-          <div className="trail-heading">
-            <h1>Hiking Trails: </h1>
+        <div className="trail-list-container">
+          <div className="trail-header">
+            <SearchBar
+              value={this.state.keyword}
+              onChange={(newValue) => this.setState({ keyword: newValue })}
+              onRequestSearch={() => this.filterTrails(this.state.keyword)}
+            />
+            <div className="trail-button">
+              <Link to="/new-trail">
+                <Button content="New Trail" />
+              </Link>
+            </div>
           </div>
-          <div className="trail-button">
-            <EmphasisButton type="trail" />
-          </div>
+
+          <TrailList
+            trailList={
+              this.state.filteredList.length > 0
+                ? this.state.filteredList
+                : this.state.trailList
+            }
+          />
         </div>
-        <SearchBar
-          value={this.state.keyword}
-          onChange={(newValue) => this.setState({ keyword: newValue })}
-          onRequestSearch={() => this.filterTrails(this.state.keyword)}
-        />
-        <TrailList
-          trailList={
-            this.state.filteredList.length > 0
-              ? this.state.filteredList
-              : this.state.trailList
-          }
-        />
       </>
     );
   }
