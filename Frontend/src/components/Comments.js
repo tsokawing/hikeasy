@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import Rating from "@material-ui/lab/Rating";
 import Typography from "@material-ui/core/Typography";
 import { Button, Comment, Form, Header } from "semantic-ui-react";
+import firebase from "firebase";
 
 import "./Comments.css";
 import http from "../http-common";
@@ -25,23 +26,40 @@ class Comments extends Component {
 
   postComment = () => {
     let formData = new FormData();
-    formData.append("userID", 3);
+    // formData.append("userID", 3);
     formData.append("rating", this.state.rating);
     formData.append("comment", this.state.newComments);
 
-    http
-      .post(
-        "http://ec2-18-188-120-239.us-east-2.compute.amazonaws.com:8080/review/publish_review/2",
-        formData,
-        {
-          headers: {
-            "Content-Type": "multipart/form-data",
-          },
-        }
-      )
-      .then((response) => {
-        console.log(response);
-        this.props.reloadComments();
+    let tProps = this.props;
+    let commentSectionReloadComments = () => {
+      console.log("reload");
+      tProps.reloadComments();
+    };
+
+    // Get JWT for backend verification
+    firebase
+      .auth()
+      .currentUser.getIdToken(true)
+      .then(function (idToken) {
+        // Send token to backend via HTTPS
+        console.log(idToken);
+
+        // Post here
+        http
+          .post("http://localhost:8080/review/publish_review/2", formData, {
+            headers: {
+              authorization: "Bearer " + idToken,
+              "Content-Type": "multipart/form-data",
+            },
+          })
+          .then((response) => {
+            console.log(response);
+            commentSectionReloadComments();
+          });
+      })
+      .catch(function (error) {
+        // Handle error
+        console.log(error);
       });
   };
 
