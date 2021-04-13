@@ -18,7 +18,7 @@ export class User {
   id!: number;
 
   @Column()
-  firebaseId!: string;
+  firebaseId?: string;
 
   @Column()
   firstName!: string;
@@ -32,12 +32,12 @@ export class User {
   @Column({
     default: '',
   })
-  email!: string;
+  email?: string;
 
   @Column({
     default: '',
   })
-  password!: string;
+  password?: string;
 
   @OneToMany(() => Review, (review) => review.user)
   reviews!: Review[];
