@@ -28,7 +28,7 @@ function App() {
             <Route component={NotFoundPage} />
           </Switch>
         </div>
-        <FooterComponent />
+        {/* <FooterComponent /> */}
       </div>
     </Router>
   );
