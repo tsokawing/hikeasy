@@ -68,12 +68,12 @@ class EventCard extends Component {
             </CardContent>
           </CardActionArea>
           <CardActions>
-            <Button size="small" color="primary">
+            {/* <Button size="small" color="primary">
               Share
             </Button>
             <Button size="small" color="primary">
               Learn More
-            </Button>
+            </Button> */}
           </CardActions>
         </Card>
       </div>

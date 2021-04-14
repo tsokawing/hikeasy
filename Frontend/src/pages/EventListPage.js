@@ -72,11 +72,11 @@ class EventListPage extends Component {
           // onChange={(newValue) => this.setState({ keyword: newValue })}
           // onRequestSearch={() => this.filterTrails(this.state.keyword)}
           />
-          <div className="event-button">
+          {/* <div className="event-button">
             <Link to="/new-event">
               <Button content="New Event" />
             </Link>
-          </div>
+          </div> */}
         </div>
 
         {/* <SearchBarComponent /> */}
@@ -87,7 +87,7 @@ class EventListPage extends Component {
             columnWidth={350}
             gutterWidth={50}
             // gutterHeight={1}
-            itemHeight={350}
+            itemHeight={300}
             // springConfig={{ stiffness: 170, damping: 26 }}
           >
             {this.state.eventList.map((item, index) => (
