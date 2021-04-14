@@ -57,7 +57,7 @@ export class ImageService {
     }
     const eventID = req.body['eventID'];
     if (eventID === undefined) {
-      ResponseUtil.respondWithMissingUserID(res);
+      ResponseUtil.respondWithMissingEventID(res);
       return;
     }
     if (HikEasyApp.Instance.EntityManager == undefined) {
