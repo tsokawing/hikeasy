@@ -7,6 +7,7 @@ import {
 } from 'typeorm';
 import { Event } from './Event';
 import { Review } from './Review';
+import { Chat } from './Chat';
 import { Photo } from './Photo';
 
 @Entity()
@@ -47,4 +48,7 @@ export class User {
 
   @OneToMany(() => Photo, (photo) => photo.user)
   photos!: Photo[];
+
+  @OneToMany(() => Chat, (chat) => chat.user)
+  chats!: Chat[];
 }

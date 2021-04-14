@@ -12,6 +12,7 @@ import {
 import { User } from './User';
 import { Trail } from './Trail';
 import { Photo } from './Photo';
+import { Chat } from './Chat';
 
 @Entity()
 export class Event {
@@ -39,6 +40,9 @@ export class Event {
 
   @ManyToOne(() => Trail, (trail) => trail.events, { eager: true })
   trail: Trail | undefined;
+
+  @OneToMany(() => Chat, (chat) => chat.event)
+  chats!: Chat[];
 
   @ManyToMany(() => User, (user) => user.events, { eager: true })
   @JoinTable()
