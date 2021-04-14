@@ -44,10 +44,13 @@ class Comments extends Component {
         // Send token to backend via HTTPS
         console.log(idToken);
 
+        console.log(tProps.trail.id);
+
         // Post here
         http
           .post(
-            "http://18.188.120.239:8080/review/publish_review/2",
+            "http://18.188.120.239:8080/review/publish_review/" +
+              tProps.trail.id,
             formData,
             {
               headers: {

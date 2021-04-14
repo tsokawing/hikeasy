@@ -149,6 +149,7 @@ class TrailPage extends Component {
             </div>
             <div className={"comment-section"}>
               <Comments
+                trail={this.state.trailList[0]}
                 reviews={this.state.reviewList}
                 reloadComments={this.loadComments}
               />
