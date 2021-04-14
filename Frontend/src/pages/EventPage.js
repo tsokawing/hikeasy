@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import ImageSection from "../components/ImageSection";
-import Comments from "../components/Comments";
+import Chats from "../components/Chats";
 import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
 import "./EventPage.css";
@@ -37,28 +37,27 @@ class EventPage extends Component {
       event: [],
       showPane: false,
       Date: [],
+      eventList: [],
+      reviewList : [],
     };
   }
 
   loadComments = () => {
-    var get_all = "http://localhost:8080/trails/get_all/";
-    //   "http://ec2-18-188-120-239.us-east-2.compute.amazonaws.com:8080/trails/get_all/";
+    var get_all = "http://ec2-18-188-120-239.us-east-2.compute.amazonaws.com:8080/events/get_all/";
 
-    var id = this.props.match.params.trailID;
-    var get_review = "http://ec2-18-188-120-239.us-east-2.compute.amazonaws.com:8080/review/get_all_by_trail/".concat(
-      id
-    );
+    var id = this.props.match.params.eventID;
+    var get_review = "http://ec2-18-188-120-239.us-east-2.compute.amazonaws.com:8080/chat/get_all_by_event/"+id;
 
     // Get trail details request
     fetch(get_all)
       .then((response) => response.json())
       .then((result) => {
-        const trails = result.filter((item) => {
+        const events = result.filter((item) => {
           if (item.id == id) {
             return item;
           }
         });
-        this.setState({ trailList: trails });
+        this.setState({ eventList: events });
       });
 
     // Get reviews request
@@ -69,11 +68,14 @@ class EventPage extends Component {
           return item;
         });
         this.setState({ reviewList: reviews });
+        console.log(reviews);
       });
+
+    console.log("RELOAD");
   };
 
   componentDidMount() {
-    // this.loadComments();
+    this.loadComments();
     let get_event = "http://localhost:8080/events/get_specific/".concat(
       this.props.match.params.eventID
     );
@@ -94,12 +96,6 @@ class EventPage extends Component {
     console.log("upload");
 
     let formData = new FormData();
-    // formData.append("userID", 3);
-    // formData.append("e", this.state.rating);
-    // formData.append("comment", this.state.newComments);
-
-    // Get JWT for backend verification
-
     let tState = this.state;
 
     firebase
@@ -173,11 +169,9 @@ class EventPage extends Component {
                 </div>
 
                 <br></br>
-
                 <Button onClick={this.joinEvent}>Join Event</Button>
-
-                {/* /events/join_event/event_id */}
-
+                <br></br>
+                <br></br>
                 <div>Participants: </div>
                 {this.state.event.participants.map((item) => (
                   <div className="event-participant">
@@ -185,6 +179,13 @@ class EventPage extends Component {
                     {item.firstName} {item.lastName}
                   </div>
                 ))}
+                <br></br>
+                <div className="chat-session">
+                <Chats
+                reviews={this.state.reviewList}
+                reloadComments={this.loadComments}
+              />
+              </div>
               </div>
             ) : null}
           </SideNav>
