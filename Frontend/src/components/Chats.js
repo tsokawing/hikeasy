@@ -68,7 +68,7 @@ class Chats extends Component {
           {reviews.map((item) => (
             <div className="review-block">
               <Comment>
-                <Comment.Avatar src="https://react.semantic-ui.com/images/avatar/small/matt.jpg" />
+                <Comment.Avatar src="https://react.semantic-ui.com/images/avatar/small/christian.jpg" />
                 <Comment.Content>
                   <Comment.Author as="a">
                     {item.user.firstName} {item.user.lastName}
