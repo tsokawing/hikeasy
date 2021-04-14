@@ -5,6 +5,7 @@ import { User } from '../entity/User';
 import { HikEasyApp } from '../HikEasyApp';
 import { ResponseUtil } from '../util/ResponseUtil';
 import { getRepository } from 'typeorm';
+import { WaypointsUtil } from '../util/WaypointsUtil';
 
 export class TrailService {
   public constructor(app: Application) {
@@ -46,6 +47,14 @@ export class TrailService {
       ResponseUtil.respondWithDatabaseUnreachable(res);
     } else {
       // ok
+      // add trail center
+      trails.forEach((trail, index) => {
+        trails[
+          index
+        ].displayCenter = WaypointsUtil.getCenterPositionForEncodedWaypoint(
+          trail.waypoints
+        );
+      });
       res.status(200).json(trails);
     }
   }
@@ -64,6 +73,11 @@ export class TrailService {
       Trail,
       targetTrailID
     );
+    if (trail !== undefined) {
+      trail.displayCenter = WaypointsUtil.getCenterPositionForEncodedWaypoint(
+        trail?.waypoints
+      );
+    }
     res.json({
       success: true,
       response: trail,
