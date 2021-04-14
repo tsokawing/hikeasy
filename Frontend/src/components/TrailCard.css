@@ -61,3 +61,16 @@
   padding: 1.2em;
   text-align: left;
 }
+
+@media screen and (max-width: 960px) {
+  .trail-card {
+    flex-direction: column;
+    width: 20em;
+    height: 38vh;
+    flex-wrap: unset;
+  }
+
+  .trail-list {
+    margin-top: 3em !important;
+  }
+}

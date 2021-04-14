@@ -34,14 +34,3 @@
     width: 100% !important;
   }
 }
-
-.trail-header > .MuiPaper-root {
-  width: 520px;
-  transform: scale(1.2);
-  margin-left: 52px;
-}
-
-.trail-button > a > .button {
-  margin-right: 29px;
-  transform: scale(1.5, 1.5);
-}
