@@ -34,3 +34,42 @@
     width: 100% !important;
   }
 }
+
+@media screen and (max-width: 960px) {
+  .image-container {
+    height: 60vh;
+  }
+
+  .image-header {
+    font-size: 30px;
+  }
+
+  .trail-info {
+    font-size: 30px;
+  }
+
+  .image-btn-container {
+    display: flex;
+    flex-direction: column;
+    align-items: end;
+  }
+
+  .image-btns {
+    /* margin-top: 10em; */
+    display: flex;
+    /* margin-left: 12px; */
+    transform: scale(0.8);
+  }
+
+  .image-btn {
+    transform: scale(0.9);
+  }
+
+  .image-container {
+    justify-content: unset;
+  }
+
+  .image-description {
+    font-size: 16px;
+  }
+}
