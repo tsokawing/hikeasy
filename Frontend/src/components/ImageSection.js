@@ -55,7 +55,7 @@ class ImageSection extends Component {
                 EVENT
               </ImageButton>
               <ImageButton
-                // eventClicked={}
+                eventClicked={this.props.pageUrlCopier}
                 className="image-btns"
                 buttonStyle="image-btn--outline"
                 buttonSize="image-btn--large"

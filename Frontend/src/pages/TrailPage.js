@@ -39,6 +39,13 @@ class TrailPage extends Component {
 
   // Buttons
 
+  // Copy URL
+  copyPageUrlToClipboard = () => {
+    console.log("copy!");
+    // copy the page url to cklipboard
+    navigator.clipboard.writeText(window.location.href);
+  };
+
   // Scroll
   executeScroll = () => {
     this.rateElementRef.current.scrollIntoView({ behavior: "smooth" });
@@ -139,6 +146,7 @@ class TrailPage extends Component {
       <>
         <ImageSection
           rateClicked={this.executeScroll}
+          pageUrlCopier={this.copyPageUrlToClipboard}
           newEvent={this.handleClickOpen}
           trail={this.state.trailList[0]}
           ref={this.imageSectionRef}
