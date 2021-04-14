@@ -40,7 +40,9 @@ class ImageSection extends Component {
                 size="large"
                 readOnly
               />
-              <p class="trail-info">Shatin, NT 28KM</p>
+              <p class="trail-info">
+                {trail ? trail.city : "Shatin"}, {trail ? trail.length : "28"}KM
+              </p>
             </div>
             <div className="image-btns">
               <ImageButton

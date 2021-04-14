@@ -68,6 +68,8 @@ class NewTrailPage extends Component {
     formData.append("trailName", this.state.title.value);
     formData.append("trailDifficulty", this.state.difficulty.value);
     formData.append("trailDescription", this.state.description.value);
+    formData.append("trailLength", this.state.length.value);
+    formData.append("trailCity", this.state.city.value);
 
     http
       .post(
@@ -96,6 +98,7 @@ class NewTrailPage extends Component {
           formData.append("trailName", this.state.title.value);
           formData.append("trailDifficulty", this.state.difficulty.value);
           formData.append("trailDescription", this.state.description.value);
+
           formData.append("isVerified", 1);
           formData.append("isShown", 1);
           var polyline = require("@mapbox/polyline");
@@ -201,6 +204,7 @@ class NewTrailPage extends Component {
                   inputRef={(c) => {
                     this.state.length = c;
                   }}
+                  type="number"
                   label="Length"
                   // defaultValue="Length"
                 />
