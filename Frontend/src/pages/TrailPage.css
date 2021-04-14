@@ -21,3 +21,16 @@
   flex-basis: 40%;
   margin: 35px;
 }
+
+@media screen and (max-width: 1200px) {
+  .trail-main-section {
+    flex-direction: column;
+    margin: 0 !important;
+  }
+
+  .trail-map {
+    margin: 0 !important;
+    height: 700px;
+    width: 100% !important;
+  }
+}
