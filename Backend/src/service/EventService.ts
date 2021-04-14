@@ -15,8 +15,16 @@ export class EventService {
     app.post('/events/update_event/:eventID', this.updateEvent);
     app.get('/events/get_photo/:eventID', this.getPhoto);
 
-    app.post('/events/join_event/:eventID', this.handleUserJoinEvent);
-    app.post('/events/exit_event/:eventID', this.handleUserExitEvent);
+    app.post(
+      '/events/join_event/:eventID',
+      FirebaseAuthenticator.authenticate,
+      this.handleUserJoinEvent
+    );
+    app.post(
+      '/events/exit_event/:eventID',
+      FirebaseAuthenticator.authenticate,
+      this.handleUserExitEvent
+    );
   }
 
   private async getAllEvents(req: Request, res: Response) {
@@ -220,10 +228,8 @@ export class EventService {
       ResponseUtil.respondWithDatabaseUnreachable(res);
       return;
     }
-    const userID = req.body['userID'];
-    const targetUser = await HikEasyApp.Instance.EntityManager?.findOne(
-      User,
-      userID
+    const targetUser = await FirebaseAuthenticator.extractProperUserFromAuth(
+      req
     );
     const eventID = req.params['eventID'];
     const targetEvent = await HikEasyApp.Instance.EntityManager?.findOne(
@@ -256,10 +262,8 @@ export class EventService {
       ResponseUtil.respondWithDatabaseUnreachable(res);
       return;
     }
-    const userID = req.body['userID'];
-    const targetUser = await HikEasyApp.Instance.EntityManager?.findOne(
-      User,
-      userID
+    const targetUser = await FirebaseAuthenticator.extractProperUserFromAuth(
+      req
     );
     const eventID = req.params['eventID'];
     const targetEvent = await HikEasyApp.Instance.EntityManager?.findOne(
