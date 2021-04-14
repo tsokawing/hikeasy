@@ -27,7 +27,7 @@ export class WaypointsUtil {
       maxLng = Math.max(maxLng, pointLongitude);
     });
     const displayCenter = [(minLat + maxLat) / 2, (minLng + maxLng) / 2];
-    console.log(displayCenter);
+    // console.log(displayCenter);
     return displayCenter;
   }
 }
