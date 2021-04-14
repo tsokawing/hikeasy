@@ -24,10 +24,7 @@ import {
   
     @ManyToOne(() => Event, (event) => event.chats, { cascade: true })
     event!: Event;
-     
-    @Column()
-    rating!: number;
-  
+
     @Column({
       default: '',
     })
