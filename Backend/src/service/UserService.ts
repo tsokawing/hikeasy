@@ -70,12 +70,12 @@ export class UserService {
       return;
     } else {
       // new user, already passed firebase
-      console.log(this);
-      await this.addNewUsers(req, res);
+      // console.log(this);
+      await UserService.addNewUsers(req, res);
     }
   }
 
-  private async addNewUsers(req: Request, res: Response) {
+  private static async addNewUsers(req: Request, res: Response) {
     const users = new User();
     users.firstName = req.body['userFirstname'];
     users.lastName = req.body['userLastname'];
