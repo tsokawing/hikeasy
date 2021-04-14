@@ -19,6 +19,9 @@ import SideNav, {
 } from "@trendmicro/react-sidenav";
 import "@trendmicro/react-sidenav/dist/react-sidenav.css";
 
+import firebase from "firebase";
+import http from "../http-common";
+
 const calendarTheme = {
   calendarIcon: {
     textColor: "white", // text color of the header and footer
@@ -87,6 +90,48 @@ class EventPage extends Component {
       });
   }
 
+  joinEvent = () => {
+    console.log("upload");
+
+    let formData = new FormData();
+    // formData.append("userID", 3);
+    // formData.append("e", this.state.rating);
+    // formData.append("comment", this.state.newComments);
+
+    // Get JWT for backend verification
+
+    let tState = this.state;
+
+    firebase
+      .auth()
+      .currentUser.getIdToken(true)
+      .then(function (idToken) {
+        // Send token to backend via HTTPS
+        console.log(idToken);
+
+        // Post here
+        http
+          .post(
+            "http://ec2-18-188-120-239.us-east-2.compute.amazonaws.com:8080/events/join_event/" +
+              tState.event.id,
+            formData,
+            {
+              headers: {
+                authorization: "Bearer " + idToken,
+                "Content-Type": "multipart/form-data",
+              },
+            }
+          )
+          .then((response) => {
+            console.log(response);
+          });
+      })
+      .catch(function (error) {
+        // Handle error
+        console.log(error);
+      });
+  };
+
   render() {
     return (
       <>
@@ -126,7 +171,13 @@ class EventPage extends Component {
                 <div className="event-description">
                   {this.state.event.description}
                 </div>
+
                 <br></br>
+
+                <Button onClick={this.joinEvent}>Join Event</Button>
+
+                {/* /events/join_event/event_id */}
+
                 <div>Participants: </div>
                 {this.state.event.participants.map((item) => (
                   <div className="event-participant">
