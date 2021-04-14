@@ -28,6 +28,9 @@ class TrailPage extends Component {
       name: [],
       description: [],
       date: [],
+      images: [],
+      dimensions: [],
+      imageList: [],
     };
   }
 
@@ -131,7 +134,10 @@ class TrailPage extends Component {
           showGallery={this.state.showGallery}
         />
         {this.state.showGallery ? (
-          <GallerySection />
+          <GallerySection
+            images={this.state.images}
+            trailID={this.state.trailList[0].id}
+          />
         ) : (
           <div className={"trail-main-section"}>
             <div>
