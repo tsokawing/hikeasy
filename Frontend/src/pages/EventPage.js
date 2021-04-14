@@ -185,6 +185,7 @@ class EventPage extends Component {
                 <br></br>
                 <div className="chat-session">
                   <Chats
+                    eventID={this.state.event.id}
                     reviews={this.state.reviewList}
                     reloadComments={this.loadComments}
                   />

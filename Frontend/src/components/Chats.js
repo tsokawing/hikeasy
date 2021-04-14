@@ -31,12 +31,12 @@ class Chats extends Component {
       .currentUser.getIdToken(true)
       .then(function (idToken) {
         // Send token to backend via HTTPS
-        console.log(idToken);
 
         // Post here
         http
           .post(
-            "http://ec2-18-188-120-239.us-east-2.compute.amazonaws.com:8080/chat/publish_chat/6",
+            "http://ec2-18-188-120-239.us-east-2.compute.amazonaws.com:8080/chat/publish_chat/" +
+              tProps.eventID,
             formData,
             {
               headers: {
