@@ -10,6 +10,8 @@ export class HikEasyApp {
     return appInstance;
   }
 
+  static readonly POLYLINE_PRECISION = 6;
+
   get DatabaseConnection(): Connection | undefined {
     return this.databaseConnection;
   }
