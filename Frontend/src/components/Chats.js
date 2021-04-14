@@ -35,12 +35,16 @@ class Chats extends Component {
 
         // Post here
         http
-          .post("http://localhost:8080/chat/publish_chat/6", formData, {
-            headers: {
-              authorization: "Bearer " + idToken,
-              "Content-Type": "multipart/form-data",
-            },
-          })
+          .post(
+            "http://ec2-18-188-120-239.us-east-2.compute.amazonaws.com:8080/chat/publish_chat/6",
+            formData,
+            {
+              headers: {
+                authorization: "Bearer " + idToken,
+                "Content-Type": "multipart/form-data",
+              },
+            }
+          )
           .then((response) => {
             console.log(response);
             commentSectionReloadComments();
@@ -56,7 +60,6 @@ class Chats extends Component {
     let reviews = this.props.reviews;
     console.log(reviews);
     return (
-        
       <Comment.Group>
         <div className="comment-display-section">
           <Header as="h3" dividing>
@@ -71,7 +74,7 @@ class Chats extends Component {
                     {item.user.firstName} {item.user.lastName}
                   </Comment.Author>
                   <Comment.Metadata>
-                    <div>{(new Date(item.createdAt)).toLocaleDateString()}</div>
+                    <div>{new Date(item.createdAt).toLocaleDateString()}</div>
                   </Comment.Metadata>
                   <Comment.Text>{item.comment}</Comment.Text>
                   {/* <Comment.Actions>
@@ -101,4 +104,3 @@ class Chats extends Component {
 }
 
 export default Chats;
-
