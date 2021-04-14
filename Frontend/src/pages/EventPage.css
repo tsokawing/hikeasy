@@ -9,7 +9,7 @@
 
 .sidenav---sidenav---_2tBP {
   top: 80px !important;
-  background: #1f441e !important;
+  background: #9ecca4 !important;
   height: 1000px;
 }
 
@@ -25,7 +25,7 @@
 }
 
 .pane-calendar {
-  transform: scale(1.4, 1.4);
+  /* transform: scale(1.4, 1.4); */
   color: black;
 }
 

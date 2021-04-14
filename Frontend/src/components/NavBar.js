@@ -113,7 +113,7 @@ function NavBar() {
                 </Button>
               </Link>
             ) : (
-              <Link to="/login" className="btn-mobile">
+              <Link to="/login" className="btn-mobile btn-login">
                 <Button buttonStyle="btn--outline">Login</Button>
               </Link>
             ))}

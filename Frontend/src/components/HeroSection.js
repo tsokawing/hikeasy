@@ -6,16 +6,18 @@ import "./HeroSection.css";
 function HeroSection() {
   return (
     <div className="hero-container">
-      <h1>Start your journey</h1>
-      <p>Discover your favourite trails.</p>
-      <div className="hero-btns">
-        <Button
-          className="btns"
-          buttonStyle="btn--outline"
-          buttonSize="btn--large"
-        >
-          GET STARTED
-        </Button>
+      <div className="hero-banner">
+        <h1>Start your journey</h1>
+        <p>Discover your favourite trails.</p>
+        {/* <div className="hero-btns">
+          <Button
+            className="btns"
+            buttonStyle="btn--outline"
+            buttonSize="btn--large"
+          >
+            GET STARTED
+          </Button>
+        </div> */}
       </div>
     </div>
   );

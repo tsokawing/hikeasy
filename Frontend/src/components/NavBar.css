@@ -1,6 +1,6 @@
 .navbar {
   z-index: 99999;
-  background: #1f441e;
+  background: #9ecca4;
   height: 80px;
   display: flex;
   justify-content: center;
@@ -110,7 +110,7 @@
   }
 
   .nav-menu.active {
-    background: #1f441e;
+    background: #9ecca4;
     left: 0;
     opacity: 1;
     transition: all 0.5s ease;
@@ -145,6 +145,10 @@
   .fa-times {
     color: #fff;
     font-size: 2rem;
+  }
+
+  .btn-login {
+    /* display: none !important; */
   }
 
   .nav-links-mobile {

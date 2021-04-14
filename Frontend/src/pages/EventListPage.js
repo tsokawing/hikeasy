@@ -1,10 +1,15 @@
 import React, { Component } from "react";
 import SearchBar from "material-ui-search-bar";
 import "./EventListPage.css";
-import { SpringGrid } from "react-stonecutter";
+import { CSSGrid, measureItems, makeResponsive } from "react-stonecutter";
 import EventCard from "../components/EventCard";
 import { Button } from "semantic-ui-react";
 import { Link } from "react-router-dom";
+
+const Grid = makeResponsive(measureItems(CSSGrid), {
+  maxWidth: 1600,
+  minPadding: 100,
+});
 
 class EventListPage extends Component {
   constructor() {
@@ -81,9 +86,9 @@ class EventListPage extends Component {
 
         {/* <SearchBarComponent /> */}
         <div className="grid-container">
-          <SpringGrid
+          <Grid
             component="ul"
-            columns={3}
+            // columns={3}
             columnWidth={350}
             gutterWidth={50}
             // gutterHeight={1}
@@ -98,7 +103,7 @@ class EventListPage extends Component {
                 </Link>
               </div>
             ))}
-          </SpringGrid>
+          </Grid>
         </div>
 
         {/* <TrailList trailList={this.state.trailList} /> */}
