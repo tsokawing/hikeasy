@@ -7,7 +7,7 @@ import { FirebaseAuthenticator } from '../FirebaseAuthenticator';
 export class UserService {
   public constructor(app: Application) {
     app.get('/users/get_all', this.getAllUsers);
-    app.post('/users/add_user', this.addNewUsers);
+    app.post('/users/add_user', UserService.addNewUsers);
     app.post(
       '/users/check_registry',
       FirebaseAuthenticator.authenticate,
@@ -70,17 +70,19 @@ export class UserService {
       return;
     } else {
       // new user, already passed firebase
-      await this.addNewUsers(req, res);
+      // console.log(this);
+      await UserService.addNewUsers(req, res);
     }
   }
 
-  private async addNewUsers(req: Request, res: Response) {
+  private static async addNewUsers(req: Request, res: Response) {
     const users = new User();
     users.firstName = req.body['userFirstname'];
     users.lastName = req.body['userLastname'];
     users.age = req.body['userAge'];
     users.email = req.body['userEmail'];
     users.password = req.body['userPassword'];
+    users.firebaseId = FirebaseAuthenticator.extractFirebaseIdFromAuth(req);
     if (users.firstName === undefined || users.lastName == undefined) {
       res.json({
         success: false,
@@ -96,20 +98,21 @@ export class UserService {
       });
       return;
     }
-    if (users.email === undefined) {
-      res.json({
-        success: false,
-        message: 'Missing email address',
-      });
-      return;
-    }
-    if (users.password === undefined) {
-      res.json({
-        success: false,
-        message: 'Missing password',
-      });
-      return;
-    }
+    // note: because we are using firebase anyway, there is no need to request email and password
+    // if (users.email === undefined) {
+    //   res.json({
+    //     success: false,
+    //     message: 'Missing email address',
+    //   });
+    //   return;
+    // }
+    // if (users.password === undefined) {
+    //   res.json({
+    //     success: false,
+    //     message: 'Missing password',
+    //   });
+    //   return;
+    // }
     if (HikEasyApp.Instance.EntityManager == undefined) {
       ResponseUtil.respondWithDatabaseUnreachable(res);
       return;
