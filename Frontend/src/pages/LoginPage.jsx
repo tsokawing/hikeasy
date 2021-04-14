@@ -2,10 +2,10 @@ import { useState, Fragment, useEffect } from "react";
 import { Card, Menu, Form, Button } from "semantic-ui-react";
 import { Redirect } from "react-router";
 import { auth, authUI } from "../firebase";
-
 import "../css/AuthForm.css";
-
 import firebase from "firebase";
+
+import NewUserForm from "../components/NewUserForm";
 
 async function authenticateUser(email, password, isLogin) {
   try {
@@ -30,6 +30,15 @@ function renderLoggedIn() {
       // Handle error
       console.log(error);
     });
+
+  // Check is new user or not
+  let isNewUser =
+    firebase.auth().currentUser.metadata.creationTime ===
+    firebase.auth().currentUser.metadata.lastSignInTime;
+
+  if (isNewUser) {
+    return <NewUserForm />;
+  }
 
   return <Redirect to="/" />;
 }
