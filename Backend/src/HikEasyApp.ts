@@ -1,5 +1,4 @@
 import { Connection, createConnection, EntityManager } from 'typeorm';
-import { User } from './entity/User';
 import { appInstance } from './index';
 
 export class HikEasyApp {
