@@ -70,6 +70,7 @@ export class UserService {
       return;
     } else {
       // new user, already passed firebase
+      console.log(this);
       await this.addNewUsers(req, res);
     }
   }
