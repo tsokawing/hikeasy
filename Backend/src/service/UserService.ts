@@ -7,7 +7,7 @@ import { FirebaseAuthenticator } from '../FirebaseAuthenticator';
 export class UserService {
   public constructor(app: Application) {
     app.get('/users/get_all', this.getAllUsers);
-    app.post('/users/add_user', this.addNewUsers);
+    app.post('/users/add_user', UserService.addNewUsers);
     app.post(
       '/users/check_registry',
       FirebaseAuthenticator.authenticate,
