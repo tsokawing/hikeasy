@@ -55,6 +55,7 @@ class ImageSection extends Component {
                 EVENT
               </ImageButton>
               <ImageButton
+                // eventClicked={}
                 className="image-btns"
                 buttonStyle="image-btn--outline"
                 buttonSize="image-btn--large"
@@ -62,6 +63,7 @@ class ImageSection extends Component {
                 SHARE
               </ImageButton>
               <ImageButton
+                eventClicked={this.props.rateClicked}
                 className="image-btns"
                 buttonStyle="image-btn--outline"
                 buttonSize="image-btn--large"

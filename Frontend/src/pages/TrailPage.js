@@ -34,7 +34,15 @@ class TrailPage extends Component {
       imageList: [],
       redirect: false,
     };
+    this.rateElementRef = React.createRef();
   }
+
+  // Buttons
+
+  // Scroll
+  executeScroll = () => {
+    this.rateElementRef.current.scrollIntoView({ behavior: "smooth" });
+  };
 
   // Handle new event dialog
   handleClickOpen = () => {
@@ -130,6 +138,7 @@ class TrailPage extends Component {
     return (
       <>
         <ImageSection
+          rateClicked={this.executeScroll}
           newEvent={this.handleClickOpen}
           trail={this.state.trailList[0]}
           ref={this.imageSectionRef}
@@ -150,7 +159,7 @@ class TrailPage extends Component {
                 ) : null}
               </div>
             </div>
-            <div className={"comment-section"}>
+            <div ref={this.rateElementRef} className={"comment-section"}>
               <Comments
                 trail={this.state.trailList[0]}
                 reviews={this.state.reviewList}
