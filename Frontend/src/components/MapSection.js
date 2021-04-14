@@ -98,7 +98,9 @@ class MapSection extends Component {
             attribution='<a href="http://jawg.io" title="Tiles Courtesy of Jawg Maps" target="_blank" class="jawg-attrib">© <b>Jawg</b>Maps</a> | <a href="https://www.openstreetmap.org/copyright" title="OpenStreetMap is open data licensed under ODbL" target="_blank" class="osm-attrib">© OSM contributors</a>'
             url="https://{s}.tile.jawg.io/jawg-terrain/{z}/{x}/{y}{r}.png?access-token=XizVS9BuQftVgJAFcw6YteSaCP9OyCzJIYI6vqXeFWQjo7EbAaeYfIVc34YfUWzZ"
           />
-          <MyComponent markerAppender={this.appendNewPointToMap} />
+          {this.props.readOnly ? null : (
+            <MyComponent markerAppender={this.appendNewPointToMap} />
+          )}
           {this.state.point.map((item) => (
             <Marker position={[item[0], item[1]]} icon={icon} />
           ))}
@@ -107,7 +109,9 @@ class MapSection extends Component {
             positions={this.state.point}
           />
         </MapContainer>
-        <Button onClick={this.clearAllWaypointsOnMap}>Clear Waypoints</Button>
+        {this.props.readOnly ? null : (
+          <Button onClick={this.clearAllWaypointsOnMap}>Clear Waypoints</Button>
+        )}
       </>
     );
   }

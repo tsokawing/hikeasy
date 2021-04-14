@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { Redirect } from "react-router";
 import ImageSection from "../components/ImageSection";
 import Comments from "../components/Comments";
 import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
@@ -31,6 +32,7 @@ class TrailPage extends Component {
       images: [],
       dimensions: [],
       imageList: [],
+      redirect: false,
     };
   }
 
@@ -74,6 +76,7 @@ class TrailPage extends Component {
       )
       .then((response) => {
         console.log(response);
+        this.setState({ redirect: true });
       });
   };
 
@@ -143,7 +146,7 @@ class TrailPage extends Component {
             <div>
               <div className={"trail-map"}>
                 {this.state.trailList.length > 0 ? (
-                  <MapSection trail={this.state.trailList[0]} />
+                  <MapSection readOnly={true} trail={this.state.trailList[0]} />
                 ) : null}
               </div>
             </div>
@@ -163,9 +166,7 @@ class TrailPage extends Component {
         >
           <DialogTitle id="form-dialog-title">New Event</DialogTitle>
           <DialogContent>
-            <DialogContentText>
-              Please fill in the event details !!!!
-            </DialogContentText>
+            <DialogContentText>Start an event on this trail:</DialogContentText>
             <TextField
               autoFocus
               margin="dense"
@@ -211,6 +212,7 @@ class TrailPage extends Component {
             </Button>
           </DialogActions>
         </Dialog>
+        {this.state.redirect ? <Redirect to="/events" /> : null}
       </>
     );
   }
