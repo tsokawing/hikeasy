@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:location/location.dart';
-
+//set up the class for the gps 
 class GPS extends StatefulWidget {
   GPS({Key key, this.title}) : super(key: key);
   final String title;
@@ -22,19 +22,19 @@ class _GPS extends State<GPS> {
   Circle circle;
   GoogleMapController _controller;
 
-  static final CameraPosition initialLocation = CameraPosition(
+  static final CameraPosition initialLocation = CameraPosition(	//the initial position of the camera
     target: LatLng(22.28552, 114.15769),
     zoom: 14.4746,
   );
 
-  Future<Uint8List> getMarker() async {
+  Future<Uint8List> getMarker() async {	//the hiker image
     ByteData byteData = await DefaultAssetBundle.of(context).load(
       "assets/hiker.png",
     ); //credit the icon <a href='https://pngtree.com/so/line-icons'>line icons png from pngtree.com</a>
     return byteData.buffer.asUint8List();
   }
 
-  void updateMarkerAndCircle(LocationData newLocalData, Uint8List imageData) {
+  void updateMarkerAndCircle(LocationData newLocalData, Uint8List imageData) {	//update the marker
     LatLng latlng = LatLng(newLocalData.latitude, newLocalData.longitude);
     this.setState(() {
       marker = Marker(
@@ -46,7 +46,7 @@ class _GPS extends State<GPS> {
           flat: true,
           anchor: Offset(0.5, 0.5),
           icon: BitmapDescriptor.fromBytes(imageData));
-      circle = Circle(
+      circle = Circle(	//the circle under the marker
           circleId: CircleId("hiker"),
           radius: 10, //newLocalData.accuracy,
           zIndex: 1,
@@ -56,7 +56,7 @@ class _GPS extends State<GPS> {
     });
   }
 
-  void getCurrentLocation() async {
+  void getCurrentLocation() async {	//get the current location
     try {
       Uint8List imageData = await getMarker();
       var location = await _locationTracker.getLocation();
@@ -95,12 +95,12 @@ class _GPS extends State<GPS> {
   }
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context) {	//build up the UI of the screen
     return Scaffold(
-      appBar: AppBar(
+      appBar: AppBar(	//the appbar of the screen
         title: Text(widget.title),
       ),
-      body: GoogleMap(
+      body: GoogleMap(	//we use the Google Map to help with our app
         mapType: MapType.hybrid,
         initialCameraPosition: initialLocation,
         markers: Set.of((marker != null) ? [marker] : []),
@@ -109,7 +109,7 @@ class _GPS extends State<GPS> {
           _controller = controller;
         },
       ),
-      floatingActionButton: FloatingActionButton(
+      floatingActionButton: FloatingActionButton(	//the button for switching the map to the current location of the user
           child: Icon(Icons.location_searching),
           onPressed: () {
             getCurrentLocation();
