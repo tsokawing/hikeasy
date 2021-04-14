@@ -28,10 +28,10 @@ class EventCard extends Component {
       .then((response) => response.json())
       .then((result) => {
         // fetched file name of the photo of this event, contained inside result
-        console.log(result);
+        // console.log(result);
         const fileNameOfThisPhoto =
           result.photoFileNames[0]?.fileName ?? undefined;
-        console.log(fileNameOfThisPhoto);
+        // console.log(fileNameOfThisPhoto);
         // this set state
         this.setState({ photoName: fileNameOfThisPhoto }, () => {
           // console.log(this.state.photoName);
@@ -40,13 +40,13 @@ class EventCard extends Component {
   }
 
   render() {
-    console.log(this.state.photoName);
+    // console.log(this.state.photoName);
     let imgSource = this.state.photoName
       ? "http://18.188.120.239:8080/image/".concat(this.state.photoName)
       : // ? "http://localhost:8080/image/".concat(this.state.photoName)
         "https://picsum.photos/200/300";
 
-    console.log(imgSource);
+    // console.log(imgSource);
 
     return (
       <div className="card-container">
@@ -59,11 +59,41 @@ class EventCard extends Component {
             />
             <CardContent>
               <Typography gutterBottom variant="h5" component="h2">
-                Lizard
+                {this.props.event.name}
+              </Typography>
+              <Typography>
+                {this.props.event.time
+                  ? (function (dateTimeString) {
+                      let dateTimeObject = new Date(dateTimeString);
+                      console.log(dateTimeObject);
+
+                      if (
+                        dateTimeObject === undefined ||
+                        Number.isNaN(dateTimeObject.getTime())
+                      ) {
+                        return "a";
+                        // return `${dateTimeObject.getFullYear(0)} ${
+                        //   dateTimeObject.getMonth() + 1
+                        // } ${dateTimeObject.getDate()} ${dateTimeObject.getHours()} ${dateTimeObject.getMinutes()}`;
+                      }
+                      return `${dateTimeObject.getFullYear()}-${(
+                        dateTimeObject.getMonth() +
+                        1 +
+                        ""
+                      ).padStart(2, "0")}-${(
+                        dateTimeObject.getDate() + ""
+                      ).padStart(2, "0")} ${(
+                        dateTimeObject.getHours() + ""
+                      ).padStart(2, "0")}:${(
+                        dateTimeObject.getMinutes() + ""
+                      ).padStart(2, "0")}`;
+                    })(this.props.event.time)
+                  : "00:00:00"}
               </Typography>
               <Typography variant="body2" color="textSecondary" component="p">
-                Lizards are a widespread group of squamate reptiles, with over
-                6,000 species, ranging across all continents except Antarctica
+                {this.props.event.description?.length
+                  ? this.props.event.description
+                  : "Happy hiking..............................................................................................................."}
               </Typography>
             </CardContent>
           </CardActionArea>
