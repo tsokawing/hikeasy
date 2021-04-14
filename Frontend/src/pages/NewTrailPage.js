@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { Redirect } from "react-router";
 import axios from "axios";
 import TextField from "@material-ui/core/TextField";
 import { makeStyles } from "@material-ui/core/styles";
@@ -6,8 +7,16 @@ import MenuItem from "@material-ui/core/MenuItem";
 import UploadImages from "../components/UploadImages";
 import MapSection from "../components/MapSection";
 import "./NewTrailPage.css";
+// import { Button } from "semantic-ui-react";
 import http from "../http-common";
 import UploadService from "../services/upload-files.service";
+
+import Button from "@material-ui/core/Button";
+import Dialog from "@material-ui/core/Dialog";
+import DialogActions from "@material-ui/core/DialogActions";
+import DialogContent from "@material-ui/core/DialogContent";
+import DialogContentText from "@material-ui/core/DialogContentText";
+import DialogTitle from "@material-ui/core/DialogTitle";
 
 const difficulties = [
   {
@@ -45,6 +54,8 @@ class NewTrailPage extends Component {
       progress: 0,
       message: "",
       isError: false,
+      submitDone: false,
+      redirect: false,
     };
     this.waypointsRef = React.createRef();
     this.imageRef = React.createRef();
@@ -96,7 +107,7 @@ class NewTrailPage extends Component {
 
           http
             .post(
-              "http://localhost:8080/trails/update_trail/" + trailID,
+              "http://18.188.120.239:8080/trails/update_trail/" + trailID,
               formData,
               {
                 headers: {
@@ -127,6 +138,7 @@ class NewTrailPage extends Component {
                 message: response.data.message,
                 isError: false,
               });
+              this.submitDone();
               console.log(this.state.message);
             })
             .catch((err) => {
@@ -141,6 +153,15 @@ class NewTrailPage extends Component {
           console.log(error);
         }
       );
+  };
+
+  submitDone = () => {
+    this.setState({ submitDone: true });
+  };
+
+  handleClose = () => {
+    this.setState({ submitDone: false });
+    this.setState({ redirect: true });
   };
 
   render() {
@@ -209,6 +230,9 @@ class NewTrailPage extends Component {
                     </MenuItem>
                   ))}
                 </TextField>
+                {/* <Button id="" name="" onClick={}>
+                  Clear Waypoints
+                </Button> */}
               </div>
               <div className="image-section">
                 <UploadImages
@@ -221,6 +245,20 @@ class NewTrailPage extends Component {
           </div>
           {/* <div onClick={this.submitClicked}>new trail page</div> */}
         </div>
+        <Dialog open={this.state.submitDone}>
+          <DialogTitle id="alert-dialog-title">Congratulations!</DialogTitle>
+          <DialogContent>
+            <DialogContentText id="alert-dialog-description">
+              Your trail is ready!
+            </DialogContentText>
+          </DialogContent>
+          <DialogActions>
+            <Button onClick={this.handleClose} color="primary" autoFocus>
+              OK
+            </Button>
+          </DialogActions>
+        </Dialog>
+        {this.state.redirect ? <Redirect to="/trails" /> : null}
       </>
     );
   }

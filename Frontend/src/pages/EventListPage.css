@@ -3,6 +3,11 @@
   margin: auto;
   margin-bottom: 3em;
   margin-top: 3em;
+  transform: scale(1.2);
+}
+
+.grid-container {
+  margin-top: 80px;
 }
 
 .grid-container > span > ul {
@@ -15,5 +20,6 @@
     margin: auto;
     margin-bottom: 2em;
     margin-top: 2em;
+    transform: scale(1);
   }
 }

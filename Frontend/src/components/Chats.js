@@ -1,33 +1,22 @@
 import React, { Component } from "react";
-import Rating from "@material-ui/lab/Rating";
-import Typography from "@material-ui/core/Typography";
 import { Button, Comment, Form, Header } from "semantic-ui-react";
 import firebase from "firebase";
-
-import "./Comments.css";
+import "./Chats.css";
 import http from "../http-common";
 
-class Comments extends Component {
+class Chats extends Component {
   constructor(props) {
     super(props);
     this.state = {
       newComments: [],
-      rating: [],
     };
   }
-
-  setRating = (value) => {
-    this.setState({ rating: value });
-  };
-
   handleChange = (e, { value }) => {
     this.setState({ newComments: value });
   };
 
   postComment = () => {
     let formData = new FormData();
-    // formData.append("userID", 3);
-    formData.append("rating", this.state.rating);
     formData.append("comment", this.state.newComments);
 
     let tProps = this.props;
@@ -42,15 +31,12 @@ class Comments extends Component {
       .currentUser.getIdToken(true)
       .then(function (idToken) {
         // Send token to backend via HTTPS
-        console.log(idToken);
-
-        console.log(tProps.trail.id);
 
         // Post here
         http
           .post(
-            "http://18.188.120.239:8080/review/publish_review/" +
-              tProps.trail.id,
+            "http://ec2-18-188-120-239.us-east-2.compute.amazonaws.com:8080/chat/publish_chat/" +
+              tProps.eventID,
             formData,
             {
               headers: {
@@ -72,12 +58,12 @@ class Comments extends Component {
 
   render() {
     let reviews = this.props.reviews;
-
+    console.log(reviews);
     return (
       <Comment.Group>
         <div className="comment-display-section">
           <Header as="h3" dividing>
-            Comments
+            Chats
           </Header>
           {reviews.map((item) => (
             <div className="review-block">
@@ -96,38 +82,19 @@ class Comments extends Component {
                 </Comment.Actions> */}
                 </Comment.Content>
               </Comment>
-              <div>
-                <Typography component="legend">Rated</Typography>
-                <Rating
-                  name="read-only"
-                  value={item.rating}
-                  size="medium"
-                  readOnly
-                />
-              </div>
             </div>
           ))}
         </div>
         <Form clasName="add-comment">
           <Form.Group>
             <Form.TextArea
-              placeholder="Share your views!"
+              placeholder="Start Chatting!"
               name="name"
               // value={coommen}
               onChange={this.handleChange}
             />
             <div className="comment-buttons">
-              <div>
-                <Typography component="legend">Rate this trail!</Typography>
-                <Rating
-                  size="large"
-                  name="simple-controlled"
-                  onChange={(event, newValue) => {
-                    this.setRating(newValue);
-                  }}
-                />
-              </div>
-              <Button content="Submit" onClick={this.postComment} />
+              <Button content="Post" onClick={this.postComment} />
             </div>
           </Form.Group>
         </Form>
@@ -136,4 +103,4 @@ class Comments extends Component {
   }
 }
 
-export default Comments;
+export default Chats;
