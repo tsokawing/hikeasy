@@ -41,7 +41,7 @@ class EventPage extends Component {
   }
 
   loadComments = () => {
-    var get_all = "http://localhost:8080/trails/get_all/";
+    var get_all = "http://18.188.120.239:8080/trails/get_all/";
     //   "http://ec2-18-188-120-239.us-east-2.compute.amazonaws.com:8080/trails/get_all/";
 
     var id = this.props.match.params.trailID;
@@ -74,7 +74,7 @@ class EventPage extends Component {
 
   componentDidMount() {
     // this.loadComments();
-    let get_event = "http://localhost:8080/events/get_specific/".concat(
+    let get_event = "http://18.188.120.239:8080/events/get_specific/".concat(
       this.props.match.params.eventID
     );
 

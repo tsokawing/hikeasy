@@ -64,7 +64,7 @@ class TrailPage extends Component {
     http
       .post(
         //deafault second user id : 2
-        "http://localhost:8080/events/add_event/",
+        "http://18.188.120.239:8080/events/add_event/",
         formData,
         {
           header: {
@@ -80,7 +80,7 @@ class TrailPage extends Component {
   // Load trail info
 
   loadComments = () => {
-    var get_all = "http://localhost:8080/trails/get_all/";
+    var get_all = "http://18.188.120.239:8080/trails/get_all/";
     //   "http://ec2-18-188-120-239.us-east-2.compute.amazonaws.com:8080/trails/get_all/";
 
     var id = this.props.match.params.trailID;

@@ -46,12 +46,16 @@ class Comments extends Component {
 
         // Post here
         http
-          .post("http://localhost:8080/review/publish_review/2", formData, {
-            headers: {
-              authorization: "Bearer " + idToken,
-              "Content-Type": "multipart/form-data",
-            },
-          })
+          .post(
+            "http://18.188.120.239:8080/review/publish_review/2",
+            formData,
+            {
+              headers: {
+                authorization: "Bearer " + idToken,
+                "Content-Type": "multipart/form-data",
+              },
+            }
+          )
           .then((response) => {
             console.log(response);
             commentSectionReloadComments();

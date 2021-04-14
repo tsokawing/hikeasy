@@ -96,7 +96,7 @@ class NewTrailPage extends Component {
 
           http
             .post(
-              "http://localhost:8080/trails/update_trail/" + trailID,
+              "http://18.188.120.239:8080/trails/update_trail/" + trailID,
               formData,
               {
                 headers: {
