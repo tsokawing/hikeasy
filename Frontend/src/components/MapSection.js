@@ -60,7 +60,7 @@ class MapSection extends Component {
       <MapContainer
         className="Map"
         center={
-          this.state.center.length > 0
+          this.state.center?.length > 0
             ? this.state.center
             : [22.28552, 114.15769]
         }
