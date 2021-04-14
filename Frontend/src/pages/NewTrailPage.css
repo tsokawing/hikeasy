@@ -60,3 +60,32 @@
 .file-name .MuiBox-root {
   display: none !important;
 }
+
+@media screen and (max-width: 960px) {
+  .newtrailpage-container {
+    margin: 0 !important;
+  }
+
+  .newtrail-info-section {
+    flex-direction: column;
+  }
+
+  .trail-map {
+    height: 35vh;
+  }
+
+  .newtrail-title {
+    margin-top: 10px;
+    font-size: 20px;
+    margin-left: 39px;
+  }
+
+  .image-section {
+    width: unset;
+    /* margin-left: 38px; */
+  }
+
+  .my20 {
+    width: 100%;
+  }
+}
