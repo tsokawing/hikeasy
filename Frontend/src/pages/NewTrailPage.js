@@ -152,6 +152,9 @@ class NewTrailPage extends Component {
               <MapSection ref={this.waypointsRef} />
             </div>
             <div className="info-section-right">
+              <div className="newtrail-title">
+                <p>Click on the map to mark the waypoints of your trail!</p>
+              </div>
               <div className="newtrail-details">
                 <TextField
                   required
