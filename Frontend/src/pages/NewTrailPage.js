@@ -7,6 +7,7 @@ import UploadImages from "../components/UploadImages";
 import MapSection from "../components/MapSection";
 import "./NewTrailPage.css";
 import http from "../http-common";
+import UploadService from "../services/upload-files.service";
 
 const difficulties = [
   {
@@ -40,23 +41,22 @@ class NewTrailPage extends Component {
       length: [],
       city: [],
       difficulty: "1",
+      trailID: "0",
+      progress: 0,
+      message: "",
+      isError: false,
     };
     this.waypointsRef = React.createRef();
+    this.imageRef = React.createRef();
   }
 
   submitClicked = () => {
-    // console.log(this.state.title.value);
-    // console.log(this.state.description.value);
-    // console.log(this.state.length.value);
-    // console.log(this.state.city.value);
-    // console.log(this.state.difficulty.value);
     const currentWaypointsRef = this.waypointsRef.current;
-    // console.log(currentWaypointsRef.state.point);
+
     let formData = new FormData();
     formData.append("trailName", this.state.title.value);
     formData.append("trailDifficulty", this.state.difficulty.value);
     formData.append("trailDescription", this.state.description.value);
-    console.log("upload");
 
     http
       .post(
@@ -71,10 +71,15 @@ class NewTrailPage extends Component {
       .then(
         (response) => {
           console.log(response);
+          const trailID = response.data.message;
+          console.log(trailID);
 
           //******************************************************
           // Upload photos and waypoints after creating a trail
           //******************************************************
+
+          // Upload waypoint details
+          // at the same time can set profile pic (below)
 
           let formData = new FormData();
           formData.append("trailName", this.state.title.value);
@@ -90,11 +95,15 @@ class NewTrailPage extends Component {
           );
 
           http
-            .post("http://localhost:8080/trails/update_trail/2", formData, {
-              headers: {
-                "Content-Type": "multipart/form-data",
-              },
-            })
+            .post(
+              "http://localhost:8080/trails/update_trail/" + trailID,
+              formData,
+              {
+                headers: {
+                  "Content-Type": "multipart/form-data",
+                },
+              }
+            )
             .then(
               (response) => {
                 console.log(response);
@@ -103,6 +112,30 @@ class NewTrailPage extends Component {
                 console.log(error);
               }
             );
+
+          // Upload trail profile picture
+
+          let imgFile = this.imageRef.current.state.currentFile;
+
+          UploadService.uploadProfilePicForTrail(trailID, imgFile, (event) => {
+            this.setState({
+              progress: Math.round((100 * event.loaded) / event.total),
+            });
+          })
+            .then((response) => {
+              this.setState({
+                message: response.data.message,
+                isError: false,
+              });
+              console.log(this.state.message);
+            })
+            .catch((err) => {
+              this.setState({
+                progress: 0,
+                message: "Could not upload the image!",
+                isError: true,
+              });
+            });
         },
         (error) => {
           console.log(error);
@@ -175,7 +208,11 @@ class NewTrailPage extends Component {
                 </TextField>
               </div>
               <div className="image-section">
-                <UploadImages submit={this.submitClicked} />
+                <UploadImages
+                  ref={this.imageRef}
+                  submit={this.submitClicked}
+                  trailID={this.state.trailID}
+                />
               </div>
             </div>
           </div>

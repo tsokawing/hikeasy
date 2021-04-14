@@ -47,35 +47,14 @@ export default class UploadImages extends Component {
   };
 
   submit = () => {
-    this.upload();
     this.props.submit();
+    // this.upload();
   };
 
-  upload = () => {
+  upload = (trailID) => {
     this.setState({
       progress: 0,
     });
-
-    UploadService.upload(this.state.currentFile, (event) => {
-      this.setState({
-        progress: Math.round((100 * event.loaded) / event.total),
-      });
-    })
-      .then((response) => {
-        this.setState({
-          message: response.data.message,
-          isError: false,
-        });
-        console.log(this.state.message);
-      })
-      .catch((err) => {
-        this.setState({
-          progress: 0,
-          message: "Could not upload the image!",
-          currentFile: undefined,
-          isError: true,
-        });
-      });
   };
 
   render() {
