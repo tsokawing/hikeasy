@@ -96,20 +96,21 @@ export class UserService {
       });
       return;
     }
-    if (users.email === undefined) {
-      res.json({
-        success: false,
-        message: 'Missing email address',
-      });
-      return;
-    }
-    if (users.password === undefined) {
-      res.json({
-        success: false,
-        message: 'Missing password',
-      });
-      return;
-    }
+    // note: because we are using firebase anyway, there is no need to request email and password
+    // if (users.email === undefined) {
+    //   res.json({
+    //     success: false,
+    //     message: 'Missing email address',
+    //   });
+    //   return;
+    // }
+    // if (users.password === undefined) {
+    //   res.json({
+    //     success: false,
+    //     message: 'Missing password',
+    //   });
+    //   return;
+    // }
     if (HikEasyApp.Instance.EntityManager == undefined) {
       ResponseUtil.respondWithDatabaseUnreachable(res);
       return;
