@@ -134,9 +134,12 @@ export class EventService {
       ResponseUtil.respondWithDatabaseUnreachable(res);
       return;
     }
-    const targetedEvent = await HikEasyApp.Instance.EntityManager.findOne(Event,eventID);
-    console.log(targetedEvent);
-    if (targetedEvent== undefined) {
+    const targetedEvent = await HikEasyApp.Instance.EntityManager.findOne(
+      Event,
+      eventID
+    );
+    // console.log(targetedEvent);
+    if (targetedEvent == undefined) {
       res.json({
         success: false,
         message: 'No such Event',
