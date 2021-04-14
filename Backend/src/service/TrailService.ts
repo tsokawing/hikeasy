@@ -92,6 +92,8 @@ export class TrailService {
     trail.difficulty = req.body['trailDifficulty'];
     trail.description = req.body['trailDescription'] ?? '';
     trail.waypoints = req.body['trailWaypoints'] ?? '';
+    trail.length = Number.parseFloat(req.body['trailLength']);
+    trail.city = req.body['trailCity'] ?? '';
     if (trail.name === undefined) {
       res.json({
         success: false,
@@ -115,6 +117,15 @@ export class TrailService {
     }
     if (trail.difficulty < 0 || trail.difficulty > 5) {
       ResponseUtil.respondWithInvalidDifficulty(res);
+      return;
+    }
+    if (Number.isNaN(trail.length) || trail.length == 0) {
+      // we wont judge the length, but uit must exist
+      ResponseUtil.respondWithError(res, 'Missing/invalid trail length');
+      return;
+    }
+    if (trail.city.length == 0) {
+      ResponseUtil.respondWithError(res, 'Missing city name');
       return;
     }
     // we wont judge the waypoints from the client side, and directly store them
@@ -203,6 +214,14 @@ export class TrailService {
     if (updatedWaypoints !== undefined) {
       // todo confirm what kind of waypoint we are receivinn: stringified or encoded?
       targetedTrail.waypoints = updatedWaypoints;
+    }
+    const updatedLength = Number.parseFloat(req.body['trailLength']);
+    if (!Number.isNaN(updatedLength) && updatedLength > 0) {
+      targetedTrail.length = updatedLength;
+    }
+    const updatedCityName = req.body['trailCity'];
+    if (updatedCityName !== undefined) {
+      targetedTrail.city = updatedCityName;
     }
     // other checks, yadda yadda
     if (!somethingWasChanged) {

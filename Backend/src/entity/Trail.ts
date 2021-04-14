@@ -43,6 +43,16 @@ export class Trail {
   isShown!: boolean;
 
   @Column({
+    default: null,
+  })
+  length!: number;
+
+  @Column({
+    default: null,
+  })
+  city!: string;
+
+  @Column({
     default: '',
   })
   waypoints!: string;
