@@ -78,7 +78,7 @@ class EventPage extends Component {
   };
 
   componentDidMount() {
-    // this.loadComments();
+    this.loadComments();
     let get_event = "http://18.188.120.239:8080/events/get_specific/".concat(
       this.props.match.params.eventID
     );
