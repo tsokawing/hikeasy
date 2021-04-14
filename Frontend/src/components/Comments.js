@@ -85,7 +85,7 @@ class Comments extends Component {
                     {item.user.firstName} {item.user.lastName}
                   </Comment.Author>
                   <Comment.Metadata>
-                    <div>{item.createdAt}</div>
+                    <div>{new Date(item.createdAt).toLocaleDateString()}</div>
                   </Comment.Metadata>
                   <Comment.Text>{item.comment}</Comment.Text>
                   {/* <Comment.Actions>
