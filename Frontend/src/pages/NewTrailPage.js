@@ -79,7 +79,7 @@ class NewTrailPage extends Component {
 
     http
       .post(
-        "http://ec2-18-188-120-239.us-east-2.compute.amazonaws.com:8080/trails/add_trail",
+        "http://ec2-3-143-248-67.us-east-2.compute.amazonaws.com:8080/trails/add_trail",
         formData,
         {
           headers: {
@@ -116,7 +116,7 @@ class NewTrailPage extends Component {
 
           http
             .post(
-              "http://18.188.120.239:8080/trails/update_trail/" + trailID,
+              "http://3.143.248.67:8080/trails/update_trail/" + trailID,
               formData,
               {
                 headers: {

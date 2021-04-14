@@ -43,12 +43,12 @@ class EventPage extends Component {
   }
 
   loadComments = () => {
-    var get_all = "http://18.188.120.239:8080/trails/get_all/";
-    //   "http://ec2-18-188-120-239.us-east-2.compute.amazonaws.com:8080/trails/get_all/";
+    var get_all = "http://3.143.248.67:8080/trails/get_all/";
+    //   "http://ec2-3-143-248-67.us-east-2.compute.amazonaws.com:8080/trails/get_all/";
 
     var id = this.props.match.params.eventID;
     var get_review =
-      "http://ec2-18-188-120-239.us-east-2.compute.amazonaws.com:8080/chat/get_all_by_event/" +
+      "http://ec2-3-143-248-67.us-east-2.compute.amazonaws.com:8080/chat/get_all_by_event/" +
       id;
 
     // Get trail details request
@@ -79,7 +79,7 @@ class EventPage extends Component {
 
   componentDidMount() {
     this.loadComments();
-    let get_event = "http://18.188.120.239:8080/events/get_specific/".concat(
+    let get_event = "http://3.143.248.67:8080/events/get_specific/".concat(
       this.props.match.params.eventID
     );
 
@@ -111,7 +111,7 @@ class EventPage extends Component {
         // Post here
         http
           .post(
-            "http://ec2-18-188-120-239.us-east-2.compute.amazonaws.com:8080/events/join_event/" +
+            "http://ec2-3-143-248-67.us-east-2.compute.amazonaws.com:8080/events/join_event/" +
               tState.event.id,
             formData,
             {

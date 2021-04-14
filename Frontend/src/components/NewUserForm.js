@@ -46,7 +46,7 @@ class NewUserForm extends Component {
 
         http
           .post(
-            "http://ec2-18-188-120-239.us-east-2.compute.amazonaws.com:8080/users/login_or_register",
+            "http://ec2-3-143-248-67.us-east-2.compute.amazonaws.com:8080/users/login_or_register",
             formData,
             {
               headers: {

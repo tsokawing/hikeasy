@@ -13,7 +13,7 @@ class TrailList extends Component {
             <TrailCard
               img={
                 item.profilePic != null
-                  ? "http://18.188.120.239:8080/trails/get_photo/".concat(
+                  ? "http://3.143.248.67:8080/trails/get_photo/".concat(
                       item.profilePic
                     )
                   : "https://picsum.photos/id/1018/400/300"

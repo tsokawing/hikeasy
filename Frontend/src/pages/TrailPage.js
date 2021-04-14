@@ -81,7 +81,7 @@ class TrailPage extends Component {
     http
       .post(
         //deafault second user id : 2
-        "http://18.188.120.239:8080/events/add_event/",
+        "http://3.143.248.67:8080/events/add_event/",
         formData,
         {
           header: {
@@ -98,11 +98,11 @@ class TrailPage extends Component {
   // Load trail info
 
   loadComments = () => {
-    var get_all = "http://18.188.120.239:8080/trails/get_all/";
-    //   "http://ec2-18-188-120-239.us-east-2.compute.amazonaws.com:8080/trails/get_all/";
+    var get_all = "http://3.143.248.67:8080/trails/get_all/";
+    //   "http://ec2-3-143-248-67.us-east-2.compute.amazonaws.com:8080/trails/get_all/";
 
     var id = this.props.match.params.trailID;
-    var get_review = "http://ec2-18-188-120-239.us-east-2.compute.amazonaws.com:8080/review/get_all_by_trail/".concat(
+    var get_review = "http://ec2-3-143-248-67.us-east-2.compute.amazonaws.com:8080/review/get_all_by_trail/".concat(
       id
     );
 

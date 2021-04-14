@@ -49,7 +49,7 @@ class Comments extends Component {
         // Post here
         http
           .post(
-            "http://18.188.120.239:8080/review/publish_review/" +
+            "http://3.143.248.67:8080/review/publish_review/" +
               tProps.trail.id,
             formData,
             {

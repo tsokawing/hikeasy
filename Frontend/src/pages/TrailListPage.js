@@ -20,7 +20,7 @@ class TrailListPage extends Component {
   componentDidMount() {
     //alllow cors to fetch ==> install cors extension for chrome
     fetch(
-      "http://ec2-18-188-120-239.us-east-2.compute.amazonaws.com:8080/trails/get_all"
+      "http://ec2-3-143-248-67.us-east-2.compute.amazonaws.com:8080/trails/get_all"
     )
       .then((response) => response.json())
       .then((result) => {

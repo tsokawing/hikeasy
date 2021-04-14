@@ -23,7 +23,7 @@ class EventCard extends Component {
     // console.log(this.props.event.id);
 
     fetch(
-      "http://18.188.120.239:8080/events/get_photo/".concat(this.props.event.id)
+      "http://3.143.248.67:8080/events/get_photo/".concat(this.props.event.id)
     )
       .then((response) => response.json())
       .then((result) => {
@@ -42,7 +42,7 @@ class EventCard extends Component {
   render() {
     // console.log(this.state.photoName);
     let imgSource = this.state.photoName
-      ? "http://18.188.120.239:8080/image/".concat(this.state.photoName)
+      ? "http://3.143.248.67:8080/image/".concat(this.state.photoName)
       : // ? "http://localhost:8080/image/".concat(this.state.photoName)
         "https://picsum.photos/200/300";
 

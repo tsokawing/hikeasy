@@ -25,7 +25,7 @@ class GallerySection extends Component {
     console.log(this.props.trailID);
 
     fetch(
-      "http://ec2-18-188-120-239.us-east-2.compute.amazonaws.com:8080/trails/get_trail_photos/" +
+      "http://ec2-3-143-248-67.us-east-2.compute.amazonaws.com:8080/trails/get_trail_photos/" +
         this.props.trailID
     )
       .then((response) => response.json())
@@ -45,7 +45,7 @@ class GallerySection extends Component {
 
       // for each, concat
       let get_photo =
-        "http://ec2-18-188-120-239.us-east-2.compute.amazonaws.com:8080/trails/get_photo/";
+        "http://ec2-3-143-248-67.us-east-2.compute.amazonaws.com:8080/trails/get_photo/";
       let source = get_photo.concat(item);
 
       let dummy = async function () {

@@ -27,7 +27,7 @@ class EventListPage extends Component {
 
   loadEvents = () => {
     // load all events
-    fetch("http://18.188.120.239:8080/events/get_all")
+    fetch("http://3.143.248.67:8080/events/get_all")
       .then((response) => response.json())
       .then((result) => {
         const events = result.map((item) => {
@@ -42,7 +42,7 @@ class EventListPage extends Component {
     var fileNameList = [];
     let getImageFileOfSpecificEvent = async function (eventID) {
       return new Promise((resolve, reject) => {
-        fetch("http://18.188.120.239:8080/events/get_photo/".concat(eventID))
+        fetch("http://3.143.248.67:8080/events/get_photo/".concat(eventID))
           .then((response) => response.json())
           .then((result) => {
             const fileNameOfThisPhoto =
