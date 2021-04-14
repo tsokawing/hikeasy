@@ -52,21 +52,21 @@ function FooterComponent() {
             ],
           },
           {
-            icon: (
-              <img
-                src="https://gw.alipayobjects.com/zos/rmsportal/nBVXkrFdWHxbZlmMbsaH.svg"
-                alt="more products"
-              />
-            ),
+            // icon: (
+            //   <img
+            //     src="https://gw.alipayobjects.com/zos/rmsportal/nBVXkrFdWHxbZlmMbsaH.svg"
+            //     alt="more products"
+            //   />
+            // ),
             title: "More Products",
             items: [
               {
-                icon: (
-                  <img
-                    src="https://gw.alipayobjects.com/zos/rmsportal/XuVpGqBFxXplzvLjJBZB.svg"
-                    alt="yuque"
-                  />
-                ),
+                // icon: (
+                //   <img
+                //     src="https://gw.alipayobjects.com/zos/rmsportal/XuVpGqBFxXplzvLjJBZB.svg"
+                //     alt="yuque"
+                //   />
+                // ),
                 title: "Comming Soon",
                 url: "",
                 description: "Hikeasy iOS/Android",
