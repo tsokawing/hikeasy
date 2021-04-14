@@ -6,6 +6,7 @@ import { User } from '../entity/User';
 import { HikEasyApp } from '../HikEasyApp';
 import { ResponseUtil } from '../util/ResponseUtil';
 import { UserUtil } from '../util/UserUtil';
+import { FirebaseAuthenticator } from '../FirebaseAuthenticator';
 
 export class EventService {
   public constructor(app: Application) {
