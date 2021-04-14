@@ -1,6 +1,10 @@
 .newtrailpage-container {
-  margin: auto;
-  margin: 100px;
+  min-height: 95vh;
+  /* margin-top: 30px !important; */
+  margin-top: 50px !important;
+  margin: 0px 200px;
+  /* margin: auto; */
+  /* margin-left: ; */
   display: flex;
   flex-direction: column;
 }
@@ -18,6 +22,12 @@
 
 .newtrail-info-section {
   display: flex;
+}
+
+.newtrail-title {
+  margin-top: 10px;
+  font-size: 30px;
+  margin-left: 39px;
 }
 
 .newtrail-details {
@@ -38,14 +48,13 @@
   width: 100%;
 }
 
+.mg20 > .MuiButton-root {
+  margin-left: 20px;
+}
+
 .image-section {
   width: 100%;
   margin-left: 38px;
-}
-
-.MuiButton-root {
-  /* margin-bottom: 21px !important;
-  margin-right: 150px !important; */
 }
 
 .file-name .MuiBox-root {
