@@ -64,4 +64,7 @@ export class Trail {
 
   @DeleteDateColumn()
   deletedAt?: Date;
+
+  // not to be inserted into the db
+  displayCenter?: Array<number>;
 }

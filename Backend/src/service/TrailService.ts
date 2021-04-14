@@ -47,8 +47,13 @@ export class TrailService {
       ResponseUtil.respondWithDatabaseUnreachable(res);
     } else {
       // ok
-      trails.forEach((trail) => {
-        WaypointsUtil.getCenterPositionForEncodedWaypoint(trail.waypoints);
+      // add trail center
+      trails.forEach((trail, index) => {
+        trails[
+          index
+        ].displayCenter = WaypointsUtil.getCenterPositionForEncodedWaypoint(
+          trail.waypoints
+        );
       });
       res.status(200).json(trails);
     }
@@ -68,6 +73,11 @@ export class TrailService {
       Trail,
       targetTrailID
     );
+    if (trail !== undefined) {
+      trail.displayCenter = WaypointsUtil.getCenterPositionForEncodedWaypoint(
+        trail?.waypoints
+      );
+    }
     res.json({
       success: true,
       response: trail,
