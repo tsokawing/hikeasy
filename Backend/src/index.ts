@@ -13,7 +13,7 @@ import cors from 'cors';
 import passport from 'passport';
 import FirebaseStrategy, { TokenLoader } from 'passport-jwt-firebase';
 import { ImageService } from './service/ImageService';
-
+import { ChatService } from './service/ChatService';
 const express = require('express');
 const app: Application = express();
 const port = 8080;
@@ -120,6 +120,7 @@ const userService = new UserService(app);
 const eventService = new EventService(app);
 const reviewService = new ReviewService(app);
 const imageService = new ImageService(app);
+const chatService = new ChatService(app);
 
 // finally specify that we are starting the backend
 app.listen(port, () => {

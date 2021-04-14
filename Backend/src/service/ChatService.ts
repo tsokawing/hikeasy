@@ -8,8 +8,7 @@ import { HikEasyApp } from '../HikEasyApp';
 import { ResponseUtil } from '../util/ResponseUtil';
 import { UserUtil } from '../util/UserUtil';
 
-
-export class EventService {
+export class ChatService {
   public constructor(app: Application) {
     app.get('/chat/get_all', this.getAllChats);//done
     app.get('/chat/get_all_by_event', this.getAllChatOfEvent_NoEventID); //done
