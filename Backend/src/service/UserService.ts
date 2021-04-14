@@ -82,6 +82,7 @@ export class UserService {
     users.age = req.body['userAge'];
     users.email = req.body['userEmail'];
     users.password = req.body['userPassword'];
+    users.firebaseId = FirebaseAuthenticator.extractFirebaseIdFromAuth(req);
     if (users.firstName === undefined || users.lastName == undefined) {
       res.json({
         success: false,
