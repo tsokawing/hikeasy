@@ -103,8 +103,8 @@ class GallerySection extends Component {
             images={this.state.images}
             enableLightbox={true}
             // maxRows={3}
-            // margin={50}
-            backdropClosesModal
+            margin={0}
+            // backdropClosesModal
             // currentImage={3}
             // isOpen={ true}
           />
