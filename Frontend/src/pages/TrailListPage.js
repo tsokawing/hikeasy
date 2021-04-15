@@ -4,7 +4,8 @@ import SearchBar from "material-ui-search-bar";
 import TrailList from "../components/TrailList";
 import { Button } from "semantic-ui-react";
 import { Link } from "react-router-dom";
-
+//for loading
+import LoadingOverlay from "react-loading-overlay";
 import "./TrailListPage.css";
 
 class TrailListPage extends Component {
@@ -14,11 +15,19 @@ class TrailListPage extends Component {
       trailList: [],
       keyword: "",
       filteredList: [],
+      loading: true,
     };
   }
 
+  // setLoadingIsComplete = () => {
+  //   this.setState({ loading: false });
+  // };
+
+  // timeoutTest = async function (delay) {
+  //   return new Promise((res) => setTimeout(res, delay));
+  // };
+
   componentDidMount() {
-    //alllow cors to fetch ==> install cors extension for chrome
     fetch(
       "http://ec2-3-143-248-67.us-east-2.compute.amazonaws.com:8080/trails/get_all"
     )
@@ -28,6 +37,7 @@ class TrailListPage extends Component {
           return item;
         });
         this.setState({ trailList: trails });
+        this.setState({ loading: false });
       });
   }
 
@@ -57,13 +67,26 @@ class TrailListPage extends Component {
             </div>
           </div>
 
-          <TrailList
-            trailList={
-              this.state.filteredList.length > 0
-                ? this.state.filteredList
-                : this.state.trailList
-            }
-          />
+          <LoadingOverlay
+            active={this.state.loading}
+            spinner={true}
+            fadeSpeed={0}
+            text="Loading..."
+            styles={{
+              overlay: (base) => ({
+                ...base,
+                background: "rgba(255, 0, 0, 0)",
+              }),
+            }}
+          >
+            <TrailList
+              trailList={
+                this.state.filteredList.length > 0
+                  ? this.state.filteredList
+                  : this.state.trailList
+              }
+            />
+          </LoadingOverlay>
         </div>
       </>
     );

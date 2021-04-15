@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import Gallery from "react-grid-gallery";
+import LoadingOverlay from "react-loading-overlay";
 
 const IMAGES = [
   {
@@ -19,6 +20,7 @@ class GallerySection extends Component {
       imageList: [],
       dimensions: [],
       images: [],
+      loading: true,
     };
   }
   componentDidMount() {
@@ -77,22 +79,36 @@ class GallerySection extends Component {
       }
     }
     this.setState({ images: images }, () => {
-      // we have already set the state
+      this.setState({ loading: false });
     });
   };
 
   render() {
     return (
       <>
-        <Gallery
-          images={this.state.images}
-          enableLightbox={true}
-          // maxRows={3}
-          margin={0}
-          backdropClosesModal
-          // currentImage={3}
-          // isOpen={ true}
-        />
+        <LoadingOverlay
+          active={this.state.loading}
+          spinner={true}
+          fadeSpeed={1}
+          text="Loading..."
+          styles={{
+            overlay: (base) => ({
+              ...base,
+              background: "rgba(255, 0, 0, 0)",
+              height: "15vh",
+            }),
+          }}
+        >
+          <Gallery
+            images={this.state.images}
+            enableLightbox={true}
+            // maxRows={3}
+            // margin={50}
+            backdropClosesModal
+            // currentImage={3}
+            // isOpen={ true}
+          />
+        </LoadingOverlay>
       </>
     );
   }

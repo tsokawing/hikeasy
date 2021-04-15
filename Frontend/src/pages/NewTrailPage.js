@@ -9,6 +9,7 @@ import MapSection from "../components/MapSection";
 import "./NewTrailPage.css";
 
 import LoadingOverlay from "react-loading-overlay";
+
 // import { Button } from "semantic-ui-react";
 import http from "../http-common";
 import UploadService from "../services/upload-files.service";
@@ -180,7 +181,7 @@ class NewTrailPage extends Component {
         <LoadingOverlay
           active={this.state.loading}
           spinner={true}
-          text="Loading your content..."
+          text="Loading..."
         >
           <div className="newtrailpage-container">
             <div className="newtrail-info-section">
@@ -275,14 +276,6 @@ class NewTrailPage extends Component {
               </Button>
             </DialogActions>
           </Dialog>
-          {/* <ClipLoader
-          color={this.state.color}
-          loading={this.state.loading}
-          css={override}
-          size={150}
-        /> */}
-
-          <p>Some content or children or something.</p>
         </LoadingOverlay>
         {this.state.redirect ? <Redirect to="/trails" /> : null}
       </>

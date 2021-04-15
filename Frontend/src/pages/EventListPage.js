@@ -5,6 +5,7 @@ import { CSSGrid, measureItems, makeResponsive } from "react-stonecutter";
 import EventCard from "../components/EventCard";
 import { Button } from "semantic-ui-react";
 import { Link } from "react-router-dom";
+import LoadingOverlay from "react-loading-overlay";
 
 const Grid = makeResponsive(measureItems(CSSGrid), {
   maxWidth: 1600,
@@ -17,6 +18,7 @@ class EventListPage extends Component {
     this.state = {
       eventList: [],
       eventPhotoNames: [],
+      loading: true,
     };
   }
 
@@ -34,6 +36,7 @@ class EventListPage extends Component {
           return item;
         });
         this.setState({ eventList: events }, this.loadEventPhotos);
+        this.setState({ loading: false });
       });
   };
 
@@ -84,27 +87,39 @@ class EventListPage extends Component {
           </div> */}
         </div>
 
-        {/* <SearchBarComponent /> */}
-        <div className="grid-container">
-          <Grid
-            component="ul"
-            // columns={3}
-            columnWidth={350}
-            gutterWidth={50}
-            // gutterHeight={1}
-            itemHeight={300}
-            // springConfig={{ stiffness: 170, damping: 26 }}
-          >
-            {this.state.eventList.map((item, index) => (
-              <div>
-                {/* <Link to={`../event/${item.id}`}> */}
-                <Link to={`../event/${item.id}`}>
-                  <EventCard event={this.state.eventList[index]} />
-                </Link>
-              </div>
-            ))}
-          </Grid>
-        </div>
+        <LoadingOverlay
+          active={this.state.loading}
+          spinner={true}
+          fadeSpeed={1}
+          text="Loading..."
+          styles={{
+            overlay: (base) => ({
+              ...base,
+              background: "rgba(255, 0, 0, 0)",
+            }),
+          }}
+        >
+          <div className="grid-container">
+            <Grid
+              component="ul"
+              // columns={3}
+              columnWidth={350}
+              gutterWidth={50}
+              // gutterHeight={1}
+              itemHeight={300}
+              // springConfig={{ stiffness: 170, damping: 26 }}
+            >
+              {this.state.eventList.map((item, index) => (
+                <div>
+                  {/* <Link to={`../event/${item.id}`}> */}
+                  <Link to={`../event/${item.id}`}>
+                    <EventCard event={this.state.eventList[index]} />
+                  </Link>
+                </div>
+              ))}
+            </Grid>
+          </div>
+        </LoadingOverlay>
 
         {/* <TrailList trailList={this.state.trailList} /> */}
       </>
