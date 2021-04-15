@@ -11,7 +11,7 @@ class TrailCard extends Component {
         <div className="trail-card-body">
           <h2>{this.props.title}</h2>
           <p>{this.props.description}</p>
-          <h5>{this.props.author}</h5>
+          {/* <h5>{this.props.author}</h5> */}
         </div>
       </div>
     );

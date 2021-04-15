@@ -20,7 +20,7 @@ class TrailList extends Component {
               }
               title={item.name}
               description={item.description}
-              author="Admin"
+              // author="Admin"
             />
           </Link>
         ))}
