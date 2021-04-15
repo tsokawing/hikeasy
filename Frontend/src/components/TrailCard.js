@@ -4,7 +4,7 @@ import "./TrailCard.css";
 class TrailCard extends Component {
   render() {
     return (
-      <div className="trail-card animate__animated animate__fadeInLeft">
+      <div className="trail-card animate__animated animate__fadeInUp">
         <div className="trail-card-profile">
           <img className="trail-card-pic" src={this.props.img} />
         </div>

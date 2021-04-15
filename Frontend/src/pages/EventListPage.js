@@ -99,7 +99,7 @@ class EventListPage extends Component {
             }),
           }}
         >
-          <div className="grid-container">
+          <div className="grid-container animate__animated animate__fadeInUp">
             <Grid
               component="ul"
               // columns={3}
