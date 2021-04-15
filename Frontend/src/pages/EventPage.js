@@ -232,7 +232,7 @@ class EventPage extends Component {
           </SideNav>
           <div className={"event-trail-map"}>
             {this.state.event["trail"] ? (
-              <MapSection trail={this.state.event["trail"]} />
+              <MapSection trail={this.state.event["trail"]} readOnly={true} />
             ) : null}
           </div>
         </div>

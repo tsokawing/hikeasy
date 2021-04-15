@@ -84,10 +84,14 @@ class MapSection extends Component {
   render() {
     return (
       <>
-        {this.state.center?.length ? (
+        {this.state.center?.length || !this.props.readOnly ? (
           <MapContainer
             className="Map"
-            center={this.state.center}
+            center={
+              this.state.center?.length > 0
+                ? this.state.center
+                : [22.4, 114.15769]
+            }
             zoom={15}
             scrollWheelZoom={false}
           >
