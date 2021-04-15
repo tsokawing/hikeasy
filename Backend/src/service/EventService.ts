@@ -7,6 +7,7 @@ import { HikEasyApp } from '../HikEasyApp';
 import { ResponseUtil } from '../util/ResponseUtil';
 import { UserUtil } from '../util/UserUtil';
 import { FirebaseAuthenticator } from '../FirebaseAuthenticator';
+import { WaypointsUtil } from '../util/WaypointsUtil';
 
 export class EventService {
   public constructor(app: Application) {
@@ -38,6 +39,11 @@ export class EventService {
         event.participants.forEach((participant) => {
           UserUtil.stripSensitiveInfo(participant);
         });
+        if (event.trail !== undefined) {
+          event.trail.displayCenter = WaypointsUtil.getCenterPositionForEncodedWaypoint(
+            event.trail.waypoints
+          );
+        }
       });
       res.status(200).json(events);
     }
@@ -59,6 +65,11 @@ export class EventService {
       event.participants.forEach((participant) =>
         UserUtil.stripSensitiveInfo(participant)
       );
+      if (event.trail !== undefined) {
+        event.trail.displayCenter = WaypointsUtil.getCenterPositionForEncodedWaypoint(
+          event.trail.waypoints
+        );
+      }
     }
     res.json({
       success: true,
