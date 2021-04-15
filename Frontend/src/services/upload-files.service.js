@@ -4,7 +4,7 @@ class UploadFilesService {
   uploadProfilePicForTrail(trailID, file, onUploadProgress) {
     // temp function for now, later refactor
     let formData = new FormData();
-    let userID = 2;
+    let userID = 1;
     formData.append("userID", userID);
     formData.append("photos", file);
 
