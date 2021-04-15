@@ -84,31 +84,29 @@ class MapSection extends Component {
   render() {
     return (
       <>
-        <MapContainer
-          className="Map"
-          center={
-            this.state.center?.length > 0
-              ? this.state.center
-              : [22.28552, 114.15769]
-          }
-          zoom={15}
-          scrollWheelZoom={false}
-        >
-          <TileLayer
-            attribution='<a href="http://jawg.io" title="Tiles Courtesy of Jawg Maps" target="_blank" class="jawg-attrib">© <b>Jawg</b>Maps</a> | <a href="https://www.openstreetmap.org/copyright" title="OpenStreetMap is open data licensed under ODbL" target="_blank" class="osm-attrib">© OSM contributors</a>'
-            url="https://{s}.tile.jawg.io/jawg-terrain/{z}/{x}/{y}{r}.png?access-token=XizVS9BuQftVgJAFcw6YteSaCP9OyCzJIYI6vqXeFWQjo7EbAaeYfIVc34YfUWzZ"
-          />
-          {this.props.readOnly ? null : (
-            <MyComponent markerAppender={this.appendNewPointToMap} />
-          )}
-          {this.state.point.map((item) => (
-            <Marker position={[item[0], item[1]]} icon={icon} />
-          ))}
-          <Polyline
-            pathOptions={{ color: "#9b3675" }}
-            positions={this.state.point}
-          />
-        </MapContainer>
+        {this.state.center?.length ? (
+          <MapContainer
+            className="Map"
+            center={this.state.center}
+            zoom={15}
+            scrollWheelZoom={false}
+          >
+            <TileLayer
+              attribution='<a href="http://jawg.io" title="Tiles Courtesy of Jawg Maps" target="_blank" class="jawg-attrib">© <b>Jawg</b>Maps</a> | <a href="https://www.openstreetmap.org/copyright" title="OpenStreetMap is open data licensed under ODbL" target="_blank" class="osm-attrib">© OSM contributors</a>'
+              url="https://{s}.tile.jawg.io/jawg-terrain/{z}/{x}/{y}{r}.png?access-token=XizVS9BuQftVgJAFcw6YteSaCP9OyCzJIYI6vqXeFWQjo7EbAaeYfIVc34YfUWzZ"
+            />
+            {this.props.readOnly ? null : (
+              <MyComponent markerAppender={this.appendNewPointToMap} />
+            )}
+            {this.state.point.map((item) => (
+              <Marker position={[item[0], item[1]]} icon={icon} />
+            ))}
+            <Polyline
+              pathOptions={{ color: "#9b3675" }}
+              positions={this.state.point}
+            />
+          </MapContainer>
+        ) : null}
         {this.props.readOnly ? null : (
           <Button onClick={this.clearAllWaypointsOnMap}>Clear Waypoints</Button>
         )}
