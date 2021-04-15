@@ -186,7 +186,7 @@ class NewTrailPage extends Component {
           <div className="newtrailpage-container">
             <div className="newtrail-info-section">
               <div className={"trail-map"}>
-                <MapSection ref={this.waypointsRef} />
+                <MapSection ref={this.waypointsRef} readOnly={false} />
               </div>
               <div className="info-section-right">
                 <div className="newtrail-title">
