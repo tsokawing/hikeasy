@@ -22,6 +22,14 @@ import "@trendmicro/react-sidenav/dist/react-sidenav.css";
 import firebase from "firebase";
 import http from "../http-common";
 
+//for Dialogbox
+import MuiButton from "@material-ui/core/Button";
+import Dialog from "@material-ui/core/Dialog";
+import DialogActions from "@material-ui/core/DialogActions";
+import DialogContent from "@material-ui/core/DialogContent";
+import DialogContentText from "@material-ui/core/DialogContentText";
+import DialogTitle from "@material-ui/core/DialogTitle";
+
 const calendarTheme = {
   calendarIcon: {
     textColor: "white", // text color of the header and footer
@@ -35,7 +43,7 @@ class EventPage extends Component {
     super();
     this.state = {
       event: [],
-      showPane: false,
+      showDialog: false,
       Date: [],
       eventList: [],
       reviewList: [],
@@ -79,6 +87,10 @@ class EventPage extends Component {
 
   componentDidMount() {
     this.loadComments();
+    this.loadSpecificEvent();
+  }
+
+  loadSpecificEvent = () => {
     let get_event = "http://3.143.248.67:8080/events/get_specific/".concat(
       this.props.match.params.eventID
     );
@@ -93,12 +105,13 @@ class EventPage extends Component {
         timestring.getTime();
         this.setState({ Date: timestring.toString() });
       });
-  }
+  };
 
   joinEvent = () => {
     console.log("upload");
 
     let formData = new FormData();
+    let tThis = this;
     let tState = this.state;
 
     firebase
@@ -123,12 +136,18 @@ class EventPage extends Component {
           )
           .then((response) => {
             console.log(response);
+            tThis.setState({ showDialog: true });
+            tThis.loadSpecificEvent();
           });
       })
       .catch(function (error) {
         // Handle error
         console.log(error);
       });
+  };
+
+  handleClose = () => {
+    this.setState({ showDialog: false });
   };
 
   render() {
@@ -199,6 +218,19 @@ class EventPage extends Component {
             ) : null}
           </div>
         </div>
+        <Dialog open={this.state.showDialog}>
+          <DialogTitle id="alert-dialog-title">Congratulations!</DialogTitle>
+          <DialogContent>
+            <DialogContentText id="alert-dialog-description">
+              Your have joined this event!
+            </DialogContentText>
+          </DialogContent>
+          <DialogActions>
+            <MuiButton onClick={this.handleClose} color="primary" autoFocus>
+              OK
+            </MuiButton>
+          </DialogActions>
+        </Dialog>
       </>
     );
   }
