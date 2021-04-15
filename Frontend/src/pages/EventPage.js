@@ -20,6 +20,7 @@ import SideNav, {
 import "@trendmicro/react-sidenav/dist/react-sidenav.css";
 
 import firebase from "firebase";
+import firebaseJwtManager from "../firebaseJwtManager";
 import http from "../http-common";
 
 //for Dialogbox
@@ -47,6 +48,7 @@ class EventPage extends Component {
       Date: [],
       eventList: [],
       reviewList: [],
+      showPopUpRequestSignIn: false,
     };
   }
 
@@ -150,6 +152,14 @@ class EventPage extends Component {
     this.setState({ showDialog: false });
   };
 
+  popUpRequestSignIn = () => {
+    this.setState({ showPopUpRequestSignIn: true });
+  };
+
+  closePopUpRequestSignIn = () => {
+    this.setState({ showPopUpRequestSignIn: false });
+  };
+
   render() {
     return (
       <>
@@ -191,7 +201,15 @@ class EventPage extends Component {
                 </div>
 
                 <br></br>
-                <Button onClick={this.joinEvent}>Join Event</Button>
+                <Button
+                  onClick={
+                    firebaseJwtManager.getToken()
+                      ? this.joinEvent
+                      : this.popUpRequestSignIn
+                  }
+                >
+                  Join Event
+                </Button>
                 <br></br>
                 <br></br>
                 <div>Participants: </div>
@@ -227,6 +245,23 @@ class EventPage extends Component {
           </DialogContent>
           <DialogActions>
             <MuiButton onClick={this.handleClose} color="primary" autoFocus>
+              OK
+            </MuiButton>
+          </DialogActions>
+        </Dialog>
+        <Dialog open={this.state.showPopUpRequestSignIn}>
+          <DialogTitle id="alert-dialog-title">Login required</DialogTitle>
+          <DialogContent>
+            <DialogContentText id="alert-dialog-description">
+              This feature is only for registered users!
+            </DialogContentText>
+          </DialogContent>
+          <DialogActions>
+            <MuiButton
+              onClick={this.closePopUpRequestSignIn}
+              color="primary"
+              autoFocus
+            >
               OK
             </MuiButton>
           </DialogActions>

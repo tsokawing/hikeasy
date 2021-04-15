@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { Button, Comment, Form, Header } from "semantic-ui-react";
 import firebase from "firebase";
+import firebaseJwtManager from "../firebaseJwtManager";
 import "./Chats.css";
 import http from "../http-common";
 
@@ -85,19 +86,21 @@ class Chats extends Component {
             </div>
           ))}
         </div>
-        <Form clasName="add-comment">
-          <Form.Group>
-            <Form.TextArea
-              placeholder="Start Chatting!"
-              name="name"
-              // value={coommen}
-              onChange={this.handleChange}
-            />
-            <div className="comment-buttons">
-              <Button content="Post" onClick={this.postComment} />
-            </div>
-          </Form.Group>
-        </Form>
+        {firebaseJwtManager.getToken() ? (
+          <Form clasName="add-comment">
+            <Form.Group>
+              <Form.TextArea
+                placeholder="Start Chatting!"
+                name="name"
+                // value={coommen}
+                onChange={this.handleChange}
+              />
+              <div className="comment-buttons">
+                <Button content="Post" onClick={this.postComment} />
+              </div>
+            </Form.Group>
+          </Form>
+        ) : null}
       </Comment.Group>
     );
   }

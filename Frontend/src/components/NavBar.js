@@ -3,6 +3,7 @@ import { Button } from "./Button";
 import { Link } from "react-router-dom";
 import firebase from "firebase";
 import { auth, authUI } from "../firebase";
+import firebaseJwtManager from "../firebaseJwtManager";
 import "./NavBar.css";
 
 function NavBar() {
@@ -101,6 +102,7 @@ function NavBar() {
                       .signOut()
                       .then(() => {
                         // Sign-out successful.
+                        firebaseJwtManager.eraseToken();
                         showButton();
                       })
                       .catch((error) => {

@@ -3,6 +3,7 @@ import Rating from "@material-ui/lab/Rating";
 import Typography from "@material-ui/core/Typography";
 import { Button, Comment, Form, Header } from "semantic-ui-react";
 import firebase from "firebase";
+import firebaseJwtManager from "../firebaseJwtManager";
 
 import "./Comments.css";
 import http from "../http-common";
@@ -49,8 +50,7 @@ class Comments extends Component {
         // Post here
         http
           .post(
-            "http://3.143.248.67:8080/review/publish_review/" +
-              tProps.trail.id,
+            "http://3.143.248.67:8080/review/publish_review/" + tProps.trail.id,
             formData,
             {
               headers: {
@@ -108,29 +108,31 @@ class Comments extends Component {
             </div>
           ))}
         </div>
-        <Form clasName="add-comment">
-          <Form.Group>
-            <Form.TextArea
-              placeholder="Share your views!"
-              name="name"
-              // value={coommen}
-              onChange={this.handleChange}
-            />
-            <div className="comment-buttons">
-              <div>
-                <Typography component="legend">Rate this trail!</Typography>
-                <Rating
-                  size="large"
-                  name="simple-controlled"
-                  onChange={(event, newValue) => {
-                    this.setRating(newValue);
-                  }}
-                />
+        {firebaseJwtManager.getToken() ? (
+          <Form clasName="add-comment">
+            <Form.Group>
+              <Form.TextArea
+                placeholder="Share your views!"
+                name="name"
+                // value={coommen}
+                onChange={this.handleChange}
+              />
+              <div className="comment-buttons">
+                <div>
+                  <Typography component="legend">Rate this trail!</Typography>
+                  <Rating
+                    size="large"
+                    name="simple-controlled"
+                    onChange={(event, newValue) => {
+                      this.setRating(newValue);
+                    }}
+                  />
+                </div>
+                <Button content="Submit" onClick={this.postComment} />
               </div>
-              <Button content="Submit" onClick={this.postComment} />
-            </div>
-          </Form.Group>
-        </Form>
+            </Form.Group>
+          </Form>
+        ) : null}
       </Comment.Group>
     );
   }

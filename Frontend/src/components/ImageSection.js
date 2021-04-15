@@ -6,6 +6,8 @@ import Rating from "@material-ui/lab/Rating";
 import Typography from "@material-ui/core/Typography";
 import Toggle from "react-toggle";
 
+import firebaseJwtManager from "../firebaseJwtManager";
+
 class ImageSection extends Component {
   render() {
     let trail = this.props.trail;
@@ -49,7 +51,11 @@ class ImageSection extends Component {
                 className="image-btns"
                 buttonStyle="image-btn--outline"
                 buttonSize="image-btn--large"
-                eventClicked={this.props.newEvent}
+                eventClicked={
+                  firebaseJwtManager.getToken()
+                    ? this.props.newEvent
+                    : this.props.popUpRequestSignIn
+                }
                 // onClick={this.props.newEvent}
               >
                 EVENT

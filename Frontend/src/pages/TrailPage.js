@@ -33,6 +33,7 @@ class TrailPage extends Component {
       dimensions: [],
       imageList: [],
       redirect: false,
+      showPopUpRequestSignIn: false,
     };
     this.rateElementRef = React.createRef();
   }
@@ -141,10 +142,19 @@ class TrailPage extends Component {
       : this.setState({ showGallery: true });
   };
 
+  popUpRequestSignIn = () => {
+    this.setState({ showPopUpRequestSignIn: true });
+  };
+
+  closePopUpRequestSignIn = () => {
+    this.setState({ showPopUpRequestSignIn: false });
+  };
+
   render() {
     return (
       <>
         <ImageSection
+          popUpRequestSignIn={this.popUpRequestSignIn}
           rateClicked={this.executeScroll}
           pageUrlCopier={this.copyPageUrlToClipboard}
           newEvent={this.handleClickOpen}
@@ -226,6 +236,23 @@ class TrailPage extends Component {
             </Button>
             <Button onClick={this.submitEvent} color="primary">
               Submit
+            </Button>
+          </DialogActions>
+        </Dialog>
+        <Dialog open={this.state.showPopUpRequestSignIn}>
+          <DialogTitle id="alert-dialog-title">Login required</DialogTitle>
+          <DialogContent>
+            <DialogContentText id="alert-dialog-description">
+              This feature is only for registered users!
+            </DialogContentText>
+          </DialogContent>
+          <DialogActions>
+            <Button
+              onClick={this.closePopUpRequestSignIn}
+              color="primary"
+              autoFocus
+            >
+              OK
             </Button>
           </DialogActions>
         </Dialog>

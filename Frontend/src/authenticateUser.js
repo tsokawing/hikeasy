@@ -12,5 +12,3 @@ async function authenticateUser(email, password, isLogin) {
     console.log(err);
   }
 }
-
-// function AuthForm() ...

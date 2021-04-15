@@ -4,14 +4,38 @@ import { Redirect } from "react-router";
 import { auth, authUI } from "../firebase";
 import "../css/AuthForm.css";
 import firebase from "firebase";
+import firebaseJwtManager from "../firebaseJwtManager";
 
 import NewUserForm from "../components/NewUserForm";
 
 async function authenticateUser(email, password, isLogin) {
   try {
     const user = isLogin
-      ? await auth.signInWithEmailAndPassword(email, password)
-      : await auth.createUserWithEmailAndPassword(email, password);
+      ? auth
+          .signInWithEmailAndPassword(email, password)
+          .then((userCredential) => {
+            // Signed in
+            var user = userCredential.user;
+            firebaseJwtManager.getTokenFromFirebase();
+            console.log("Signed in");
+          })
+          .catch((error) => {
+            var errorCode = error.code;
+            var errorMessage = error.message;
+          })
+      : auth
+          .createUserWithEmailAndPassword(email, password)
+          .then((userCredential) => {
+            // Signed in
+            var user = userCredential.user;
+            // ...
+            firebaseJwtManager.getTokenFromFirebase();
+            console.log("Signed in (new user)");
+          })
+          .catch((error) => {
+            var errorCode = error.code;
+            var errorMessage = error.message;
+          });
   } catch (err) {
     console.log(err);
   }
@@ -24,7 +48,7 @@ function renderLoggedIn() {
     .currentUser.getIdToken(true)
     .then(function (idToken) {
       // Send token to backend via HTTPS
-      console.log(idToken);
+      // console.log(idToken);
     })
     .catch(function (error) {
       // Handle error
@@ -60,6 +84,17 @@ function AuthForm() {
       authUI.start(".google-login", {
         signInOptions: [firebase.auth.GoogleAuthProvider.PROVIDER_ID],
         signInFlow: "redirect",
+        callbacks: {
+          signInSuccessWithAuthResult: function (authResult, redirectUrl) {
+            // User successfully signed in.
+            // Return type determines whether we continue the redirect automatically
+            // or whether we leave that to developer to handle.
+
+            firebaseJwtManager.getTokenFromFirebase();
+            console.log("GOOGLE successfully signed in");
+            return true;
+          },
+        },
       });
     }
   }, [user]);

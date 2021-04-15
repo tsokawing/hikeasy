@@ -8,6 +8,8 @@ import { Link } from "react-router-dom";
 import LoadingOverlay from "react-loading-overlay";
 import "./TrailListPage.css";
 
+import firebaseJwtManager from "../firebaseJwtManager";
+
 class TrailListPage extends Component {
   constructor() {
     super();
@@ -28,6 +30,8 @@ class TrailListPage extends Component {
   // };
 
   componentDidMount() {
+    console.log(firebaseJwtManager.getToken());
+
     fetch(
       "http://ec2-3-143-248-67.us-east-2.compute.amazonaws.com:8080/trails/get_all"
     )
@@ -61,7 +65,9 @@ class TrailListPage extends Component {
               onRequestSearch={() => this.filterTrails(this.state.keyword)}
             />
             <div className="trail-button">
-              <Link to="/new-trail">
+              <Link
+                to={firebaseJwtManager.getToken() ? "/new-trail" : "/login"}
+              >
                 <Button content="New Trail" />
               </Link>
             </div>
