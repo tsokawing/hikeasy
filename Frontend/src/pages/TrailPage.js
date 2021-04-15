@@ -222,7 +222,7 @@ class TrailPage extends Component {
               autoFocus
               margin="dense"
               id="name"
-              label="Discription"
+              label="Description"
               // type="email"
               fullWidth
               inputRef={(c) => {
