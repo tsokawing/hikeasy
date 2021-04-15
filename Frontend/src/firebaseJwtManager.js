@@ -13,19 +13,24 @@ const firebaseJwtManager = () => {
 
   const getToken = () => {
     const cookies = new Cookies();
-    return cookies.get('jwtToken', {doNotParse: true});
+    let tempJwt = cookies.get('jwtToken');
+    if (tempJwt.length == 0) {
+      // this is definitely invalid! no jwt has length of 0!
+      return null;
+    }
+    return tempJwt;
   };
 
   const getTokenFromFirebase = async function () {
     // Get JWT for backend verification
-    let jwt = undefined;
+    let jwt = null;
     try {
       jwt = await firebase.auth().currentUser.getIdToken(true);
       console.log("JWT (firebase) successfully set");
       setToken(jwt);
     } catch (err) {
       console.log(err);
-      setToken(undefined);
+      setToken('');
     }
     return jwt;
   };
@@ -36,7 +41,8 @@ const firebaseJwtManager = () => {
   //   };
 
   const eraseToken = () => {
-    setToken(undefined);
+    setToken('');
+    console.log(getToken())
     return true;
   };
 
