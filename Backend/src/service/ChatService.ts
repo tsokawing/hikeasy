@@ -127,16 +127,18 @@ export class ChatService {
       return;
     }
     // default to empty string
-    const eventChat = req.body['comment'] ?? '';
+    const chatMessage = req.body['comment'] ?? '';
     // things are OK
-    // load the existing review OR make a new review
-    const chat =
-      (await HikEasyApp.Instance.EntityManager?.findOne(Chat, {
-        where: { user: targetUser, event: targetEvent },
-      })) ?? new Chat();
+    // here in chat, it is always a new chat message
+    // but still, we need to ensure the chat has contents
+    if (chatMessage.length == 0) {
+      res.json({ success: false, message: 'Chat is empty' });
+      return;
+    }
+    const chat = new Chat();
     chat.user = targetUser;
     chat.event = targetEvent;
-    chat.comment = eventChat;
+    chat.comment = chatMessage;
 
     // no problem, can insert!
     // side effect: in mysql, if nothing is changed, then it will not trigger row-update at all
