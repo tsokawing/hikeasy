@@ -1,5 +1,5 @@
 import firebase from "firebase";
-import Cookies from 'universal-cookie';
+import Cookies from "universal-cookie";
 
 const firebaseJwtManager = () => {
   // creates an object for managing the JWT in the entire frontend
@@ -7,17 +7,18 @@ const firebaseJwtManager = () => {
 
   const setToken = (theJwt) => {
     const cookies = new Cookies();
-    cookies.set('jwtToken', theJwt, {path: '/'});
+    cookies.set("jwtToken", theJwt, { path: "/" });
     // already set cookie!
   };
 
   const getToken = () => {
     const cookies = new Cookies();
-    let tempJwt = cookies.get('jwtToken');
-    if (tempJwt.length == 0) {
-      // this is definitely invalid! no jwt has length of 0!
+    let tempJwt = cookies.get("jwtToken");
+
+    if (tempJwt == undefined) {
       return null;
     }
+
     return tempJwt;
   };
 
@@ -30,7 +31,7 @@ const firebaseJwtManager = () => {
       setToken(jwt);
     } catch (err) {
       console.log(err);
-      setToken('');
+      setToken("");
     }
     return jwt;
   };
@@ -41,8 +42,8 @@ const firebaseJwtManager = () => {
   //   };
 
   const eraseToken = () => {
-    setToken('');
-    console.log(getToken())
+    setToken("");
+    console.log(getToken());
     return true;
   };
 
