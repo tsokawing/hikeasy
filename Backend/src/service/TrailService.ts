@@ -34,9 +34,9 @@ export class TrailService {
     app.get('/trails/get_photo', this.returnPhotoButThereIsNoGivenFileName);
     app.post('/trails/delete_photo');
 
-    app.get('/trails/fake_add', this.testFakeAddTrail);
-    app.get('/trails/search_test', this.searchSomeTrailTest);
-    app.post('/trails/post_test', this.postTest);
+    // app.get('/trails/fake_add', this.testFakeAddTrail);
+    // app.get('/trails/search_test', this.searchSomeTrailTest);
+    // app.post('/trails/post_test', this.postTest);
     // this.testtest();
   }
 
