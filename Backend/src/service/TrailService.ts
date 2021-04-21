@@ -32,7 +32,7 @@ export class TrailService {
     app.get('/trails/get_trail_photos/:trailID', this.getTrailPhotos);
     app.get('/trails/get_photo/:fileName', this.returnPhotoWithFileName);
     app.get('/trails/get_photo', this.returnPhotoButThereIsNoGivenFileName);
-    app.post('/trails/delete_photo');
+    // app.post('/trails/delete_photo');
 
     // app.get('/trails/fake_add', this.testFakeAddTrail);
     // app.get('/trails/search_test', this.searchSomeTrailTest);
