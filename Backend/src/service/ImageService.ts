@@ -1,6 +1,5 @@
 import { Application, Request, Response } from 'express';
 import { Photo } from '../entity/Photo';
-import { Trail } from '../entity/Trail';
 import { User } from '../entity/User';
 import { Event } from '../entity/Event';
 import { HikEasyApp } from '../HikEasyApp';
