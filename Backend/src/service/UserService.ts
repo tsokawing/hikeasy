@@ -6,8 +6,8 @@ import { FirebaseAuthenticator } from '../FirebaseAuthenticator';
 
 export class UserService {
   public constructor(app: Application) {
-    app.get('/users/get_all', this.getAllUsers);
-    app.post('/users/add_user', UserService.addNewUsers);
+    // because we now use firebase for authentication, there is no need to have separate endpoints for user registration
+    // the registration is done by frontend, we are just here to ensure registered users have their corresponding entries in our db
     app.post(
       '/users/check_registry',
       FirebaseAuthenticator.authenticate,
@@ -19,18 +19,6 @@ export class UserService {
       this.loginOrRegisterUser
     );
     app.post('/users/update_user/:userID', this.updateUsers);
-  }
-
-  private async getAllUsers(req: Request, res: Response) {
-    const users = await HikEasyApp.Instance.EntityManager?.find(User);
-    //console.log(users);
-    if (users == undefined) {
-      // failed to connect to database
-      ResponseUtil.respondWithDatabaseUnreachable(res);
-    } else {
-      // ok
-      res.status(200).json(users);
-    }
   }
 
   private async checkUserRegistration(req: Request, res: Response) {
