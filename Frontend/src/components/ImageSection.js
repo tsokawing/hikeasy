@@ -12,7 +12,7 @@ class ImageSection extends Component {
   render() {
     let trail = this.props.trail;
 
-    let getPhoto = "http://3.143.248.67:8080/trails/get_photo/";
+    let getPhoto = "http://3.143.248.67:8080/image/";
     let defaultBackground =
       // "https://previews.123rf.com/images/latkun/latkun1712/latkun171200130/92172856-empty-transparent-background-seamless-pattern.jpg";
       "https://forums.autodesk.com/autodesk/attachments/autodesk/124/166489/1/pendant_v1_2018-Aug-16_01-28-21PM-000_CustomizedView22680472167_png_alpha.png";

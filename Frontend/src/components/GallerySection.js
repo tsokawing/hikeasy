@@ -47,7 +47,7 @@ class GallerySection extends Component {
 
       // for each, concat
       let get_photo =
-        "http://ec2-3-143-248-67.us-east-2.compute.amazonaws.com:8080/trails/get_photo/";
+        "http://ec2-3-143-248-67.us-east-2.compute.amazonaws.com:8080/image/";
       let source = get_photo.concat(item);
 
       let dummy = async function () {
