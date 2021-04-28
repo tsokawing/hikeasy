@@ -53,6 +53,7 @@ export class EventService {
     const targetEventID = parseInt(req.params['eventID']);
     if (Number.isNaN(targetEventID)) {
       res.json({
+        success: false,
         message: 'No matching event',
       });
       return;
