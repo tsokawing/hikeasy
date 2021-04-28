@@ -341,3 +341,71 @@ We have finished the prototype of some api, inside the 'service' directory and w
     * `404` 
   * **Resonpse:** 
     * `Failed to send photo (${fullFileName}): ` + err` 
+
+
+********************************************************************************************************************************************************************
+
+**ImageService API**
+----
+  <_ API endpoints for uploading and getting images for display. _>
+
+* **URL**
+
+  * Get an image with a certain filename
+    * <_ http://localhost:8080/image/:fileName _>  `GET` 
+
+    * <_ http://ec2-18-188-120-239.us-east-2.compute.amazonaws.com:8080/image/:fileName _> `GET` 
+  
+  * Upload an image to the server 
+    * <_ http://localhost:8080/image/upload/ _> `GET` 
+  
+    * <_ http://ec2-18-188-120-239.us-east-2.compute.amazonaws.com:8080/image/upload/ _> `GET` 
+
+***************************************************************************************************************************
+
+* ** /image/:fileName URL Params**
+     
+   **Required:**
+   `fileName`: a filename of the image requested; should be obtained from other endpoints for their own purposes
+
+   **Optional:**
+    `NA`
+    
+* **Data Params**
+    `NA`
+
+* **Success Response:**
+
+  * **Response:** (a downloadable image)
+ 
+* **Error Response:**
+
+  * **Resonpse:** (HTTP status 404 (Not Found) or other appropriate status code)
+
+* **Sample Call:**
+  This is intended to be used as if it is an actual file path because it returns an actual image. Pass the URL to file-loading modules or image-loading modules and it should load by itself. The actual sample code depends on the module to be used.
+
+  ****************************************************************************************************************************
+ 
+ * ** /image/upload URL Params**
+     
+   **Required:**
+   `NA`
+
+    **Optional:**
+    `NA`
+    
+* **Body Form-Data Params**
+    `eventID = int`
+    `photos = (files)`
+
+* **Success Response:**
+
+  * **Success:** `true`
+    **Resonpse:** `{ uploadStatus }` (contains details of each upload)
+ 
+* **Error Response:**
+
+  * **Resonpse:** 
+    `No files were uploaded` : the photos array is empty
+    
