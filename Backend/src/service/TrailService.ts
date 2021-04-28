@@ -90,24 +90,15 @@ export class TrailService {
     trail.length = Number.parseFloat(req.body['trailLength']);
     trail.city = req.body['trailCity'] ?? '';
     if (trail.name === undefined) {
-      res.json({
-        success: false,
-        message: 'Missing trail name',
-      });
+      ResponseUtil.respondWithError(res, 'Missing trail name');
       return;
     }
     if (trail.name.length == 0) {
-      res.json({
-        success: false,
-        message: 'Trail name cannot be empty',
-      });
+      ResponseUtil.respondWithError(res, 'Trail name cannot be empty');
       return;
     }
     if (trail.difficulty === undefined) {
-      res.json({
-        success: false,
-        message: 'Missing trail difficulty',
-      });
+      ResponseUtil.respondWithError(res, 'Missing trail difficulty');
       return;
     }
     if (trail.difficulty < 0 || trail.difficulty > 5) {
@@ -159,10 +150,7 @@ export class TrailService {
       trailID
     );
     if (targetedTrail == undefined) {
-      res.json({
-        success: false,
-        message: 'No such trail',
-      });
+      ResponseUtil.respondWithError(res, 'No such trail');
       return;
     }
     let somethingWasChanged = false;
@@ -170,10 +158,7 @@ export class TrailService {
     if (updatedTrailName !== undefined) {
       if (updatedTrailName.length == 0) {
         // cannot be empty
-        res.json({
-          success: false,
-          message: 'Trail name cannot be empty',
-        });
+        ResponseUtil.respondWithError(res, 'Trail name cannot be empty');
         return;
       }
       // name is non-empty
