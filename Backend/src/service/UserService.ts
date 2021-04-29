@@ -43,6 +43,7 @@ export class UserService {
       );
     } catch (error: unknown) {
       ResponseUtil.respondWithError_DirectlyFromException(res, error);
+      return;
     }
     const isRegistered = requestedUser !== undefined;
     res.json({
@@ -60,6 +61,7 @@ export class UserService {
       );
     } catch (error: unknown) {
       ResponseUtil.respondWithError_DirectlyFromException(res, error);
+      return;
     }
     if (requestedUser !== undefined) {
       // existing user, also passed firebase

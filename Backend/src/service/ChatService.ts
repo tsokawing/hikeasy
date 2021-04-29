@@ -107,6 +107,7 @@ export class ChatService {
       targetUser = await FirebaseAuthenticator.extractProperUserFromAuth(req);
     } catch (error: unknown) {
       ResponseUtil.respondWithError_DirectlyFromException(res, error);
+      return;
     }
     if (targetUser === undefined) {
       // auth failed
