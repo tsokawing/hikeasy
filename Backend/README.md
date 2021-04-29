@@ -127,27 +127,27 @@ We have finished the prototype of some api, inside the 'service' directory and w
   * Add a new trail
     * <_ http://localhost:8080/trails/add_trail _>  `POST` 
   
-    * <_ http:///3.143.248.67:8080/trails/add_trail _>  `POST` 
+    * <_ http://3.143.248.67:8080/trails/add_trail _>  `POST` 
     
   * Update a new trail with id 
     * <_ http://localhost:8080/trails/update_trail/:trailID _>  `POST` 
   
-    * <_ http:///3.143.248.67:8080/trails/update_trail/:trailID _>  `POST`  
+    * <_ http://3.143.248.67:8080/trails/update_trail/:trailID _>  `POST`  
   
   * Upload photo for trail with trail id 
     * <_ http://localhost:8080/trails/upload_photo/:trailID _>  `POST` 
   
-    * <_ http:///3.143.248.67:8080/trails/upload_photo/:trailID _>  `POST` 
+    * <_ http://3.143.248.67:8080/trails/upload_photo/:trailID _>  `POST` 
  
   * Get filename of photo with trail 
     * <_ http://localhost:8080/trails/get_trail_photos/:trailID _>  `GET`
   
-    * <_ http:///3.143.248.67:8080/trails/get_trail_photos/:trailID _>  `GET`     
+    * <_ http://3.143.248.67:8080/trails/get_trail_photos/:trailID _>  `GET`     
  
   * Get photo for with filename (deprecated)
     * <_ http://localhost:8080/trails/get_photo/:fileName _>  `GET` 
   
-    * <_ http:///3.143.248.67:8080/trails/get_photo/:fileName _>  `GET` 
+    * <_ http://3.143.248.67:8080/trails/get_photo/:fileName _>  `GET` 
 ***************************************************************************************************************************
 
 * ** /trails/get_all URL Params**
@@ -175,7 +175,7 @@ We have finished the prototype of some api, inside the 'service' directory and w
   componentDidMount() {
     //alllow cors to fetch ==> install cors extension for chrome
     fetch(
-      "http:///3.143.248.67:8080/trails/get_all"
+      "http://3.143.248.67:8080/trails/get_all"
     )
       .then((response) => response.json())
       .then((result) => {
@@ -354,12 +354,12 @@ We have finished the prototype of some api, inside the 'service' directory and w
   * Get an image with a certain filename
     * <_ http://localhost:8080/image/:fileName _>  `GET` 
 
-    * <_ http:///3.143.248.67:8080/image/:fileName _> `GET` 
+    * <_ http://3.143.248.67:8080/image/:fileName _> `GET` 
   
   * Upload an image to the server 
     * <_ http://localhost:8080/image/upload/ _> `GET` 
   
-    * <_ http:///3.143.248.67:8080/image/upload/ _> `GET` 
+    * <_ http://3.143.248.67:8080/image/upload/ _> `GET` 
 
 ***************************************************************************************************************************
 
@@ -420,27 +420,27 @@ We have finished the prototype of some api, inside the 'service' directory and w
   * Get all users from the database
     * <_ http://localhost:8080/users/get_all _>  `GET` 
 
-    * <_ http:///3.143.248.67:8080/users/get_all _> `GET` 
+    * <_ http://3.143.248.67:8080/users/get_all _> `GET` 
   
   * Create new user with the inputted user information
     * <_ http://localhost:8080/users/add_user _> `POST` 
   
-    * <_ http:///3.143.248.67:8080/users/add_user _> `POST` 
+    * <_ http://3.143.248.67:8080/users/add_user _> `POST` 
 
   * Check whether the user is registered or not 
     * <_ http://localhost:8080/users/check_registry _> `POST` 
   
-    * <_ http:///3.143.248.67:8080/users/check_registry _> `POST` 
+    * <_ http://3.143.248.67:8080/users/check_registry _> `POST` 
 
   * Check whether the user is registered or sign up
     * <_ http://localhost:8080/users/login_or_register _> `POST` 
   
-    * <_ http:///3.143.248.67:8080/users/login_or_register _> `POST` 
+    * <_ http://3.143.248.67:8080/users/login_or_register _> `POST` 
 
   * Update the existing use from the database
     * <_ http://localhost:8080/users/login_or_register _> `POST` 
   
-    * <_ http:///3.143.248.67:8080/users/login_or_register _> `POST` 
+    * <_ http://3.143.248.67:8080/users/login_or_register _> `POST` 
 
 ***************************************************************************************************************************
 
@@ -560,3 +560,225 @@ We have finished the prototype of some api, inside the 'service' directory and w
 
   * **Resonpse:** 
     `Error`
+
+********************************************************************************************************************************************************************
+**EventService API**
+----
+  <_ API endpoints for handling the operations of events. _>
+
+* **URL**
+
+  * Get all events from the database
+    * <_ http://localhost:8080/events/get_all _>  `GET` 
+
+    * <_ http://3.143.248.67:8080/events/get_all _> `GET` 
+  
+  * Get specific event from the database
+    * <_ http://localhost:8080/events/get_specific/:eventID _> `GET` 
+  
+    * <_ http://3.143.248.67:8080/events/get_specific/:eventID _> `GET` 
+
+  * Create new event to the database 
+    * <_ http://localhost:8080/events/add_event _> `POST` 
+  
+    * <_ http://3.143.248.67:8080/events/add_event _> `POST` 
+
+  * Check whether the user is registered or sign up
+    * <_ http://localhost:8080/events/update_event/:eventID _> `POST` 
+  
+    * <_ http://3.143.248.67:8080/events/update_event/:eventID _> `POST` 
+
+  * Update the existing use from the database
+    * <_ http://localhost:8080/events/join_event/:eventID _> `POST` 
+  
+    * <_ http://3.143.248.67:8080/events/join_event/:eventID _> `POST` 
+
+  * Update the existing use from the database
+    * <_ http://localhost:8080/events/exit_event/:eventID _> `POST` 
+  
+    * <_ http://3.143.248.67:8080/events/exit_event/:eventID _> `POST` 
+
+***************************************************************************************************************************
+
+* ** /events/get_all URL Params**
+     
+   **Required:**
+   `NA`
+
+   **Optional:**
+    `NA`
+    
+* **Data Params**
+    `NA`
+
+* **Success Response:**
+
+  * **Response:** (all events in the database)
+ 
+* **Error Response:**
+
+  * **Resonpse:** 
+    * `Database unreachable` 
+
+  ****************************************************************************************************************************
+ 
+ * ** /events/get_specific/:eventID URL Params**
+     
+   **Required:**
+    params: `eventID`
+   
+    **Optional:**
+    `NA`
+
+* **Success Response:**
+
+  * **Success:** `true`
+    **Resonpse:** `{ event }` specific event information for the database
+ 
+* **Error Response:**
+
+  * **Resonpse:** 
+    `No matching event` : the name is empty for user
+
+  ****************************************************************************************************************************
+ 
+ * ** /events/add_event URL Params**
+     
+   **Required:**
+    `NA`
+   
+    **Optional:**
+    `NA`
+    
+* **Body Form-Data Params**
+  `trailID`
+  `eventName`
+  `eventDescription`
+  `eventTime`
+
+* **Success Response:**
+
+  * **Success:** `true`
+    **Resonpse:** `{ Event Added }` specfic whether the event is added or not 
+ 
+* **Error Response:**
+
+  * **Resonpse:** 
+    `Trail not found` : the trail is not exist in the database
+    `Invalid date` : The date is not correct, format, earlier than the current date
+    `Missing event name` : the name is undefined for event
+    `Event name cannot be empty` : the name is empty 
+    `Database unreachable` : Cannot reach the database with the endpoint
+
+  ****************************************************************************************************************************
+ 
+ * ** /events/update_event/:eventID URL Params**
+     
+   **Required:**
+    params: `eventID`
+   
+    **Optional:**
+    `NA`
+    
+* **Body Form-Data Params**
+   `eventTime`
+   `eventDescription`
+   `eventName`
+   `userID`
+
+* **Success Response:**
+
+  * **Success:** `true`
+    **Resonpse:** `{ UpdatedEvent }` 
+ 
+* **Error Response:**
+
+  * **Success:** `false`
+    **Resonpse:** `{ No such Event }` 
+
+  * **Success:** `false`
+    **Resonpse:** `{ Event name cannot be empty }` 
+
+  * **Success:** `false`
+    **Resonpse:** `{ Nothing to update }` 
+  
+  * **Resonpse:** 
+    `Invalid event ID` : No event is found with the given event id 
+    `Database unreachable` : Cannot reach the database with the endpoint
+    `User not found` : No event is found with the given event id 
+
+  ****************************************************************************************************************************
+ 
+ * ** /get_photo/:eventID URL Params** 
+     
+   **Required:**
+    `eventID`
+   
+    **Optional:**
+    `NA`
+    
+* **Success Response:**
+
+  * **Success:** `true`
+    **Resonpse:** `{ photoFileNames: photos }` the photo filename associated with the evnet 
+ 
+* **Error Response:**
+
+  * **Resonpse:** 
+    `Invalid event ID` : No event is found with the given event id 
+
+* **Remark:**
+  We first use this endpoint to find the filename of photo of the events, to extract the photo we need to use the /image endpoint
+
+  ****************************************************************************************************************************
+ 
+ * ** /events/join_event/:eventID URL Params** 
+     
+   **Required:**
+    request: JWT token of users
+    params: `eventID`
+   
+    **Optional:**
+    `NA`
+    
+* **Success Response:**
+
+  * **Success:** `true`
+    **Resonpse:** `{ OK }` 
+ 
+* **Error Response:**
+
+  * **Resonpse:** 
+    `Invalid event ID` : No event is found with the given event id 
+    `Invalid user ID` : No event is found with the given event id 
+    `Database unreachable` : Cannot reach the database with the endpoint
+
+* **Remark:**
+  Similar format as the join event, this endpoint will add the user from the participant list of the event
+
+  ****************************************************************************************************************************************
+ 
+ * ** /events/exit_event/:eventID URL Params** 
+     
+   **Required:**
+    request: JWT token of users
+    params: `eventID`
+   
+    **Optional:**
+    `NA`
+    
+* **Success Response:**
+
+  * **Success:** `true`
+    **Resonpse:** `{ OK }` 
+ 
+* **Error Response:**
+
+  * **Resonpse:** 
+    `Invalid event ID` : No event is found with the given event id 
+    `Invalid user ID` : No event is found with the given event id 
+    `Database unreachable` : Cannot reach the database with the endpoint
+
+* **Remark:**
+  Similar format as the join event, this endpoint will delete the user from the participant list of the event
+  
