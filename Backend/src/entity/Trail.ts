@@ -1,3 +1,11 @@
+/*
+  What: This is used to initialize the Trail table in the HikEasy database
+  Who: Wong Wing Yan 1155125194
+  Where: backend database
+  Why: to construct the table for storing photos
+  How: use typeorm to connect to mysql database, and set up table for the trails
+*/
+
 import {
   Entity,
   PrimaryGeneratedColumn,
@@ -13,6 +21,7 @@ import { Review } from './Review';
 
 @Entity()
 export class Trail {
+  //attribute of Trail
   @PrimaryGeneratedColumn()
   id!: number;
 
@@ -56,10 +65,12 @@ export class Trail {
     default: '',
   })
   waypoints!: string;
-
+  
+  //one trail can have multiple reviews
   @OneToMany(() => Review, (review) => review.trail)
   reviews!: Review[];
-
+  
+  //one trail can have multiple photos
   @OneToMany(() => Photo, (photo) => photo.trail)
   photos!: Photo[];
 
