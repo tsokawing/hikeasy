@@ -354,12 +354,12 @@ We have finished the prototype of some api, inside the 'service' directory and w
   * Get an image with a certain filename
     * <_ http://localhost:8080/image/:fileName _>  `GET` 
 
-    * <_ http://ec2-18-188-120-239.us-east-2.compute.amazonaws.com:8080/image/:fileName _> `GET` 
+    * <_ http:///3.143.248.67:8080/image/:fileName _> `GET` 
   
   * Upload an image to the server 
     * <_ http://localhost:8080/image/upload/ _> `GET` 
   
-    * <_ http://ec2-18-188-120-239.us-east-2.compute.amazonaws.com:8080/image/upload/ _> `GET` 
+    * <_ http:///3.143.248.67:8080/image/upload/ _> `GET` 
 
 ***************************************************************************************************************************
 
