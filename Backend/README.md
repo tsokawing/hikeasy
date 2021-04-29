@@ -720,7 +720,7 @@ We have finished the prototype of some api, inside the 'service' directory and w
 * **Success Response:**
 
   * **Success:** `true`
-    **Resonpse:** `{ photoFileNames: photos }` the photo filename associated with the evnet 
+    **Resonpse:** `{ photoFileNames: photos }` the photo filename associated with the event 
  
 * **Error Response:**
 
@@ -781,4 +781,160 @@ We have finished the prototype of some api, inside the 'service' directory and w
 
 * **Remark:**
   Similar format as the join event, this endpoint will delete the user from the participant list of the event
+  *******************************************************************************************************************************************************************
+**ReviewService API**
+----
+  <_ API endpoints for handling the operations of reviews. _>
+
+* **URL**
+
+  * Get all reviews from the database
+    * <_ http://localhost:8080/review/get_all _>  `GET` 
+
+    * <_ http://3.143.248.67:8080/review/get_all _> `GET` 
   
+  * Get review of the trail from the database
+    * <_ http://localhost:8080/review/get_all_by_trail/:trailID _> `GET` 
+  
+    * <_ http://3.143.248.67:8080/review/get_all_by_trail/:trailID _> `GET` 
+
+  * Get review of the trail by particular user
+    * <_ http://localhost:8080/review/get_all_by_user/:userID _> `GET` 
+  
+    * <_ http://3.143.248.67:8080/review/get_all_by_user/:userID _> `GET` 
+
+  * Publish review for particular trail
+    * <_ http://localhost:8080/review/publish_review/:trailID _> `POST` 
+  
+    * <_ http://3.143.248.67:8080/review/publish_review/:trailID _> `POST` 
+
+  * Delete review for particular trail
+    * <_ http://localhost:8080/review/delete_review/:trailID _> `POST` 
+  
+    * <_ http://3.143.248.67:8080/review/delete_review/:trailID _> `POST` 
+
+***************************************************************************************************************************
+
+* ** /review/get_all URL Params**
+     
+   **Required:**
+   `NA`
+
+   **Optional:**
+    `NA`
+    
+* **Data Params**
+    `NA`
+
+* **Success Response:**
+
+  * **Response:** (all reviews in the database)
+ 
+* **Error Response:**
+
+  * **Resonpse:** 
+    `Database unreachable` 
+
+  ****************************************************************************************************************************
+ 
+ * ** /review/get_all_by_trail/:trailID URL Params**
+     
+   **Required:**
+    params: `trailID`
+   
+    **Optional:**
+    `NA`
+
+* **Success Response:**
+
+  * **Success:** `true`
+    **Resonpse:** `{ reviews }` reviews for the  particular trail
+ 
+* **Error Response:**
+
+  * **Resonpse:** 
+    `Database unreachable` 
+    `Invalid trail ID` : No trail is found with the given trail id 
+
+  ****************************************************************************************************************************
+ 
+ * ** /review/get_all_by_user/:userID URL Params**
+     
+   **Required:**
+    params: `userID`
+   
+   **Optional:**
+    `NA`
+
+* **Success Response:**
+
+  * **Success:** `true`
+    **Resonpse:** `{ reviews }` reviews for the  particular user
+ 
+* **Error Response:**
+
+  * **Resonpse:** 
+    `Invalid user ID` : No user is found with the given user id 
+
+  ****************************************************************************************************************************
+ 
+ * ** /review/publish_review URL Params**
+     
+   **Required:**
+    request: JWT token
+    params: `trailID`
+
+    **Optional:**
+    `NA`
+    
+* **Body Form-Data Params**
+   `comment`
+   `rating`
+
+* **Success Response:**
+
+  * **Success:** `true`
+    **Resonpse:** `{ OK }` 
+ 
+* **Error Response:**
+
+  * **Success:** `false`
+    **Resonpse:** `{ No such Event }` 
+
+  * **Success:** `false`
+    **Resonpse:** `{ Event name cannot be empty }` 
+
+  * **Success:** `false`
+    **Resonpse:** `{ Nothing to update }` 
+  
+  * **Resonpse:** 
+    `Some error occured but failed to extract error message` : Error in extracting the JWT token
+    `Trail not found` : Cannot find the trail
+    `Invalid trail ID` : No trail is found with the given trail id  
+    `Invalid user ID` : No user is found with the given user id 
+    `Invalid trail rating` : The rating input value is not valid 
+    `Database unreachable` 
+
+  ****************************************************************************************************************************
+ 
+ * ** /review/delete_review/:trailID URL Params** 
+     
+   **Required:**
+    params: `trailID`
+   
+    **Optional:**
+    `NA`
+    
+* **Success Response:**
+
+  * **Success:** `true`
+    **Resonpse:** `{ OK }` 
+ 
+* **Error Response:**
+
+  * **Resonpse:** 
+    `Some error occured but failed to extract error message` : Error in extracting the JWT token
+    `Trail not found` : Cannot find the trail
+    `Invalid trail ID` : No trail is found with the given trail id  
+    `Invalid user ID` : No user is found with the given user id 
+
