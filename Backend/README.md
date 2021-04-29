@@ -117,37 +117,37 @@ We have finished the prototype of some api, inside the 'service' directory and w
   * Get all trails
     * <_ http://localhost:8080/trails/get_all _>  `GET` 
 
-    * <_ http://ec2-18-188-120-239.us-east-2.compute.amazonaws.com:8080/trails/get_all _> `GET` 
+    * <_ http://3.143.248.67:8080/trails/get_all _> `GET` 
   
   * Get a trail with id 
     * <_ http://localhost:8080/trails/get_specific/:trailID _> `GET` 
   
-    * <_ http://ec2-18-188-120-239.us-east-2.compute.amazonaws.com:8080/trails/get_specific/:trailID _> `GET` 
+    * <_ http://3.143.248.67:8080/trails/get_specific/:trailID _> `GET` 
   
   * Add a new trail
     * <_ http://localhost:8080/trails/add_trail _>  `POST` 
   
-    * <_ http://ec2-18-188-120-239.us-east-2.compute.amazonaws.com:8080/trails/add_trail _>  `POST` 
+    * <_ http:///3.143.248.67:8080/trails/add_trail _>  `POST` 
     
   * Update a new trail with id 
     * <_ http://localhost:8080/trails/update_trail/:trailID _>  `POST` 
   
-    * <_ http://ec2-18-188-120-239.us-east-2.compute.amazonaws.com:8080/trails/update_trail/:trailID _>  `POST`  
+    * <_ http:///3.143.248.67:8080/trails/update_trail/:trailID _>  `POST`  
   
   * Upload photo for trail with trail id 
     * <_ http://localhost:8080/trails/upload_photo/:trailID _>  `POST` 
   
-    * <_ http://ec2-18-188-120-239.us-east-2.compute.amazonaws.com:8080/trails/upload_photo/:trailID _>  `POST` 
+    * <_ http:///3.143.248.67:8080/trails/upload_photo/:trailID _>  `POST` 
  
   * Get filename of photo with trail 
     * <_ http://localhost:8080/trails/get_trail_photos/:trailID _>  `GET`
   
-    * <_ http://ec2-18-188-120-239.us-east-2.compute.amazonaws.com:8080/trails/get_trail_photos/:trailID _>  `GET`     
+    * <_ http:///3.143.248.67:8080/trails/get_trail_photos/:trailID _>  `GET`     
  
   * Get photo for with filename (deprecated)
     * <_ http://localhost:8080/trails/get_photo/:fileName _>  `GET` 
   
-    * <_ http://ec2-18-188-120-239.us-east-2.compute.amazonaws.com:8080/trails/get_photo/:fileName _>  `GET` 
+    * <_ http:///3.143.248.67:8080/trails/get_photo/:fileName _>  `GET` 
 ***************************************************************************************************************************
 
 * ** /trails/get_all URL Params**
@@ -175,7 +175,7 @@ We have finished the prototype of some api, inside the 'service' directory and w
   componentDidMount() {
     //alllow cors to fetch ==> install cors extension for chrome
     fetch(
-      "http://ec2-18-188-120-239.us-east-2.compute.amazonaws.com:8080/trails/get_all"
+      "http:///3.143.248.67:8080/trails/get_all"
     )
       .then((response) => response.json())
       .then((result) => {
