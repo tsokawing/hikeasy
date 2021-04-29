@@ -1,3 +1,13 @@
+/*
+  What: This is used to implement all the operation regarding the chat post in the events, we can POST and GET through the /chat endpoint to the server
+  Who: Tsang Tsz Kin Brian 1155126813
+  Where: endpoint for the /chat
+  Why: To implement a endpoint to allow frontend to GET and POST, interacting with HikEasy database
+  How: use typeorm to connect to mysql database, and allow frontend to use the endpoint to operate the data of the database
+*/
+
+//it reuse the reviewService.ts code 
+//useful import
 import { Application, Request, Response } from 'express';
 import { Review } from '../entity/Review';
 import { Chat } from '../entity/Chat';
@@ -8,13 +18,14 @@ import { HikEasyApp } from '../HikEasyApp';
 import { ResponseUtil } from '../util/ResponseUtil';
 import { UserUtil } from '../util/UserUtil';
 
+//Define class for the Chat
 export class ChatService {
+  //setting up the endpoint
   public constructor(app: Application) {
     app.get('/chat/get_all', this.getAllChats);//done
     app.get('/chat/get_all_by_event', this.getAllChatOfEvent_NoEventID); //done
     app.get('/chat/get_all_by_event/:eventID', this.getAllChatsOfEvent);//done
     app.post('/chat/publish_chat', this.publishChat_NoEventID); //done
-
     app.post(
       '/chat/publish_chat/:eventID',
       FirebaseAuthenticator.authenticate,
@@ -23,21 +34,11 @@ export class ChatService {
       // },
       this.publishChat
     );
-
-    
-
-    //Not used for demo
-    // app.get('/review/get_all_by_user', this.getAllReviewsByUser_NoUserID);
-    // app.get('/review/get_all_by_user/:userID', this.getAllReviewsByUser);
-    // app.post('/review/delete_review', this.deleteReview_NoTrailID);
-    // app.post(
-    //     '/review/delete_review/:trailID',
-    //     FirebaseAuthenticator.authenticate,
-    //     this.deleteReview
-    //   );
   }
 
+  //use typeorm to get all chats from database
   private async getAllChats(req: Request, res: Response) {
+    //use typeorm
     const chats = await HikEasyApp.Instance.EntityManager?.find(Chat);
     if (chats == undefined) {
       // failed to connect to database
@@ -52,12 +53,13 @@ export class ChatService {
     }
   }
 
+  //handle users using endpoint without params
   private async getAllChatOfEvent_NoEventID(req: Request, res: Response) {
     res.json({success: false, response: "Missing Event"})
     return;
   }
 
-
+  //use typeorm to get all chats of the events
   private async getAllChatsOfEvent(req: Request, res: Response) {
     if (HikEasyApp.Instance.EntityManager == undefined) {
         res.json({success: false, response: "Cannot find the database"})
@@ -79,12 +81,6 @@ export class ChatService {
       },
       where: [{ event : targetEventID }],
     });
-    // const reviews = await HikEasyApp.Instance.EntityManager?.createQueryBuilder(
-    // Review,
-    // 'review'
-    // )
-    // .where('review.trailId = :trailId', { trailId: targetTrailID })
-    // .getMany();
     res.json({
       success: true,
       response: chats,
@@ -156,71 +152,4 @@ export class ChatService {
     });
   }
 
-//   private async getAllReviewsByUser_NoUserID(req: Request, res: Response) {
-//     ResponseUtil.respondWithMissingUserID(res);
-//   }
-
-//   private async getAllReviewsByUser(req: Request, res: Response) {
-//     const targetUserID = parseInt(req.params['userID']);
-//     if (Number.isNaN(targetUserID)) {
-//       ResponseUtil.respondWithInvalidUserID(res);
-//       return;
-//     }
-//     const reviews = await HikEasyApp.Instance.EntityManager?.find(Review, {
-//       where: [{ user: targetUserID }],
-//     });
-//     // const reviews = await HikEasyApp.Instance.EntityManager?.createQueryBuilder(
-//     // Review,
-//     // 'review'
-//     // )
-//     // .where('review.trailId = :trailId', { trailId: targetUserID })
-//     // .getMany();
-//     res.json({
-//       success: true,
-//       response: reviews,
-//     });
-//     return;
-//   }
-
-//   private async deleteReview_NoTrailID(req: Request, res: Response) {
-//     ResponseUtil.respondWithMissingTrailID(res);
-//   }
-
-//   private async deleteReview(req: Request, res: Response) {
-//     let targetUser = undefined;
-//     try {
-//       targetUser = await FirebaseAuthenticator.extractProperUserFromAuth(req);
-//     } catch (error: unknown) {
-//       ResponseUtil.respondWithError_DirectlyFromException(res, error);
-//       return;
-//     }
-//     if (targetUser === undefined) {
-//       // auth failed
-//       ResponseUtil.respondWithInvalidUserID(res);
-//       return;
-//     }
-
-//     const trailID = Number.parseInt(req.params['trailID']);
-//     if (Number.isNaN(trailID)) {
-//       ResponseUtil.respondWithInvalidTrailID(res);
-//       return;
-//     }
-//     const targetTrail = await HikEasyApp.Instance.EntityManager?.findOne(
-//       Trail,
-//       trailID
-//     );
-//     if (targetTrail === undefined) {
-//       ResponseUtil.respondWithError(res, 'Trail not found');
-//       return;
-//     }
-
-//     await HikEasyApp.Instance.EntityManager?.softDelete(Trail, {
-//       where: { user: targetUser, trail: targetTrail },
-//     });
-//     res.json({
-//       success: true,
-//       message: 'OK',
-//     });
-//     return;
-//   }
 }
