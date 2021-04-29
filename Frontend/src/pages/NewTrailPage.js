@@ -21,6 +21,8 @@ import DialogContent from "@material-ui/core/DialogContent";
 import DialogContentText from "@material-ui/core/DialogContentText";
 import DialogTitle from "@material-ui/core/DialogTitle";
 
+import firebaseJwtManager from "../firebaseJwtManager";
+
 const difficulties = [
   {
     value: "5",
@@ -84,6 +86,7 @@ class NewTrailPage extends Component {
         formData,
         {
           headers: {
+            'Authentication': firebaseJwtManager.getToken(),
             "Content-Type": "multipart/form-data",
           },
         }
@@ -121,6 +124,7 @@ class NewTrailPage extends Component {
               formData,
               {
                 headers: {
+                  "Authentication": firebaseJwtManager.getToken(),
                   "Content-Type": "multipart/form-data",
                 },
               }
