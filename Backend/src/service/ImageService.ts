@@ -4,12 +4,17 @@ import { User } from '../entity/User';
 import { Event } from '../entity/Event';
 import { HikEasyApp } from '../HikEasyApp';
 import { ResponseUtil } from '../util/ResponseUtil';
+import { FirebaseAuthenticator } from '../FirebaseAuthenticator';
 
 export class ImageService {
   public constructor(app: Application) {
     app.get('/image/', this.returnPhotoButThereIsNoGivenFileName);
     app.get('/image/:fileName', this.returnPhotoWithFileName);
-    app.post('/image/upload', this.handleUploadPhotos);
+    app.post(
+      '/image/upload',
+      FirebaseAuthenticator.authenticate,
+      this.handleUploadPhotos
+    );
   }
 
   private async returnPhotoWithFileName(req: Request, res: Response) {
@@ -36,20 +41,18 @@ export class ImageService {
 
   private async handleUploadPhotos(req: Request, res: Response) {
     // check userID exists!
-    const userID = req.body['userID'];
-    if (userID === undefined) {
-      ResponseUtil.respondWithMissingUserID(res);
-      return;
-    }
     if (HikEasyApp.Instance.EntityManager == undefined) {
       ResponseUtil.respondWithDatabaseUnreachable(res);
       return;
     }
     // load user object/check user exists
-    const uploaderUser = await HikEasyApp.Instance.EntityManager.findOne(
-      User,
-      userID
-    );
+    let uploaderUser: User | undefined = undefined;
+    try {
+      uploaderUser = await FirebaseAuthenticator.extractProperUserFromAuth(req);
+    } catch (e) {
+      ResponseUtil.respondWithError_DirectlyFromException(res, e);
+      return;
+    }
     if (uploaderUser === undefined) {
       ResponseUtil.respondWithInvalidUserID(res);
       return;
@@ -95,7 +98,8 @@ export class ImageService {
             !photo.mimetype.startsWith('image/') ||
             (!photo.name.endsWith('.jpg') &&
               !photo.name.endsWith('.jpeg') &&
-              !photo.name.endsWith('.png'))
+              !photo.name.endsWith('.png')) ||
+            uploaderUser === undefined
           ) {
             // not a photo! or, not accepted photo type! rejected
             uploadStatus.push({
