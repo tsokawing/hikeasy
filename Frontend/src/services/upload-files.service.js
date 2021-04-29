@@ -11,6 +11,7 @@ class UploadFilesService {
 
     return http.post("/trails/upload_profile_pic/" + trailID, formData, {
       headers: {
+        "Authentication": firebaseJwtManager.getToken(),
         "Content-Type": "multipart/form-data",
       },
       onUploadProgress,
