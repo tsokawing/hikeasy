@@ -17,9 +17,6 @@ export class ReviewService {
     app.post(
       '/review/publish_review/:trailID',
       FirebaseAuthenticator.authenticate,
-      // function (req: Request, res: Response, next: NextFunction) {
-      //   passport.authenticate('jwt', { session: false })(req, res, next);
-      // },
       this.publishReview
     );
     app.post('/review/delete_review', this.deleteReview_NoTrailID);
