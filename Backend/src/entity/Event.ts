@@ -24,6 +24,7 @@ import { Chat } from './Chat';
 
 @Entity()
 export class Event {
+  //attribute for the event table
   @PrimaryGeneratedColumn()
   id!: number;
 
@@ -46,12 +47,15 @@ export class Event {
   @CreateDateColumn()
   createdAt!: Date;
 
+  //one event can have one trail
   @ManyToOne(() => Trail, (trail) => trail.events, { eager: true })
   trail: Trail | undefined;
 
+  //one event can have multiple chat
   @OneToMany(() => Chat, (chat) => chat.event)
   chats!: Chat[];
-
+  
+  //one event can have multiple participants
   @ManyToMany(() => User, (user) => user.events, { eager: true })
   @JoinTable()
   participants!: User[];
