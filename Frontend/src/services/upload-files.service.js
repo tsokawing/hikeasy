@@ -1,4 +1,5 @@
 import http from "../http-common";
+import firebaseJwtManager from "../firebaseJwtManager";
 
 class UploadFilesService {
   uploadProfilePicForTrail(trailID, file, onUploadProgress) {
@@ -25,6 +26,7 @@ class UploadFilesService {
 
     return http.post("/trails/upload_photo/2", formData, {
       headers: {
+        "Authentication": firebaseJwtManager.getToken(),
         "Content-Type": "multipart/form-data",
       },
       onUploadProgress,
