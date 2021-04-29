@@ -39,8 +39,16 @@ export class TrailService {
       this.deleteTrail
     );
 
-    app.post('/trails/upload_photo', this.uploadPhotosForTrail_NoTrailID);
-    app.post('/trails/upload_photo/:trailID', this.uploadPhotosForTrail);
+    app.post(
+      '/trails/upload_photo',
+      FirebaseAuthenticator.authenticate,
+      this.uploadPhotosForTrail_NoTrailID
+    );
+    app.post(
+      '/trails/upload_photo/:trailID',
+      FirebaseAuthenticator.authenticate,
+      this.uploadPhotosForTrail
+    );
     app.post(
       '/trails/upload_profile_pic',
       this.uploadProfilePicForTrail_NoTrailID
