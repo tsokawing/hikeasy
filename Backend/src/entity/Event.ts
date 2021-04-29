@@ -1,3 +1,11 @@
+/*
+  What: This is used to initialize the Event table in the HikEasy database
+  Who: Tsang Tsz Kin Brian 1155126813
+  Where: backend database
+  Why: to construct the table for storing events
+  How: use typeorm to connect to mysql database, and set up table for events
+*/
+
 import {
   Entity,
   PrimaryGeneratedColumn,
