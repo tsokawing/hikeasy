@@ -13,9 +13,21 @@ export class TrailService {
     app.get('/trails/get_all', this.getAllTrails);
     app.get('/trails/get_specific', this.getSpecificTrail_NoTrailID);
     app.get('/trails/get_specific/:trailID', this.getSpecificTrail);
-    app.post('/trails/add_trail', this.addTrail);
-    app.post('/trails/update_trail', this.updateTrail_NoTrailID);
-    app.post('/trails/update_trail/:trailID', this.updateTrail);
+    app.post(
+      '/trails/add_trail',
+      FirebaseAuthenticator.authenticate,
+      this.addTrail
+    );
+    app.post(
+      '/trails/update_trail',
+      FirebaseAuthenticator.authenticate,
+      this.updateTrail_NoTrailID
+    );
+    app.post(
+      '/trails/update_trail/:trailID',
+      FirebaseAuthenticator.authenticate,
+      this.updateTrail
+    );
     app.post(
       '/trails/delete_trail',
       FirebaseAuthenticator.authenticate,
