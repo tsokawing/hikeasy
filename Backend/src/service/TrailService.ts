@@ -51,10 +51,12 @@ export class TrailService {
     );
     app.post(
       '/trails/upload_profile_pic',
+      FirebaseAuthenticator.authenticate,
       this.uploadProfilePicForTrail_NoTrailID
     );
     app.post(
       '/trails/upload_profile_pic/:trailID',
+      FirebaseAuthenticator.authenticate,
       this.uploadProfilePicForTrail
     );
     app.get('/trails/get_trail_photos', this.getTrailPhotos_NoTrailID);
@@ -273,21 +275,18 @@ export class TrailService {
   }
 
   private async uploadPhotosForTrail(req: Request, res: Response) {
-    // check userID exists!
-    const userID = req.body['userID'];
-    if (userID === undefined) {
-      ResponseUtil.respondWithMissingUserID(res);
-      return;
-    }
     if (HikEasyApp.Instance.EntityManager == undefined) {
       ResponseUtil.respondWithDatabaseUnreachable(res);
       return;
     }
     // load user object/check user exists
-    const uploaderUser = await HikEasyApp.Instance.EntityManager.findOne(
-      User,
-      userID
-    );
+    let uploaderUser: User | undefined = undefined;
+    try {
+      uploaderUser = await FirebaseAuthenticator.extractProperUserFromAuth(req);
+    } catch (e) {
+      ResponseUtil.respondWithError_DirectlyFromException(res, e);
+      return;
+    }
     if (uploaderUser === undefined) {
       ResponseUtil.respondWithInvalidUserID(res);
       return;
@@ -325,7 +324,8 @@ export class TrailService {
             !photo.mimetype.startsWith('image/') ||
             (!photo.name.endsWith('.jpg') &&
               !photo.name.endsWith('.jpeg') &&
-              !photo.name.endsWith('.png'))
+              !photo.name.endsWith('.png')) ||
+            uploaderUser === undefined
           ) {
             // not a photo! or, not accepted photo type! rejected
             uploadStatus.push({
@@ -406,20 +406,18 @@ export class TrailService {
 
   private async uploadProfilePicForTrail(req: Request, res: Response) {
     // check userID exists!
-    const userID = req.body['userID'];
-    if (userID === undefined) {
-      ResponseUtil.respondWithMissingUserID(res);
-      return;
-    }
     if (HikEasyApp.Instance.EntityManager == undefined) {
       ResponseUtil.respondWithDatabaseUnreachable(res);
       return;
     }
     // load user object/check user exists
-    const uploaderUser = await HikEasyApp.Instance.EntityManager.findOne(
-      User,
-      userID
-    );
+    let uploaderUser = undefined;
+    try {
+      uploaderUser = await FirebaseAuthenticator.extractProperUserFromAuth(req);
+    } catch (e) {
+      ResponseUtil.respondWithError_DirectlyFromException(res, e);
+      return;
+    }
     if (uploaderUser === undefined) {
       ResponseUtil.respondWithInvalidUserID(res);
       return;
