@@ -409,3 +409,154 @@ We have finished the prototype of some api, inside the 'service' directory and w
   * **Resonpse:** 
     `No files were uploaded` : the photos array is empty
     
+********************************************************************************************************************************************************************
+
+**UserService API**
+----
+  <_ API endpoints for users to sign in and update user information. _>
+
+* **URL**
+
+  * Get all users from the database
+    * <_ http://localhost:8080/users/get_all _>  `GET` 
+
+    * <_ http:///3.143.248.67:8080/users/get_all _> `GET` 
+  
+  * Create new user with the inputted user information
+    * <_ http://localhost:8080/users/add_user _> `POST` 
+  
+    * <_ http:///3.143.248.67:8080/users/add_user _> `POST` 
+
+  * Check whether the user is registered or not 
+    * <_ http://localhost:8080/users/check_registry _> `POST` 
+  
+    * <_ http:///3.143.248.67:8080/users/check_registry _> `POST` 
+
+  * Check whether the user is registered or sign up
+    * <_ http://localhost:8080/users/login_or_register _> `POST` 
+  
+    * <_ http:///3.143.248.67:8080/users/login_or_register _> `POST` 
+
+  * Update the existing use from the database
+    * <_ http://localhost:8080/users/login_or_register _> `POST` 
+  
+    * <_ http:///3.143.248.67:8080/users/login_or_register _> `POST` 
+
+***************************************************************************************************************************
+
+* ** /users/get_all URL Params**
+     
+   **Required:**
+   `NA`
+
+   **Optional:**
+    `NA`
+    
+* **Data Params**
+    `NA`
+
+* **Success Response:**
+
+  * **Response:** (all user in the database)
+ 
+* **Error Response:**
+
+  * **Resonpse:** 
+    * `Database unreachable` 
+
+  ****************************************************************************************************************************
+ 
+ * ** /users/add_user URL Params**
+     
+   **Required:**
+    `NA`
+   
+    **Optional:**
+    `NA`
+    
+* **Body Form-Data Params**
+   `userFirstname`
+   `userFirstname`
+   `userAge`
+   `userEmail`
+   `userPassword`
+
+* **Success Response:**
+
+  * **Success:** `true`
+    **Resonpse:** `{ Done }` 
+ 
+* **Error Response:**
+
+  * **Resonpse:** 
+    `Missing User Name` : the name is empty for user
+    `Missing user age` : the age is empty for user
+
+  ****************************************************************************************************************************
+ 
+ * ** /users/check_registry URL Params**
+     
+   **Required:**
+    `NA`
+   
+    **Optional:**
+    `NA`
+    
+* **Body Form-Data Params**
+   requset: JWT token of the user
+
+* **Success Response:**
+
+  * **Success:** `true`
+    **Resonpse:** `{ isRegistered }` a counter that indicate user is registered or not
+ 
+* **Error Response:**
+
+  * **Resonpse:** 
+    `Some error occured but failed to extract error message` : the name is empty for user
+
+  ****************************************************************************************************************************
+ 
+ * ** /users/check_registry URL Params**
+     
+   **Required:**
+    `NA`
+   
+    **Optional:**
+    `NA`
+    
+* **Body Form-Data Params**
+   requset: JWT token of the user
+
+* **Success Response:**
+
+  * **Success:** `true`
+    **Resonpse:** `{ OK, welome }` 
+ 
+* **Error Response:**
+
+  * **Resonpse:** 
+    `Some error occured but failed to extract error message` : the name is empty for user
+
+* **Remark:**
+  We first use this endpoint to check whether the user is registered or new user. If the JWT token is new, add new user by /users/add_user endpoint
+
+  ****************************************************************************************************************************
+ 
+ * ** /users/update_user/:userID URL Params(Depercated)** 
+     
+   **Required:**
+    `userID`
+   
+    **Optional:**
+    `NA`
+    
+* **Success Response:**
+
+  * **Success:** `true`
+    **Resonpse:** `{ Done }` 
+ 
+* **Error Response:**
+
+  * **Resonpse:** 
+    `Error`
