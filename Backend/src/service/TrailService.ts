@@ -6,6 +6,7 @@ import { HikEasyApp } from '../HikEasyApp';
 import { ResponseUtil } from '../util/ResponseUtil';
 import { getRepository } from 'typeorm';
 import { WaypointsUtil } from '../util/WaypointsUtil';
+import { FirebaseAuthenticator } from '../FirebaseAuthenticator';
 
 export class TrailService {
   public constructor(app: Application) {
@@ -15,8 +16,16 @@ export class TrailService {
     app.post('/trails/add_trail', this.addTrail);
     app.post('/trails/update_trail', this.updateTrail_NoTrailID);
     app.post('/trails/update_trail/:trailID', this.updateTrail);
-    app.post('/trails/delete_trail', this.deleteTrail_NoTrailID);
-    app.post('/trails/delete_trail/:trailID', this.deleteTrail);
+    app.post(
+      '/trails/delete_trail',
+      FirebaseAuthenticator.authenticate,
+      this.deleteTrail_NoTrailID
+    );
+    app.post(
+      '/trails/delete_trail/:trailID',
+      FirebaseAuthenticator.authenticate,
+      this.deleteTrail
+    );
 
     app.post('/trails/upload_photo', this.uploadPhotosForTrail_NoTrailID);
     app.post('/trails/upload_photo/:trailID', this.uploadPhotosForTrail);
