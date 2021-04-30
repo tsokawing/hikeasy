@@ -1,5 +1,5 @@
-import http from "../http-common";
-import firebaseJwtManager from "../firebaseJwtManager";
+import http from "./http-common";
+import firebaseJwtManager from "./firebaseJwtManager";
 
 class UploadFilesService {
   uploadProfilePicForTrail(trailID, file, onUploadProgress) {

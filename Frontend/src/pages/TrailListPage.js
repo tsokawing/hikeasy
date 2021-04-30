@@ -13,7 +13,7 @@ import TrailList from "../components/TrailList";
 import { Button } from "semantic-ui-react";
 import LoadingOverlay from "react-loading-overlay";
 
-import firebaseJwtManager from "../firebaseJwtManager";
+import firebaseJwtManager from "../services/firebaseJwtManager";
 
 class TrailListPage extends Component {
   constructor() {

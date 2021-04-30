@@ -7,12 +7,12 @@ import { useState, Fragment, useEffect } from "react";
 import { Redirect } from "react-router";
 
 import { Card, Menu, Form, Button } from "semantic-ui-react";
-import { auth, authUI } from "../firebase";
+import { auth, authUI } from "../services/firebase";
 import NewUserForm from "../components/NewUserForm";
 import "./LoginPage.css";
 
 import firebase from "firebase";
-import firebaseJwtManager from "../firebaseJwtManager";
+import firebaseJwtManager from "../services/firebaseJwtManager";
 
 // authenticate a firebase account with password and email
 async function authenticateUser(email, password, isLogin) {

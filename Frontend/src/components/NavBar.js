@@ -7,8 +7,8 @@ import React, { useState, useEffect } from "react";
 import { Button } from "./Button";
 import { Link } from "react-router-dom";
 import firebase from "firebase";
-import { auth } from "../firebase";
-import firebaseJwtManager from "../firebaseJwtManager";
+import { auth } from "../services/firebase";
+import firebaseJwtManager from "../services/firebaseJwtManager";
 import "./NavBar.css";
 
 function NavBar() {
