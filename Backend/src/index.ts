@@ -1,7 +1,15 @@
+/*
+  What: This is the main file for the backend service, it stores all the app instances and the config
+  Who: Wong Wing Yan 1155125194 Tsang Tsz Kin Brian 1155126813
+  Where: backend server
+  Why: In nodejs index.ts is the entry point when running server, we will set the services to provide endpoint
+  How: use typeorm, REST API to create connection to database, and setup endpoint for clients
+*/
+
 // load dotenv as the first thing to do
 import * as dotenv from 'dotenv';
 dotenv.config();
-
+//imports
 import { Application, Request, Response } from 'express';
 import { HikEasyApp } from './HikEasyApp';
 import { TrailService } from './service/TrailService';
