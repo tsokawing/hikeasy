@@ -1,11 +1,21 @@
+/*
+  What: This is used to implement all the operation regarding the user, we can POST and GET through the /users endpoint to the server
+  Who: Wong Wing Yan 1155125194
+  Where: endpoint for the /users
+  Why: To implement a endpoint to allow frontend to GET and POST for the user, interacting with HikEasy database
+  How: use typeorm to connect to mysql database, and allow frontend to use the endpoint to operate the user data of the database
+*/
+
+//imports
 import { Application, Request, Response } from 'express';
 import { User } from '../entity/User';
 import { HikEasyApp } from '../HikEasyApp';
 import { ResponseUtil } from '../util/ResponseUtil';
 import { FirebaseAuthenticator } from '../FirebaseAuthenticator';
-
+//set up the endpoint /users
 export class UserService {
   public constructor(app: Application) {
+    // /users endpoint
     app.get('/users/get_all', this.getAllUsers);
     app.post('/users/add_user', UserService.addNewUsers);
     app.post(
@@ -76,7 +86,7 @@ export class UserService {
       await UserService.addNewUsers(req, res);
     }
   }
-
+  // Add new user to the database
   private static async addNewUsers(req: Request, res: Response) {
     const users = new User();
     users.firstName = req.body['userFirstname'];
@@ -84,6 +94,7 @@ export class UserService {
     users.age = req.body['userAge'];
     users.email = req.body['userEmail'];
     users.password = req.body['userPassword'];
+    //authenicate the user with JWT token
     users.firebaseId = FirebaseAuthenticator.extractFirebaseIdFromAuth(req);
     if (users.firstName === undefined || users.lastName == undefined) {
       res.json({
@@ -122,6 +133,7 @@ export class UserService {
     //check whether the email have been registered
     const temp = await HikEasyApp.Instance.EntityManager?.find(User);
     HikEasyApp.Instance.EntityManager.save(users);
+    //success and response 
     res.json({
       success: true,
       message: 'Done',
