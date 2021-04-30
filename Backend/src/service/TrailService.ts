@@ -1,3 +1,12 @@
+/*
+  What: This is used to implement all the operation regarding the trail, we can POST and GET through the /trail endpoint to the server
+  Who: Wong Wing Yan 1155125194
+  Where: endpoint for the /trail
+  Why: To implement a endpoint to allow frontend to GET and POST for the trail, interacting with HikEasy database
+  How: use typeorm to connect to mysql database, and allow frontend to use the endpoint to operate the trail data of the database
+*/
+
+//imports
 import { Application, Request, Response } from 'express';
 import { Photo } from '../entity/Photo';
 import { Trail } from '../entity/Trail';
@@ -8,8 +17,10 @@ import { getRepository } from 'typeorm';
 import { WaypointsUtil } from '../util/WaypointsUtil';
 import { FirebaseAuthenticator } from '../FirebaseAuthenticator';
 
+//set up the endpoint for the endpoint /trails
 export class TrailService {
   public constructor(app: Application) {
+    // /trails endpoint service
     app.get('/trails/get_all', this.getAllTrails);
     app.get('/trails/get_specific', this.getSpecificTrail_NoTrailID);
     app.get('/trails/get_specific/:trailID', this.getSpecificTrail);
@@ -65,7 +76,7 @@ export class TrailService {
     app.get('/trails/get_photo', this.returnPhotoButThereIsNoGivenFileName);
     // app.post('/trails/delete_photo');
   }
-
+  //get all the trails
   private async getAllTrails(req: Request, res: Response) {
     const trails = await HikEasyApp.Instance.EntityManager?.find(Trail);
     if (trails == undefined) {
@@ -81,20 +92,22 @@ export class TrailService {
           trail.waypoints
         );
       });
+      //success and repsonse with trails
       res.status(200).json(trails);
     }
   }
-
+  //handle the problem of no Trail ID 
   private async getSpecificTrail_NoTrailID(req: Request, res: Response) {
     ResponseUtil.respondWithMissingTrailID(res);
   }
-
+  // Get one specific trail 
   private async getSpecificTrail(req: Request, res: Response) {
     const targetTrailID = parseInt(req.params['trailID']);
     if (Number.isNaN(targetTrailID)) {
       ResponseUtil.respondWithInvalidTrailID(res);
       return;
     }
+    //find the trail 
     const trail = await HikEasyApp.Instance.EntityManager?.findOne(
       Trail,
       targetTrailID
@@ -104,22 +117,25 @@ export class TrailService {
         trail?.waypoints
       );
     }
+    //success and response with the trails
     res.json({
       success: true,
       response: trail,
     });
     return;
   }
-
+  //add the trail to the database
   private async addTrail(req: Request, res: Response) {
     // check that all required details are here.
     const trail = new Trail();
+    //parameter for the service
     trail.name = req.body['trailName'];
     trail.difficulty = req.body['trailDifficulty'];
     trail.description = req.body['trailDescription'] ?? '';
     trail.waypoints = req.body['trailWaypoints'] ?? '';
     trail.length = Number.parseFloat(req.body['trailLength']);
     trail.city = req.body['trailCity'] ?? '';
+    //handle the input with invalid format
     if (trail.name === undefined) {
       ResponseUtil.respondWithError(res, 'Missing trail name');
       return;
@@ -159,12 +175,13 @@ export class TrailService {
       message: test.id,
     });
   }
-
+  
+  //handle the problem of no trailID for /trail/update_trail
   private async updateTrail_NoTrailID(req: Request, res: Response) {
     ResponseUtil.respondWithMissingTrailID(res);
     return;
   }
-
+  //Update the trails /trail/update_trail
   private async updateTrail(req: Request, res: Response) {
     const trailID = parseInt(req.params['trailID']);
     if (Number.isNaN(trailID)) {
@@ -176,6 +193,7 @@ export class TrailService {
       ResponseUtil.respondWithDatabaseUnreachable(res);
       return;
     }
+    //find the trail
     const targetedTrail = await HikEasyApp.Instance.EntityManager.findOne(
       Trail,
       trailID
@@ -184,6 +202,7 @@ export class TrailService {
       ResponseUtil.respondWithError(res, 'No such trail');
       return;
     }
+    //counter to check whether any updates
     let somethingWasChanged = false;
     const updatedTrailName = req.body['trailName'];
     if (updatedTrailName !== undefined) {
@@ -251,11 +270,11 @@ export class TrailService {
     });
     return;
   }
-
+  // handle the problom of no trailID for /trail/delete_trail
   private async deleteTrail_NoTrailID(req: Request, res: Response) {
     ResponseUtil.respondWithMissingTrailID(res);
   }
-
+  //Delete the trail 
   private async deleteTrail(req: Request, res: Response) {
     const targetTrailID = parseInt(req.params['trailID']);
     if (Number.isNaN(targetTrailID)) {
@@ -269,11 +288,11 @@ export class TrailService {
     });
     return;
   }
-
+  // handle the problem of no trailID for /trail/upload_photo
   private async uploadPhotosForTrail_NoTrailID(req: Request, res: Response) {
     ResponseUtil.respondWithMissingTrailID(res);
   }
-
+  // upload the photos for the trail
   private async uploadPhotosForTrail(req: Request, res: Response) {
     if (HikEasyApp.Instance.EntityManager == undefined) {
       ResponseUtil.respondWithDatabaseUnreachable(res);
@@ -396,14 +415,14 @@ export class TrailService {
       });
     }
   }
-
+  //no trailID
   private async uploadProfilePicForTrail_NoTrailID(
     req: Request,
     res: Response
   ) {
     ResponseUtil.respondWithMissingTrailID(res);
   }
-
+  // Upload Profile photo for the trail 
   private async uploadProfilePicForTrail(req: Request, res: Response) {
     // check userID exists!
     if (HikEasyApp.Instance.EntityManager == undefined) {
@@ -532,12 +551,12 @@ export class TrailService {
       });
     }
   }
-
+  //no trailID when getting the photos for trail
   private async getTrailPhotos_NoTrailID(req: Request, res: Response) {
     ResponseUtil.respondWithMissingTrailID(res);
     return;
   }
-
+  //Get the filename for photos of the trail
   private async getTrailPhotos(req: Request, res: Response) {
     if (HikEasyApp.Instance.EntityManager == undefined) {
       ResponseUtil.respondWithDatabaseUnreachable(res);
@@ -580,7 +599,7 @@ export class TrailService {
       }
     });
   }
-
+  //handle the problem of getting photo with no filename
   private async returnPhotoButThereIsNoGivenFileName(
     req: Request,
     res: Response
