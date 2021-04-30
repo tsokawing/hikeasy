@@ -9,7 +9,7 @@ import { Redirect } from "react-router";
 import { Card, Menu, Form, Button } from "semantic-ui-react";
 import { auth, authUI } from "../firebase";
 import NewUserForm from "../components/NewUserForm";
-import "../css/AuthForm.css";
+import "./LoginPage.css";
 
 import firebase from "firebase";
 import firebaseJwtManager from "../firebaseJwtManager";
