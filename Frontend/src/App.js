@@ -1,5 +1,11 @@
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import "./App.css";
+
+// Header navigation and footer:
+import NavBar from "./components/NavBar";
+import FooterComponent from "./components/FooterComponent";
+
+// All pages of the website:
 import HomePage from "./pages/HomePage";
 import TrailPage from "./pages/TrailPage";
 import NewTrailPage from "./pages/NewTrailPage";
@@ -7,9 +13,7 @@ import EventPage from "./pages/EventPage";
 import TrailListPage from "./pages/TrailListPage";
 import EventListPage from "./pages/EventListPage";
 import LoginPage from "./pages/LoginPage";
-import NavBar from "./components/NavBar";
 import NotFoundPage from "./pages/NotFoundPage";
-import FooterComponent from "./components/FooterComponent";
 
 function App() {
   return (
