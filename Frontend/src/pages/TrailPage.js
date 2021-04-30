@@ -1,14 +1,13 @@
 import React, { Component } from "react";
 import { Redirect } from "react-router";
+
+import "./TrailPage.css";
+import "leaflet/dist/leaflet.css";
 import ImageSection from "../components/ImageSection";
 import Comments from "../components/Comments";
-import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
-import "leaflet/dist/leaflet.css";
-import "./TrailPage.css";
 import MapSection from "../components/MapSection";
 import GallerySection from "../components/GallerySection";
 
-// New event form dialog
 import Button from "@material-ui/core/Button";
 import TextField from "@material-ui/core/TextField";
 import Dialog from "@material-ui/core/Dialog";
@@ -16,6 +15,7 @@ import DialogActions from "@material-ui/core/DialogActions";
 import DialogContent from "@material-ui/core/DialogContent";
 import DialogContentText from "@material-ui/core/DialogContentText";
 import DialogTitle from "@material-ui/core/DialogTitle";
+
 import http from "../http-common";
 
 class TrailPage extends Component {
@@ -38,104 +38,34 @@ class TrailPage extends Component {
     this.rateElementRef = React.createRef();
   }
 
-  // Buttons
-
-  // Copy URL
-  copyPageUrlToClipboard = () => {
-    console.log("copy!");
-    // copy the page url to cklipboard
-    navigator.clipboard.writeText(window.location.href);
-  };
-
-  // Scroll
-  executeScroll = () => {
-    this.rateElementRef.current.scrollIntoView({ behavior: "smooth" });
-  };
-
-  // Handle new event dialog
-  handleClickOpen = () => {
-    // setOpen(true);
-    this.setState({ showEventForm: true });
-  };
-
-  handleClose = () => {
-    // setOpen(false);
-    this.setState({ showEventForm: false });
-  };
-
-  submitEvent = () => {
-    // Get form data
-
-    console.log(this.state.name.value);
-    console.log(this.state.date.value);
-    console.log(this.state.description.value);
-    console.log(this.state.trailList[0].id);
-
-    let formData = new FormData();
-    formData.append("eventName", this.state.name.value);
-    formData.append("eventDescription", this.state.description.value);
-    formData.append("eventTime", this.state.date.value);
-    formData.append("trailID", this.state.trailList[0].id);
-    formData.append("userID", 2);
-    console.log("upload");
-
-    http
-      .post(
-        //deafault second user id : 2
-        "http://3.143.248.67:8080/events/add_event/",
-        formData,
-        {
-          header: {
-            "Content-Type": "multipart/form-data",
-          },
-        }
-      )
-      .then((response) => {
-        console.log(response);
-        this.setState({ redirect: true });
-      });
-  };
-
-  // Load trail info
-
-  loadComments = () => {
-    var get_all = "http://3.143.248.67:8080/trails/get_all/";
-    //   "http://ec2-3-143-248-67.us-east-2.compute.amazonaws.com:8080/trails/get_all/";
-
-    var id = this.props.match.params.trailID;
-    var get_review = "http://ec2-3-143-248-67.us-east-2.compute.amazonaws.com:8080/review/get_all_by_trail/".concat(
-      id
-    );
-
-    // Get trail details request
-    fetch(get_all)
-      .then((response) => response.json())
-      .then((result) => {
-        const trails = result.filter((item) => {
-          if (item.id == id) {
-            return item;
-          }
-        });
-        this.setState({ trailList: trails });
-      });
-
-    // Get reviews request
-    fetch(get_review)
-      .then((response) => response.json())
-      .then((result) => {
-        const reviews = result.response.map((item) => {
-          return item;
-        });
-        this.setState({ reviewList: reviews });
-      });
-
-    console.log("RELOAD");
-  };
-
   componentDidMount() {
     this.loadComments();
   }
 
+  /**
+   * Functions for buttons.
+   */
+
+  // copy the page url to clipboard
+  copyPageUrlToClipboard = () => {
+    console.log("copy!");
+    navigator.clipboard.writeText(window.location.href);
+  };
+
+  // auto scroll page to comment section
+  executeScroll = () => {
+    this.rateElementRef.current.scrollIntoView({ behavior: "smooth" });
+  };
+
+  openNewEventDialog = () => {
+    this.setState({ showEventForm: true });
+  };
+
+  closeNewEventDialog = () => {
+    this.setState({ showEventForm: false });
+  };
+
+  // open/close photo gallery section
   toggleGallery = () => {
     this.state.showGallery
       ? this.setState({ showGallery: false })
@@ -150,6 +80,69 @@ class TrailPage extends Component {
     this.setState({ showPopUpRequestSignIn: false });
   };
 
+  /**
+   * API calls to server.
+   */
+
+  // create a new event on this trail
+  submitEvent = () => {
+    console.log(this.state.name.value);
+    console.log(this.state.date.value);
+    console.log(this.state.description.value);
+    console.log(this.state.trailList[0].id);
+
+    let formData = new FormData();
+    formData.append("eventName", this.state.name.value);
+    formData.append("eventDescription", this.state.description.value);
+    formData.append("eventTime", this.state.date.value);
+    formData.append("trailID", this.state.trailList[0].id);
+    formData.append("userID", 2);
+    console.log("upload");
+
+    http
+      .post("http://3.143.248.67:8080/events/add_event/", formData, {
+        header: {
+          "Content-Type": "multipart/form-data",
+        },
+      })
+      .then((response) => {
+        console.log(response);
+        this.setState({ redirect: true });
+      });
+  };
+
+  // load all comments of the trail
+  loadComments = () => {
+    var get_all = "http://3.143.248.67:8080/trails/get_all/";
+
+    var id = this.props.match.params.trailID;
+    var get_review = "http://ec2-3-143-248-67.us-east-2.compute.amazonaws.com:8080/review/get_all_by_trail/".concat(
+      id
+    );
+
+    // get trail info
+    fetch(get_all)
+      .then((response) => response.json())
+      .then((result) => {
+        const trails = result.filter((item) => {
+          if (item.id == id) {
+            return item;
+          }
+        });
+        this.setState({ trailList: trails });
+      });
+
+    // get trail reviews
+    fetch(get_review)
+      .then((response) => response.json())
+      .then((result) => {
+        const reviews = result.response.map((item) => {
+          return item;
+        });
+        this.setState({ reviewList: reviews });
+      });
+  };
+
   render() {
     return (
       <>
@@ -157,7 +150,7 @@ class TrailPage extends Component {
           popUpRequestSignIn={this.popUpRequestSignIn}
           rateClicked={this.executeScroll}
           pageUrlCopier={this.copyPageUrlToClipboard}
-          newEvent={this.handleClickOpen}
+          newEvent={this.openNewEventDialog}
           trail={this.state.trailList[0]}
           ref={this.imageSectionRef}
           toggleGallery={this.toggleGallery}
@@ -188,7 +181,7 @@ class TrailPage extends Component {
         )}
         <Dialog
           open={this.state.showEventForm}
-          onClose={this.handleClose}
+          onClose={this.closeNewEventDialog}
           aria-labelledby="form-dialog-title"
         >
           <DialogTitle id="form-dialog-title">New Event</DialogTitle>
@@ -231,7 +224,7 @@ class TrailPage extends Component {
             />
           </DialogContent>
           <DialogActions>
-            <Button onClick={this.handleClose} color="primary">
+            <Button onClick={this.closeNewEventDialog} color="primary">
               Cancel
             </Button>
             <Button onClick={this.submitEvent} color="primary">

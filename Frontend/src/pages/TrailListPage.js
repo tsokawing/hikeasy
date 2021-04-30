@@ -1,12 +1,12 @@
 import React, { Component } from "react";
+import { Link } from "react-router-dom";
+
+import "./TrailListPage.css";
 import "../components/SearchBarComponent.css";
 import SearchBar from "material-ui-search-bar";
 import TrailList from "../components/TrailList";
 import { Button } from "semantic-ui-react";
-import { Link } from "react-router-dom";
-//for loading
 import LoadingOverlay from "react-loading-overlay";
-import "./TrailListPage.css";
 
 import firebaseJwtManager from "../firebaseJwtManager";
 
@@ -21,17 +21,12 @@ class TrailListPage extends Component {
     };
   }
 
-  // setLoadingIsComplete = () => {
-  //   this.setState({ loading: false });
-  // };
-
-  // timeoutTest = async function (delay) {
-  //   return new Promise((res) => setTimeout(res, delay));
-  // };
-
   componentDidMount() {
-    console.log(firebaseJwtManager.getToken());
+    this.loadTrails();
+  }
 
+  // get all trails from server
+  loadTrails = () => {
     fetch(
       "http://ec2-3-143-248-67.us-east-2.compute.amazonaws.com:8080/trails/get_all"
     )
@@ -43,8 +38,9 @@ class TrailListPage extends Component {
         this.setState({ trailList: trails });
         this.setState({ loading: false });
       });
-  }
+  };
 
+  // filter the list of trail with a string, used in search
   filterTrails = (keyword) => {
     let filteredList = this.state.trailList.filter((trailList) =>
       JSON.stringify(trailList)

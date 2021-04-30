@@ -1,20 +1,14 @@
 import React, { Component } from "react";
 import { Redirect } from "react-router";
-import axios from "axios";
+
+import Button from "@material-ui/core/Button";
 import TextField from "@material-ui/core/TextField";
-import { makeStyles } from "@material-ui/core/styles";
 import MenuItem from "@material-ui/core/MenuItem";
 import UploadImages from "../components/UploadImages";
 import MapSection from "../components/MapSection";
+import LoadingOverlay from "react-loading-overlay";
 import "./NewTrailPage.css";
 
-import LoadingOverlay from "react-loading-overlay";
-
-// import { Button } from "semantic-ui-react";
-import http from "../http-common";
-import UploadService from "../services/upload-files.service";
-
-import Button from "@material-ui/core/Button";
 import Dialog from "@material-ui/core/Dialog";
 import DialogActions from "@material-ui/core/DialogActions";
 import DialogContent from "@material-ui/core/DialogContent";
@@ -22,7 +16,10 @@ import DialogContentText from "@material-ui/core/DialogContentText";
 import DialogTitle from "@material-ui/core/DialogTitle";
 
 import firebaseJwtManager from "../firebaseJwtManager";
+import http from "../http-common";
+import UploadService from "../services/upload-files.service";
 
+// key value translation for difficulties drop down
 const difficulties = [
   {
     value: "5",
@@ -68,6 +65,7 @@ class NewTrailPage extends Component {
     this.imageRef = React.createRef();
   }
 
+  // create new trail by post request to server
   submitClicked = () => {
     this.setState({ loading: true });
 
@@ -86,7 +84,7 @@ class NewTrailPage extends Component {
         formData,
         {
           headers: {
-            'Authentication': firebaseJwtManager.getToken(),
+            Authentication: firebaseJwtManager.getToken(),
             "Content-Type": "multipart/form-data",
           },
         }
@@ -97,11 +95,11 @@ class NewTrailPage extends Component {
           const trailID = response.data.message;
           console.log(trailID);
 
-          //******************************************************
-          // Upload photos and waypoints after creating a trail
-          //******************************************************
+          /**
+           * Upload photos and waypoints after creating a trail.
+           */
 
-          // Upload waypoint details
+          // upload waypoint details
           // at the same time can set profile pic (below)
 
           let formData = new FormData();
@@ -124,7 +122,7 @@ class NewTrailPage extends Component {
               formData,
               {
                 headers: {
-                  "Authentication": firebaseJwtManager.getToken(),
+                  Authentication: firebaseJwtManager.getToken(),
                   "Content-Type": "multipart/form-data",
                 },
               }
@@ -138,7 +136,7 @@ class NewTrailPage extends Component {
               }
             );
 
-          // Upload trail profile picture
+          // upload trail profile picture
 
           let imgFile = this.imageRef.current.state.currentFile;
 
@@ -169,12 +167,14 @@ class NewTrailPage extends Component {
       );
   };
 
+  // hide loading animation when submission finished
   submitDone = () => {
     this.setState({ submitDone: true });
     this.setState({ loading: false });
   };
 
-  handleClose = () => {
+  // close submission confirmation dialog
+  closeSubmitDialog = () => {
     this.setState({ submitDone: false });
     this.setState({ redirect: true });
   };
@@ -204,7 +204,6 @@ class NewTrailPage extends Component {
                       this.state.title = c;
                     }}
                     label="Title"
-                    // defaultValue="Title"
                   />
                   <TextField
                     required
@@ -213,7 +212,6 @@ class NewTrailPage extends Component {
                       this.state.description = c;
                     }}
                     label="Description"
-                    // defaultValue="Description"
                   />
                   <TextField
                     required
@@ -223,7 +221,6 @@ class NewTrailPage extends Component {
                     }}
                     type="number"
                     label="Length"
-                    // defaultValue="Length"
                   />
                   <TextField
                     required
@@ -232,7 +229,6 @@ class NewTrailPage extends Component {
                       this.state.city = c;
                     }}
                     label="City"
-                    // defaultValue="City"
                   />
                   <TextField
                     id="standard-select-difficulty"
@@ -242,7 +238,6 @@ class NewTrailPage extends Component {
                     inputRef={(c) => {
                       this.state.difficulty = c;
                     }}
-                    // onChange={this.clicked}
                     helperText="Please select your difficulty"
                   >
                     {difficulties.map((option) => (
@@ -251,9 +246,6 @@ class NewTrailPage extends Component {
                       </MenuItem>
                     ))}
                   </TextField>
-                  {/* <Button id="" name="" onClick={}>
-                  Clear Waypoints
-                </Button> */}
                 </div>
                 <div className="image-section">
                   <UploadImages
@@ -264,7 +256,6 @@ class NewTrailPage extends Component {
                 </div>
               </div>
             </div>
-            {/* <div onClick={this.submitClicked}>new trail page</div> */}
           </div>
 
           <Dialog open={this.state.submitDone}>
@@ -275,7 +266,11 @@ class NewTrailPage extends Component {
               </DialogContentText>
             </DialogContent>
             <DialogActions>
-              <Button onClick={this.handleClose} color="primary" autoFocus>
+              <Button
+                onClick={this.closeSubmitDialog}
+                color="primary"
+                autoFocus
+              >
                 OK
               </Button>
             </DialogActions>
