@@ -1,3 +1,12 @@
+/*
+  What: This is used to create the connection the mysql database
+  Who: Wong Wing Yan 1155125194
+  Where: backend mysql database connection
+  Why: We need to first create connection when accessing the database
+  How: use typeorm to create connection
+*/
+
+//imports
 import "reflect-metadata";
 import {createConnection} from "typeorm";
 import {User} from "./entity/User";
@@ -20,6 +29,7 @@ export function connectTest()
         logging: false
       }).then(async connection => {
         const rawData = await connection.query(`SELECT * FROM trails`);
+        //testing whether the connection is working 
         console.log(rawData);
       }).catch(error => console.log(error));
       
