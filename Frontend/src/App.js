@@ -1,11 +1,17 @@
+/**
+ * The core architecture of the react app.
+ * Header and footer will always be shown while pages will be rendered
+ * according to path.
+ */
+
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import "./App.css";
 
-// Header navigation and footer:
+// header and footer
 import NavBar from "./components/NavBar";
 import FooterComponent from "./components/FooterComponent";
 
-// All pages of the website:
+// pages of the website
 import HomePage from "./pages/HomePage";
 import TrailPage from "./pages/TrailPage";
 import NewTrailPage from "./pages/NewTrailPage";
