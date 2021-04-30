@@ -28,7 +28,7 @@ export class UserService {
       FirebaseAuthenticator.authenticate,
       this.loginOrRegisterUser
     );
-    app.post('/users/update_user/:userID', this.updateUsers);
+    // app.post('/users/update_user/:userID', this.updateUsers);
   }
 
   private async getAllUsers(req: Request, res: Response) {
