@@ -8,10 +8,10 @@ import Rating from "@material-ui/lab/Rating";
 import Typography from "@material-ui/core/Typography";
 import { Button, Comment, Form, Header } from "semantic-ui-react";
 import firebase from "firebase";
-import firebaseJwtManager from "../firebaseJwtManager";
+import firebaseJwtManager from "../services/firebaseJwtManager";
 
 import "./Comments.css";
-import http from "../http-common";
+import http from "../services/http-common";
 
 //export the class of <Comments>
 class Comments extends Component {

@@ -20,8 +20,8 @@ import DialogContent from "@material-ui/core/DialogContent";
 import DialogContentText from "@material-ui/core/DialogContentText";
 import DialogTitle from "@material-ui/core/DialogTitle";
 
-import firebaseJwtManager from "../firebaseJwtManager";
-import http from "../http-common";
+import firebaseJwtManager from "../services/firebaseJwtManager";
+import http from "../services/http-common";
 import UploadService from "../services/upload-files.service";
 
 // key value translation for difficulties drop down

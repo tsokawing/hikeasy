@@ -9,8 +9,8 @@ import "./Chats.css";
 import { Button, Comment, Form, Header } from "semantic-ui-react";
 
 import firebase from "firebase";
-import firebaseJwtManager from "../firebaseJwtManager";
-import http from "../http-common";
+import firebaseJwtManager from "../services/firebaseJwtManager";
+import http from "../services/http-common";
 //export the component
 class Chats extends Component {
   constructor(props) {

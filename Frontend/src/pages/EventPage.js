@@ -23,8 +23,8 @@ import DialogContentText from "@material-ui/core/DialogContentText";
 import DialogTitle from "@material-ui/core/DialogTitle";
 
 import firebase from "firebase";
-import firebaseJwtManager from "../firebaseJwtManager";
-import http from "../http-common";
+import firebaseJwtManager from "../services/firebaseJwtManager";
+import http from "../services/http-common";
 
 // styles for the calendar icon
 const calendarTheme = {

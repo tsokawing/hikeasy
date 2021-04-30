@@ -11,7 +11,7 @@ import Rating from "@material-ui/lab/Rating";
 import Typography from "@material-ui/core/Typography";
 import Toggle from "react-toggle";
 
-import firebaseJwtManager from "../firebaseJwtManager";
+import firebaseJwtManager from "../services/firebaseJwtManager";
 
 class ImageSection extends Component {
   render() {
