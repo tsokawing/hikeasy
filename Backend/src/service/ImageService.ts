@@ -1,9 +1,9 @@
 /*
-  What: This is used to implement all the operation regarding the events, we can POST and GET through the /event endpoint to the server
+  What: This is used to implement all the operation regarding the imagess, we can POST and GET through the /image endpoint to the server
   Who: Wong Wing Yan 1155125194
-  Where: endpoint for the /event
-  Why: To implement a endpoint to allow frontend to GET and POST for the events, interacting with HikEasy database
-  How: use typeorm to connect to mysql database, and allow frontend to use the endpoint to operate the events data of the database
+  Where: endpoint for the /image
+  Why: To implement a endpoint to allow frontend to GET and POST for the images, interacting with HikEasy database
+  How: use typeorm to connect to mysql database, and allow frontend to use the endpoint to operate the images data of the database
 */
 
 //imports
