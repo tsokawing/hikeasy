@@ -9,6 +9,7 @@ import "../css/AuthForm.css";
 import firebase from "firebase";
 import firebaseJwtManager from "../firebaseJwtManager";
 
+// authenticate a firebase account with password and email
 async function authenticateUser(email, password, isLogin) {
   try {
     const user = isLogin
@@ -42,13 +43,14 @@ async function authenticateUser(email, password, isLogin) {
   }
 }
 
+// re-redner webpage after login
 function renderLoggedIn() {
-  // Check if the signed-in account is new user or not
+  // check if the signed-in account is new user or not
   let isNewUser =
     firebase.auth().currentUser.metadata.creationTime ===
     firebase.auth().currentUser.metadata.lastSignInTime;
 
-  // For new user, show new user info form
+  // for new user, show new user info form
   // else, redirect user to home page
   if (isNewUser) {
     return <NewUserForm />;
@@ -68,6 +70,7 @@ function AuthForm() {
 
   auth.onAuthStateChanged((user) => setUser(user));
 
+  // firebase login function
   useEffect(() => {
     if (!user) {
       authUI.start(".google-login", {
@@ -75,7 +78,7 @@ function AuthForm() {
         signInFlow: "redirect",
         callbacks: {
           signInSuccessWithAuthResult: function (authResult, redirectUrl) {
-            // User successfully signed in.
+            // Us/er successfully signed in.
             // Return type determines whether we continue the redirect automatically
             // or whether we leave that to developer to handle.
 
