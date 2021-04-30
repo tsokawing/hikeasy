@@ -1,3 +1,11 @@
+/*	
+	What: This is used to add style to the <FooterComponent> and defiine the functionality of it
+	Who: Tso Ka Wing 1155125488
+	Where: React components for the footer of all the pages 
+	Why: We style the footer using this file, and add style to the footer
+	How: import css style for the FooterComponent using rc-footer
+*/
+
 import React from "react";
 import Footer from "rc-footer";
 import "rc-footer/assets/index.css"; // import 'rc-footer/asssets/index.less';
@@ -52,21 +60,9 @@ function FooterComponent() {
             ],
           },
           {
-            // icon: (
-            //   <img
-            //     src="https://gw.alipayobjects.com/zos/rmsportal/nBVXkrFdWHxbZlmMbsaH.svg"
-            //     alt="more products"
-            //   />
-            // ),
             title: "More Products",
             items: [
               {
-                // icon: (
-                //   <img
-                //     src="https://gw.alipayobjects.com/zos/rmsportal/XuVpGqBFxXplzvLjJBZB.svg"
-                //     alt="yuque"
-                //   />
-                // ),
                 title: "Comming Soon",
                 url: "",
                 description: "Hikeasy iOS/Android",
@@ -80,4 +76,5 @@ function FooterComponent() {
     </div>
   );
 }
+//export FooterComponent.js
 export default FooterComponent;
