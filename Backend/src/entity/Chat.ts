@@ -6,45 +6,45 @@
   How: use typeorm to connect to mysql database, and set up table
 */
 import {
-    Entity,
-    PrimaryGeneratedColumn,
-    Column,
-    CreateDateColumn,
-    UpdateDateColumn,
-    DeleteDateColumn,
-    ManyToOne,
-    JoinColumn,
-  } from 'typeorm';
-  import { Event } from './Event';
-  import { User } from './User';
-  
-  @Entity()
-  export class Chat {
-    /**
-     * DO NOT TOUCH THIS.
-     */
-    @PrimaryGeneratedColumn()
-    id!: number;
+  Entity,
+  PrimaryGeneratedColumn,
+  Column,
+  CreateDateColumn,
+  UpdateDateColumn,
+  DeleteDateColumn,
+  ManyToOne,
+  JoinColumn,
+} from 'typeorm';
+import { Event } from './Event';
+import { User } from './User';
 
-    //each chat have one user
-    @ManyToOne(() => User, (user) => user.reviews, { cascade: true })
-    user!: User;
-  
-    //each chat have one event
-    @ManyToOne(() => Event, (event) => event.chats, { cascade: true })
-    event!: Event;
+@Entity()
+export class Chat {
+  /**
+   * DO NOT TOUCH THIS.
+   */
+  @PrimaryGeneratedColumn()
+  id!: number;
 
-    @Column({
-      default: '',
-    })
-    comment!: string;
-  
-    @CreateDateColumn()
-    createdAt!: Date;
-  
-    @UpdateDateColumn()
-    updatedAt!: Date;
-  
-    @DeleteDateColumn()
-    deletedAt?: Date;
-  }
+  //each chat have one user
+  @ManyToOne(() => User, (user) => user.reviews, { cascade: true })
+  user!: User;
+
+  //each chat have one event
+  @ManyToOne(() => Event, (event) => event.chats, { cascade: true })
+  event!: Event;
+
+  @Column({
+    default: '',
+  })
+  comment!: string;
+
+  @CreateDateColumn()
+  createdAt!: Date;
+
+  @UpdateDateColumn()
+  updatedAt!: Date;
+
+  @DeleteDateColumn()
+  deletedAt?: Date;
+}
