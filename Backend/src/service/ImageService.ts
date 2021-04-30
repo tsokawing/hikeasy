@@ -1,3 +1,12 @@
+/*
+  What: This is used to implement all the operation regarding the events, we can POST and GET through the /event endpoint to the server
+  Who: Wong Wing Yan 1155125194
+  Where: endpoint for the /event
+  Why: To implement a endpoint to allow frontend to GET and POST for the events, interacting with HikEasy database
+  How: use typeorm to connect to mysql database, and allow frontend to use the endpoint to operate the events data of the database
+*/
+
+//imports
 import { Application, Request, Response } from 'express';
 import { Photo } from '../entity/Photo';
 import { User } from '../entity/User';
@@ -6,8 +15,10 @@ import { HikEasyApp } from '../HikEasyApp';
 import { ResponseUtil } from '../util/ResponseUtil';
 import { FirebaseAuthenticator } from '../FirebaseAuthenticator';
 
+//set up the /image endpoint
 export class ImageService {
   public constructor(app: Application) {
+    //image enedpoint 
     app.get('/image/', this.returnPhotoButThereIsNoGivenFileName);
     app.get('/image/:fileName', this.returnPhotoWithFileName);
     app.post(
@@ -16,7 +27,7 @@ export class ImageService {
       this.handleUploadPhotos
     );
   }
-
+  //handle the access of /image endpoint without filename
   private async returnPhotoWithFileName(req: Request, res: Response) {
     const fileName = req.params['fileName'];
     // assume must exist
@@ -31,14 +42,16 @@ export class ImageService {
       }
     });
   }
-
+  
+  //handle the access of /image endpoint without filename
   private async returnPhotoButThereIsNoGivenFileName(
     req: Request,
     res: Response
   ) {
     ResponseUtil.respondWithError(res, 'Missing file name');
   }
-
+  
+  //handle the access of /image/upload endpoint without filename
   private async handleUploadPhotos(req: Request, res: Response) {
     // check userID exists!
     if (HikEasyApp.Instance.EntityManager == undefined) {
