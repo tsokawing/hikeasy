@@ -1,3 +1,12 @@
+/*	
+	What: This is used to add style to the <GallerySection> and defiine the functionality of it
+	Who: Tso Ka Wing 1155125488
+	Where: React components for the gallery in the eventPage
+	Why: We need to define how the photos is displayed in the gallery
+	How: import css style for the  <GallerySection> using react-grid-gallery
+*/
+
+//imports
 import React, { Component } from "react";
 import Gallery from "react-grid-gallery";
 import LoadingOverlay from "react-loading-overlay";
@@ -12,7 +21,7 @@ const IMAGES = [
     caption: "After Rain (Jeshu John - designerspics.com)",
   },
 ];
-
+//set up  <GallerySection>
 class GallerySection extends Component {
   constructor() {
     super();
@@ -113,5 +122,5 @@ class GallerySection extends Component {
     );
   }
 }
-
+//export  <GallerySection>
 export default GallerySection;
