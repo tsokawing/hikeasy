@@ -1,12 +1,13 @@
 import { useState, Fragment, useEffect } from "react";
-import { Card, Menu, Form, Button } from "semantic-ui-react";
 import { Redirect } from "react-router";
+
+import { Card, Menu, Form, Button } from "semantic-ui-react";
 import { auth, authUI } from "../firebase";
+import NewUserForm from "../components/NewUserForm";
 import "../css/AuthForm.css";
+
 import firebase from "firebase";
 import firebaseJwtManager from "../firebaseJwtManager";
-
-import NewUserForm from "../components/NewUserForm";
 
 async function authenticateUser(email, password, isLogin) {
   try {
@@ -42,28 +43,16 @@ async function authenticateUser(email, password, isLogin) {
 }
 
 function renderLoggedIn() {
-  // Get JWT for backend verification
-  firebase
-    .auth()
-    .currentUser.getIdToken(true)
-    .then(function (idToken) {
-      // Send token to backend via HTTPS
-      // console.log(idToken);
-    })
-    .catch(function (error) {
-      // Handle error
-      console.log(error);
-    });
-
-  // Check is new user or not
+  // Check if the signed-in account is new user or not
   let isNewUser =
     firebase.auth().currentUser.metadata.creationTime ===
     firebase.auth().currentUser.metadata.lastSignInTime;
 
+  // For new user, show new user info form
+  // else, redirect user to home page
   if (isNewUser) {
     return <NewUserForm />;
   }
-
   return <Redirect to="/" />;
 }
 
