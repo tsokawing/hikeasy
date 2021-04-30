@@ -1,11 +1,12 @@
-// This code section take https://www.youtube.com/watch?v=McPzVZZRniU as reference
+/*
+  What: This is the core part of the flutter application
+  Who: TSOI CHAK YU 1155126232
+  Where: mobile application
+  Why: This givse us the framework of the application
+  How: This is the main page that will call the gps class
+*/
 
-import 'dart:async';
-import 'dart:typed_data';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:location/location.dart';
 import 'gps.dart';
 
 void main() => runApp(MyApp());
@@ -15,7 +16,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      title: 'hikEasy',
+      title: 'HikEasy',
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),

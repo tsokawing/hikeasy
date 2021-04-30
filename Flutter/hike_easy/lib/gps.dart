@@ -1,12 +1,19 @@
 // This code section take https://www.youtube.com/watch?v=McPzVZZRniU as reference
-
+/*
+  What: The GPS function of the application is implemented here
+  Who: TSOI CHAK YU 1155126232
+  Where: mobile application
+  Why: This shows the real time gps location of the user on the Google Map
+  How: By using functions in dependencies of google_maps_flutter and location to get the real time location of the user.
+*/
 import 'dart:async';
 import 'dart:typed_data';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:location/location.dart';
-//set up the class for the gps 
+
+//set up the class for the gps
 class GPS extends StatefulWidget {
   GPS({Key key, this.title}) : super(key: key);
   final String title;
@@ -22,19 +29,22 @@ class _GPS extends State<GPS> {
   Circle circle;
   GoogleMapController _controller;
 
-  static final CameraPosition initialLocation = CameraPosition(	//the initial position of the camera
+  static final CameraPosition initialLocation = CameraPosition(
+    //the initial position of the camera
     target: LatLng(22.28552, 114.15769),
     zoom: 14.4746,
   );
 
-  Future<Uint8List> getMarker() async {	//the hiker image
+  Future<Uint8List> getMarker() async {
+    //the hiker image
     ByteData byteData = await DefaultAssetBundle.of(context).load(
       "assets/hiker.png",
     ); //credit the icon <a href='https://pngtree.com/so/line-icons'>line icons png from pngtree.com</a>
     return byteData.buffer.asUint8List();
   }
 
-  void updateMarkerAndCircle(LocationData newLocalData, Uint8List imageData) {	//update the marker
+  void updateMarkerAndCircle(LocationData newLocalData, Uint8List imageData) {
+    //update the marker
     LatLng latlng = LatLng(newLocalData.latitude, newLocalData.longitude);
     this.setState(() {
       marker = Marker(
@@ -46,7 +56,8 @@ class _GPS extends State<GPS> {
           flat: true,
           anchor: Offset(0.5, 0.5),
           icon: BitmapDescriptor.fromBytes(imageData));
-      circle = Circle(	//the circle under the marker
+      circle = Circle(
+          //the circle under the marker
           circleId: CircleId("hiker"),
           radius: 10, //newLocalData.accuracy,
           zIndex: 1,
@@ -56,7 +67,8 @@ class _GPS extends State<GPS> {
     });
   }
 
-  void getCurrentLocation() async {	//get the current location
+  void getCurrentLocation() async {
+    //get the current location
     try {
       Uint8List imageData = await getMarker();
       var location = await _locationTracker.getLocation();
@@ -95,12 +107,15 @@ class _GPS extends State<GPS> {
   }
 
   @override
-  Widget build(BuildContext context) {	//build up the UI of the screen
+  Widget build(BuildContext context) {
+    //build up the UI of the screen
     return Scaffold(
-      appBar: AppBar(	//the appbar of the screen
+      appBar: AppBar(
+        //the appbar of the screen
         title: Text(widget.title),
       ),
-      body: GoogleMap(	//we use the Google Map to help with our app
+      body: GoogleMap(
+        //we use the Google Map to help with our app
         mapType: MapType.hybrid,
         initialCameraPosition: initialLocation,
         markers: Set.of((marker != null) ? [marker] : []),
@@ -109,7 +124,8 @@ class _GPS extends State<GPS> {
           _controller = controller;
         },
       ),
-      floatingActionButton: FloatingActionButton(	//the button for switching the map to the current location of the user
+      floatingActionButton: FloatingActionButton(
+          //the button for switching the map to the current location of the user
           child: Icon(Icons.location_searching),
           onPressed: () {
             getCurrentLocation();
