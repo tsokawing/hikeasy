@@ -1,6 +1,6 @@
 /**
  * Map Section
- * Return a leaflet map, data from jawg.
+ * React components to display map and allow users to add checkpoints
  */
 
 import React, { Component } from "react";
@@ -15,6 +15,7 @@ import {
 import "leaflet/dist/leaflet.css";
 import "leaflet/dist/images/marker-shadow.png";
 import L from "leaflet";
+//checkpoint icon style
 const icon = L.icon({
   iconSize: [25, 41],
   iconAnchor: [10, 41],
@@ -24,7 +25,7 @@ const icon = L.icon({
 });
 
 let mapInstanceReference;
-
+//define function for the map
 function MyComponent({ markerAppender }) {
   const map = useMapEvents({
     click: (e) => {
@@ -37,6 +38,7 @@ function MyComponent({ markerAppender }) {
   return null;
 }
 
+//class for the MapSection
 class MapSection extends Component {
   constructor(props) {
     super(props);
@@ -58,7 +60,7 @@ class MapSection extends Component {
       this.setState({ center: displayCenter });
     }
   }
-
+  //function that allow users to add checkpoints
   appendNewPointToMap = (lat, lng) => {
     // remember this marker
     let markerRef = L.marker([lat, lng], { icon }).addTo(mapInstanceReference);
@@ -74,7 +76,7 @@ class MapSection extends Component {
     const point = [...this.state.point, newMarkerCoords];
     this.setState((prevState) => ({ ...prevState, point }));
   };
-
+  //clear all existing checkpoints
   clearAllWaypointsOnMap = () => {
     // remove all markers first
     this.state.markers.map((marker) => {
@@ -122,5 +124,5 @@ class MapSection extends Component {
     );
   }
 }
-
+//export the <MapSection>
 export default MapSection;
