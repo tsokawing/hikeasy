@@ -9,14 +9,11 @@
 //it reuse the reviewService.ts code
 //useful import
 import { Application, Request, Response } from 'express';
-import { Review } from '../entity/Review';
 import { Chat } from '../entity/Chat';
 import { Event } from '../entity/Event';
-import { Trail } from '../entity/Trail';
 import { FirebaseAuthenticator } from '../FirebaseAuthenticator';
 import { HikEasyApp } from '../HikEasyApp';
 import { ResponseUtil } from '../util/ResponseUtil';
-import { UserUtil } from '../util/UserUtil';
 
 //Define class for the Chat
 export class ChatService {
