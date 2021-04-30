@@ -1,10 +1,19 @@
+/*	
+	What: This is used to add style to the <Comment> and defiine the functionality of it 
+	Who: Tso Ka Wing 1155125488
+	Where: React components for the chatbox in events section
+	Why: We need to set up standard style for the chatbox, so we have to define the style in /componenet directory
+	How: import css style for the chatbox componenet using the <Comment> of semantic-ui 
+	*/
+
+//imports
 import React, { Component } from "react";
 import { Button, Comment, Form, Header } from "semantic-ui-react";
 import firebase from "firebase";
 import firebaseJwtManager from "../firebaseJwtManager";
 import "./Chats.css";
 import http from "../http-common";
-
+//export the component
 class Chats extends Component {
   constructor(props) {
     super(props);
@@ -12,6 +21,7 @@ class Chats extends Component {
       newComments: [],
     };
   }
+  //function to set the current state
   handleChange = (e, { value }) => {
     this.setState({ newComments: value });
   };
@@ -56,7 +66,7 @@ class Chats extends Component {
         console.log(error);
       });
   };
-
+  //try to render out the <Comment> to make chatbox
   render() {
     let reviews = this.props.reviews;
     console.log(reviews);
@@ -105,5 +115,5 @@ class Chats extends Component {
     );
   }
 }
-
+//export Chats class
 export default Chats;
