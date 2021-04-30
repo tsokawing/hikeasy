@@ -1,3 +1,10 @@
+/*	
+	What: This is used to add style to the <MapSection>, the section used to display map and defiine the functionality of it, which is similar to the <HeroSection>
+	Who: Tsang Tsz Kin Brian 1155126813
+	Where: React components for the TrailPage to display map and allow users to add checkpoints
+	Why: We need to define how the checkpoints set on the map 
+	How: import css style for the  <<MapSection> and use leaflet api to implement the map
+*/
 import React, { Component } from "react";
 import { Button } from "semantic-ui-react";
 import {
@@ -11,6 +18,7 @@ import {
 import "leaflet/dist/leaflet.css";
 import "leaflet/dist/images/marker-shadow.png";
 import L from "leaflet";
+//checkpoint icon style
 const icon = L.icon({
   iconSize: [25, 41],
   iconAnchor: [10, 41],
@@ -19,8 +27,9 @@ const icon = L.icon({
   shadowUrl: "https://unpkg.com/leaflet@1.6/dist/images/marker-shadow.png",
 });
 
-let mapInstanceReference;
 
+let mapInstanceReference;
+//define function for the map 
 function MyComponent({ markerAppender }) {
   const map = useMapEvents({
     click: (e) => {
@@ -33,6 +42,7 @@ function MyComponent({ markerAppender }) {
   return null;
 }
 
+//class for the MapSection
 class MapSection extends Component {
   constructor(props) {
     super(props);
@@ -44,7 +54,7 @@ class MapSection extends Component {
     };
     this.mapRef = React.createRef();
   }
-
+  
   componentDidMount() {
     if (this.props.trail) {
       var polyline = require("@mapbox/polyline");
@@ -54,7 +64,7 @@ class MapSection extends Component {
       this.setState({ center: displayCenter });
     }
   }
-
+  //function that allow users to add checkpoints
   appendNewPointToMap = (lat, lng) => {
     // remember this marker
     let markerRef = L.marker([lat, lng], { icon }).addTo(mapInstanceReference);
@@ -70,7 +80,7 @@ class MapSection extends Component {
     const point = [...this.state.point, newMarkerCoords];
     this.setState((prevState) => ({ ...prevState, point }));
   };
-
+  //clear all existing checkpoints
   clearAllWaypointsOnMap = () => {
     // remove all markers first
     this.state.markers.map((marker) => {
@@ -118,5 +128,5 @@ class MapSection extends Component {
     );
   }
 }
-
+//export the <MapSection>
 export default MapSection;
