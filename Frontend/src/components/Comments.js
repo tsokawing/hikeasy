@@ -1,6 +1,6 @@
 /**
  * Comments Component
- * Return a comment section for a given trail.
+ * React components for the review textbox in the trailpage.
  */
 
 import React, { Component } from "react";
@@ -13,6 +13,7 @@ import firebaseJwtManager from "../firebaseJwtManager";
 import "./Comments.css";
 import http from "../http-common";
 
+//export the class of <Comments>
 class Comments extends Component {
   constructor(props) {
     super(props);
@@ -21,7 +22,7 @@ class Comments extends Component {
       rating: [],
     };
   }
-
+  //function for setting rating
   setRating = (value) => {
     this.setState({ rating: value });
   };
@@ -29,7 +30,7 @@ class Comments extends Component {
   handleChange = (e, { value }) => {
     this.setState({ newComments: value });
   };
-
+  //post the comment
   postComment = () => {
     let formData = new FormData();
     // formData.append("userID", 3);
@@ -74,7 +75,7 @@ class Comments extends Component {
         console.log(error);
       });
   };
-
+  //render out the comment and style to the reviewbox
   render() {
     let reviews = this.props.reviews;
 
@@ -142,5 +143,5 @@ class Comments extends Component {
     );
   }
 }
-
+//export the Comments
 export default Comments;

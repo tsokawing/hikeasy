@@ -1,6 +1,6 @@
 /**
  * Image Button Component
- * Default component for button on top of an image.
+ * React components for the trail page to add button in the ImageSection
  */
 
 import React from "react";

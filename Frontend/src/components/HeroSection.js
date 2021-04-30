@@ -1,12 +1,13 @@
 /**
  * Hero Section Component
- * For home page.
+ * React components for the Homepage to display photos and info.
  */
 
 import React from "react";
 import "../App.css";
 import "./HeroSection.css";
 
+//define function for <HeroSection>
 function HeroSection() {
   return (
     <div className="hero-container">

@@ -1,6 +1,6 @@
 /**
  * Gallery Section Component
- * A photo gallery for a trail.
+ * React components for the gallery in the eventPage
  */
 
 import React, { Component } from "react";
@@ -106,5 +106,5 @@ class GallerySection extends Component {
     );
   }
 }
-
+//export  <GallerySection>
 export default GallerySection;

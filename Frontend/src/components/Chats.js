@@ -1,6 +1,6 @@
 /**
  * Chats Component
- * Return a chat section for a given event.
+ * React components for the chatbox in events section.
  */
 
 import React, { Component } from "react";
@@ -11,7 +11,7 @@ import { Button, Comment, Form, Header } from "semantic-ui-react";
 import firebase from "firebase";
 import firebaseJwtManager from "../firebaseJwtManager";
 import http from "../http-common";
-
+//export the component
 class Chats extends Component {
   constructor(props) {
     super(props);
@@ -19,7 +19,6 @@ class Chats extends Component {
       newComments: [],
     };
   }
-
   handleChange = (e, { value }) => {
     this.setState({ newComments: value });
   };
@@ -62,7 +61,7 @@ class Chats extends Component {
         console.log(error);
       });
   };
-
+  //try to render out the <Comment> to make chatbox
   render() {
     let reviews = this.props.reviews;
     return (
@@ -106,5 +105,5 @@ class Chats extends Component {
     );
   }
 }
-
+//export Chats class
 export default Chats;

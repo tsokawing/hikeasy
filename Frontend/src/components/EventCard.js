@@ -12,6 +12,7 @@ import CardMedia from "@material-ui/core/CardMedia";
 import Typography from "@material-ui/core/Typography";
 import "./EventCard.css";
 
+// set up the class for EventCard component
 class EventCard extends Component {
   constructor() {
     super();
@@ -95,5 +96,5 @@ class EventCard extends Component {
     );
   }
 }
-
+//export the event card
 export default EventCard;

@@ -1,6 +1,6 @@
 /**
  * Image Section
- * Return a trail profile on top of its details.
+ * React components for the TrailPage to display photos, info and button.
  */
 
 import React, { Component } from "react";

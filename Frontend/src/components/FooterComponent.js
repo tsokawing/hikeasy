@@ -74,4 +74,5 @@ function FooterComponent() {
     </div>
   );
 }
+//export FooterComponent.js
 export default FooterComponent;
