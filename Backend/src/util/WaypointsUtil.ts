@@ -1,3 +1,11 @@
+/*
+  What: This is used to calculate the center focus of the waypoints
+  Who: Wong Wing Yan 1155125194
+  Where: backend connection
+  Why: Calculate the center focus of the waypoints so that better user experience
+  How: use Math function to calculate the center of sets of waypoints
+*/
+
 import polyline from '@mapbox/polyline';
 import { HikEasyApp } from '../HikEasyApp';
 
