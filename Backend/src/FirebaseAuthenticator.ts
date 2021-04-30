@@ -1,3 +1,12 @@
+/*
+  What: This is used to handle the authenication to firebase
+  Who: Wong Wing Yan 1155125194
+  Where: backend firebase connection
+  Why: We need to authenicate the user when using the service regarding HikEasy
+  How: use firebase built in function to handle authenication
+*/
+
+//imports
 import { NextFunction, Request, Response } from 'express';
 import passport from 'passport';
 import { User } from './entity/User';
@@ -11,10 +20,11 @@ export class FirebaseAuthenticator {
    * @param res
    * @param next
    */
+  //parse out the JWT token
   static authenticate(req: Request, res: Response, next: NextFunction): void {
     passport.authenticate('jwt', { session: false })(req, res, next);
   }
-
+  // encode the information in format that suits the firebase
   static extractFirebaseIdFromAuth(req: Request): string | undefined {
     interface TempUser {
       user_id: string;
@@ -30,6 +40,7 @@ export class FirebaseAuthenticator {
    * @param req
    * @returns
    */
+   //extracting the JWT token for the firebase
   static async extractProperUserFromAuth(
     req: Request
   ): Promise<User | undefined> {
