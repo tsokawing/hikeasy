@@ -40,7 +40,7 @@ export class FirebaseAuthenticator {
    * @param req
    * @returns
    */
-   //extracting the JWT token for the firebase
+  //extracting the JWT token for the firebase
   static async extractProperUserFromAuth(
     req: Request
   ): Promise<User | undefined> {
