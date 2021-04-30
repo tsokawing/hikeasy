@@ -1,29 +1,15 @@
 import React, { Component } from "react";
-import ImageSection from "../components/ImageSection";
-import Chats from "../components/Chats";
-import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
-import "leaflet/dist/leaflet.css";
+
 import "./EventPage.css";
+import "leaflet/dist/leaflet.css";
 import MapSection from "../components/MapSection";
-import GallerySection from "../components/GallerySection";
-import { SplitPane } from "react-collapse-pane";
+import Chats from "../components/Chats";
 import CalendarIcon from "react-calendar-icon";
 import { ThemeProvider } from "styled-components";
 import { Button, Comment } from "semantic-ui-react";
-import SideNav, {
-  Toggle,
-  Nav,
-  NavItem,
-  NavIcon,
-  NavText,
-} from "@trendmicro/react-sidenav";
+import SideNav, { NavItem, NavIcon } from "@trendmicro/react-sidenav";
 import "@trendmicro/react-sidenav/dist/react-sidenav.css";
 
-import firebase from "firebase";
-import firebaseJwtManager from "../firebaseJwtManager";
-import http from "../http-common";
-
-//for Dialogbox
 import MuiButton from "@material-ui/core/Button";
 import Dialog from "@material-ui/core/Dialog";
 import DialogActions from "@material-ui/core/DialogActions";
@@ -31,10 +17,15 @@ import DialogContent from "@material-ui/core/DialogContent";
 import DialogContentText from "@material-ui/core/DialogContentText";
 import DialogTitle from "@material-ui/core/DialogTitle";
 
+import firebase from "firebase";
+import firebaseJwtManager from "../firebaseJwtManager";
+import http from "../http-common";
+
+// styles for the calendar icon
 const calendarTheme = {
   calendarIcon: {
-    textColor: "white", // text color of the header and footer
-    primaryColor: "#0da472", // background of the header and footer
+    textColor: "white",
+    primaryColor: "#0da472",
     backgroundColor: "#fafafa",
   },
 };
@@ -44,7 +35,7 @@ class EventPage extends Component {
     super();
     this.state = {
       event: [],
-      showDialog: false,
+      showJoinEventDialog: false,
       Date: [],
       eventList: [],
       reviewList: [],
@@ -52,16 +43,20 @@ class EventPage extends Component {
     };
   }
 
+  componentDidMount() {
+    this.loadComments();
+    this.loadSpecificEvent();
+  }
+
+  // load event comments from server
   loadComments = () => {
     var get_all = "http://3.143.248.67:8080/trails/get_all/";
-    //   "http://ec2-3-143-248-67.us-east-2.compute.amazonaws.com:8080/trails/get_all/";
-
     var id = this.props.match.params.eventID;
     var get_review =
       "http://ec2-3-143-248-67.us-east-2.compute.amazonaws.com:8080/chat/get_all_by_event/" +
       id;
 
-    // Get trail details request
+    // get event information
     fetch(get_all)
       .then((response) => response.json())
       .then((result) => {
@@ -73,7 +68,7 @@ class EventPage extends Component {
         this.setState({ eventList: events });
       });
 
-    // Get reviews request
+    // get event reviews
     fetch(get_review)
       .then((response) => response.json())
       .then((result) => {
@@ -81,17 +76,10 @@ class EventPage extends Component {
           return item;
         });
         this.setState({ reviewList: reviews });
-        console.log(reviews);
       });
-
-    console.log("RELOAD");
   };
 
-  componentDidMount() {
-    this.loadComments();
-    this.loadSpecificEvent();
-  }
-
+  // load details of an event
   loadSpecificEvent = () => {
     let get_event = "http://3.143.248.67:8080/events/get_specific/".concat(
       this.props.match.params.eventID
@@ -109,6 +97,7 @@ class EventPage extends Component {
       });
   };
 
+  // try to join the event by posting to server
   joinEvent = () => {
     console.log("upload");
 
@@ -120,10 +109,7 @@ class EventPage extends Component {
       .auth()
       .currentUser.getIdToken(true)
       .then(function (idToken) {
-        // Send token to backend via HTTPS
-        console.log(idToken);
-
-        // Post here
+        // send post request with JWT
         http
           .post(
             "http://ec2-3-143-248-67.us-east-2.compute.amazonaws.com:8080/events/join_event/" +
@@ -138,18 +124,21 @@ class EventPage extends Component {
           )
           .then((response) => {
             console.log(response);
-            tThis.setState({ showDialog: true });
+            tThis.setState({ showJoinEventDialog: true });
             tThis.loadSpecificEvent();
           });
       })
       .catch(function (error) {
-        // Handle error
         console.log(error);
       });
   };
 
-  handleClose = () => {
-    this.setState({ showDialog: false });
+  /**
+   * Closing/opening handlers for dialogs.
+   */
+
+  closeJoinEventDialog = () => {
+    this.setState({ showJoinEventDialog: false });
   };
 
   popUpRequestSignIn = () => {
@@ -236,7 +225,7 @@ class EventPage extends Component {
             ) : null}
           </div>
         </div>
-        <Dialog open={this.state.showDialog}>
+        <Dialog open={this.state.showJoinEventDialog}>
           <DialogTitle id="alert-dialog-title">Congratulations!</DialogTitle>
           <DialogContent>
             <DialogContentText id="alert-dialog-description">
@@ -244,7 +233,11 @@ class EventPage extends Component {
             </DialogContentText>
           </DialogContent>
           <DialogActions>
-            <MuiButton onClick={this.handleClose} color="primary" autoFocus>
+            <MuiButton
+              onClick={this.closeJoinEventDialog}
+              color="primary"
+              autoFocus
+            >
               OK
             </MuiButton>
           </DialogActions>
