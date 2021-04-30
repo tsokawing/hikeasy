@@ -1,9 +1,19 @@
+/*
+  What: This is used to handle all the error regarding the response
+  Who: Wong Wing Yan 1155125194
+  Where: backend connection
+  Why: Gather all the error in response to avoid redundanrt code segment
+  How: use typescript to set up the template to notify error
+*/
+
+//imports
 import { Response } from 'express';
 
 /**
  * A util class that handles the printing of common JSON response messages (usually error messages).
  */
 export class ResponseUtil {
+  //template statement for error
   public static readonly ERROR_DATABASE_UNREACHABLE = 'Database unreachable';
 
   public static readonly ERROR_MISSING_USER_ID = 'Missing user ID';
@@ -15,7 +25,7 @@ export class ResponseUtil {
 
   public static readonly ERROR_MISSING_EVENT_ID = 'Missing event ID';
   public static readonly ERROR_INVALID_EVENT_ID = 'Invalid event ID';
-
+  
   public static respondWithStandardizedJson(
     res: Response,
     success: boolean,
@@ -28,7 +38,7 @@ export class ResponseUtil {
       response: response,
     });
   }
-
+  //error with unknown response
   public static respondWithError_DirectlyFromException(
     res: Response,
     message: unknown
@@ -43,6 +53,7 @@ export class ResponseUtil {
     }
   }
 
+  //error with the template statement
   public static respondWithError(res: Response, message: string): void {
     this.respondWithStandardizedJson(res, false, message);
   }
