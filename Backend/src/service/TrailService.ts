@@ -152,7 +152,7 @@ export class TrailService {
       ResponseUtil.respondWithInvalidDifficulty(res);
       return;
     }
-    if (Number.isNaN(trail.length) || trail.length == 0) {
+    if (Number.isNaN(trail.length) || trail.length <= 0) {
       // we wont judge the length, but uit must exist
       ResponseUtil.respondWithError(res, 'Missing/invalid trail length');
       return;
