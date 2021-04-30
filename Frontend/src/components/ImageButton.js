@@ -1,3 +1,10 @@
+/*	
+	What: This is used to add style to the <ImageButton>, the button on the image of trail page and defiine the functionality of it
+	Who: Tso Ka Wing 1155125488
+	Where: React components for the trail page to add button in the ImageSection
+	Why: We need to define how the button handling with the clicking action and define style 
+	How: import css style for the  <ImageButton>
+*/
 import React from "react";
 import "./ImageButton.css";
 import { Link } from "react-router-dom";
