@@ -130,8 +130,7 @@ export class UserService {
       ResponseUtil.respondWithDatabaseUnreachable(res);
       return;
     }
-    //check whether the email have been registered
-    const temp = await HikEasyApp.Instance.EntityManager?.find(User);
+    // no need to check whether have duplicate email, Firebase have already checked that
     HikEasyApp.Instance.EntityManager.save(users);
     //success and response
     res.json({
