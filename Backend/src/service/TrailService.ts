@@ -96,18 +96,18 @@ export class TrailService {
       res.status(200).json(trails);
     }
   }
-  //handle the problem of no Trail ID 
+  //handle the problem of no Trail ID
   private async getSpecificTrail_NoTrailID(req: Request, res: Response) {
     ResponseUtil.respondWithMissingTrailID(res);
   }
-  // Get one specific trail 
+  // Get one specific trail
   private async getSpecificTrail(req: Request, res: Response) {
     const targetTrailID = parseInt(req.params['trailID']);
     if (Number.isNaN(targetTrailID)) {
       ResponseUtil.respondWithInvalidTrailID(res);
       return;
     }
-    //find the trail 
+    //find the trail
     const trail = await HikEasyApp.Instance.EntityManager?.findOne(
       Trail,
       targetTrailID
@@ -175,7 +175,7 @@ export class TrailService {
       message: test.id,
     });
   }
-  
+
   //handle the problem of no trailID for /trail/update_trail
   private async updateTrail_NoTrailID(req: Request, res: Response) {
     ResponseUtil.respondWithMissingTrailID(res);
@@ -274,7 +274,7 @@ export class TrailService {
   private async deleteTrail_NoTrailID(req: Request, res: Response) {
     ResponseUtil.respondWithMissingTrailID(res);
   }
-  //Delete the trail 
+  //Delete the trail
   private async deleteTrail(req: Request, res: Response) {
     const targetTrailID = parseInt(req.params['trailID']);
     if (Number.isNaN(targetTrailID)) {
@@ -422,7 +422,7 @@ export class TrailService {
   ) {
     ResponseUtil.respondWithMissingTrailID(res);
   }
-  // Upload Profile photo for the trail 
+  // Upload Profile photo for the trail
   private async uploadProfilePicForTrail(req: Request, res: Response) {
     // check userID exists!
     if (HikEasyApp.Instance.EntityManager == undefined) {

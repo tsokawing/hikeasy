@@ -6,7 +6,7 @@
   How: use typeorm to connect to mysql database, and allow frontend to use the endpoint to operate the data of the database
 */
 
-//it reuse the reviewService.ts code 
+//it reuse the reviewService.ts code
 //useful import
 import { Application, Request, Response } from 'express';
 import { Review } from '../entity/Review';
@@ -22,9 +22,9 @@ import { UserUtil } from '../util/UserUtil';
 export class ChatService {
   //setting up the endpoint
   public constructor(app: Application) {
-    app.get('/chat/get_all', this.getAllChats);//done
+    app.get('/chat/get_all', this.getAllChats); //done
     app.get('/chat/get_all_by_event', this.getAllChatOfEvent_NoEventID); //done
-    app.get('/chat/get_all_by_event/:eventID', this.getAllChatsOfEvent);//done
+    app.get('/chat/get_all_by_event/:eventID', this.getAllChatsOfEvent); //done
     app.post('/chat/publish_chat', this.publishChat_NoEventID); //done
     app.post(
       '/chat/publish_chat/:eventID',
@@ -42,7 +42,7 @@ export class ChatService {
     const chats = await HikEasyApp.Instance.EntityManager?.find(Chat);
     if (chats == undefined) {
       // failed to connect to database
-      res.json({success: false, response: "Error in getting chats"})
+      res.json({ success: false, response: 'Error in getting chats' });
       return;
     } else {
       // ok
@@ -55,20 +55,20 @@ export class ChatService {
 
   //handle users using endpoint without params
   private async getAllChatOfEvent_NoEventID(req: Request, res: Response) {
-    res.json({success: false, response: "Missing Event"})
+    res.json({ success: false, response: 'Missing Event' });
     return;
   }
 
   //use typeorm to get all chats of the events
   private async getAllChatsOfEvent(req: Request, res: Response) {
     if (HikEasyApp.Instance.EntityManager == undefined) {
-        res.json({success: false, response: "Cannot find the database"})
-        return;
+      res.json({ success: false, response: 'Cannot find the database' });
+      return;
     }
 
     const targetEventID = parseInt(req.params['eventID']);
     if (Number.isNaN(targetEventID)) {
-        res.json({success: false, response: "Invalid event ID"})
+      res.json({ success: false, response: 'Invalid event ID' });
       return;
     }
     // todo need to remove e.g. the user password fields! we cant just make it be like this!
@@ -79,7 +79,7 @@ export class ChatService {
           user: 'chat.user',
         },
       },
-      where: [{ event : targetEventID }],
+      where: [{ event: targetEventID }],
     });
     res.json({
       success: true,
@@ -88,9 +88,8 @@ export class ChatService {
     return;
   }
   private async publishChat_NoEventID(req: Request, res: Response) {
-    res.json({success: false, response: "Missing Event ID"})
+    res.json({ success: false, response: 'Missing Event ID' });
   }
-
 
   private async publishChat(req: Request, res: Response) {
     // can be a new review, can be an updated review
@@ -112,7 +111,7 @@ export class ChatService {
     }
     const eventID = Number.parseInt(req.params['eventID']);
     if (Number.isNaN(eventID)) {
-      res.json({success: false, response: "Invalid eventID"})
+      res.json({ success: false, response: 'Invalid eventID' });
       return;
     }
     const targetEvent = await HikEasyApp.Instance.EntityManager?.findOne(
@@ -120,7 +119,7 @@ export class ChatService {
       eventID
     );
     if (targetEvent === undefined) {
-      res.json({success: false, response: "Event not found"})
+      res.json({ success: false, response: 'Event not found' });
       return;
     }
     // default to empty string
@@ -151,5 +150,4 @@ export class ChatService {
       message: 'The Chat is posted',
     });
   }
-
 }

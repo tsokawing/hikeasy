@@ -18,7 +18,7 @@ import { FirebaseAuthenticator } from '../FirebaseAuthenticator';
 //set up the /image endpoint
 export class ImageService {
   public constructor(app: Application) {
-    //image enedpoint 
+    //image enedpoint
     app.get('/image/', this.returnPhotoButThereIsNoGivenFileName);
     app.get('/image/:fileName', this.returnPhotoWithFileName);
     app.post(
@@ -42,7 +42,7 @@ export class ImageService {
       }
     });
   }
-  
+
   //handle the access of /image endpoint without filename
   private async returnPhotoButThereIsNoGivenFileName(
     req: Request,
@@ -50,7 +50,7 @@ export class ImageService {
   ) {
     ResponseUtil.respondWithError(res, 'Missing file name');
   }
-  
+
   //handle the access of /image/upload endpoint without filename
   private async handleUploadPhotos(req: Request, res: Response) {
     // check userID exists!

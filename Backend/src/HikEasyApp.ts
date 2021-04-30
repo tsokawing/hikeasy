@@ -13,14 +13,14 @@ import { appInstance } from './index';
 export class HikEasyApp {
   private databaseConnection: Connection | undefined = undefined;
   private entityManager: EntityManager | undefined = undefined;
-  
-  //get the app instance 
+
+  //get the app instance
   static get Instance(): HikEasyApp {
     return appInstance;
   }
   //use to decode waypoints
   static readonly POLYLINE_PRECISION = 6;
-  //set up the connection 
+  //set up the connection
   get DatabaseConnection(): Connection | undefined {
     return this.databaseConnection;
   }
@@ -28,7 +28,7 @@ export class HikEasyApp {
   get EntityManager(): EntityManager | undefined {
     return this.entityManager;
   }
-  
+
   constructor() {
     this.tryConnectToDatabase();
   }

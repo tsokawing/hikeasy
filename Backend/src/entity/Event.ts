@@ -54,7 +54,7 @@ export class Event {
   //one event can have multiple chat
   @OneToMany(() => Chat, (chat) => chat.event)
   chats!: Chat[];
-  
+
   //one event can have multiple participants
   @ManyToMany(() => User, (user) => user.events, { eager: true })
   @JoinTable()

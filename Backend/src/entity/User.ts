@@ -47,7 +47,7 @@ export class User {
     default: '',
   })
   password?: string;
-  
+
   //one user can post review
   @OneToMany(() => Review, (review) => review.user)
   reviews!: Review[];

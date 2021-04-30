@@ -37,7 +37,7 @@ export class ReviewService {
       this.deleteReview
     );
   }
-  
+
   //Get all the reviews in the database
   private async getAllReviews(req: Request, res: Response) {
     const reviews = await HikEasyApp.Instance.EntityManager?.find(Review);
@@ -62,7 +62,7 @@ export class ReviewService {
       ResponseUtil.respondWithDatabaseUnreachable(res);
       return;
     }
-    //parse the trailID 
+    //parse the trailID
     const targetTrailID = parseInt(req.params['trailID']);
     if (Number.isNaN(targetTrailID)) {
       ResponseUtil.respondWithInvalidTrailID(res);
@@ -93,7 +93,7 @@ export class ReviewService {
   private async getAllReviewsByUser_NoUserID(req: Request, res: Response) {
     ResponseUtil.respondWithMissingUserID(res);
   }
-  
+
   // Get the reviews for the user
   private async getAllReviewsByUser(req: Request, res: Response) {
     //parse the userID
@@ -197,7 +197,7 @@ export class ReviewService {
     ResponseUtil.respondWithMissingTrailID(res);
   }
 
-  //delete the review of a user  
+  //delete the review of a user
   private async deleteReview(req: Request, res: Response) {
     let targetUser = undefined;
     //authenicate the user with JWT token
@@ -226,11 +226,11 @@ export class ReviewService {
       ResponseUtil.respondWithError(res, 'Trail not found');
       return;
     }
-    //find the reviews and delete 
+    //find the reviews and delete
     await HikEasyApp.Instance.EntityManager?.softDelete(Trail, {
       where: { user: targetUser, trail: targetTrail },
     });
-    // success and response 
+    // success and response
     res.json({
       success: true,
       message: 'OK',

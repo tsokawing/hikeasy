@@ -65,11 +65,11 @@ export class Trail {
     default: '',
   })
   waypoints!: string;
-  
+
   //one trail can have multiple reviews
   @OneToMany(() => Review, (review) => review.trail)
   reviews!: Review[];
-  
+
   //one trail can have multiple photos
   @OneToMany(() => Photo, (photo) => photo.trail)
   photos!: Photo[];
