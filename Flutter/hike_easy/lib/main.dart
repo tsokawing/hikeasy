@@ -1,6 +1,5 @@
 /*
   What: This is the core part of the flutter application
-  Who: TSOI CHAK YU 1155126232
   Where: mobile application
   Why: This givse us the framework of the application
   How: This is the main page that will call the gps class

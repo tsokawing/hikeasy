@@ -1,7 +1,6 @@
 // This code section take https://www.youtube.com/watch?v=McPzVZZRniU as reference
 /*
   What: The GPS function of the application is implemented here
-  Who: TSOI CHAK YU 1155126232
   Where: mobile application
   Why: This shows the real time gps location of the user on the Google Map
   How: By using functions in dependencies of google_maps_flutter and location to get the real time location of the user.
