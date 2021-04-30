@@ -1,3 +1,12 @@
+/*	
+	What: This is used to add style to the <Comment> and defiine the functionality of it, similar structure as the Chat.js
+	Who: Tso Ka Wing 1155125488
+	Where: React components for the review textbox in the trailpage
+	Why: We need to set up standard style for the reviewbox, so we have to define the style in /componenet directory
+	How: import css style for the reviewbox componenet using the <Comment> of semantic-ui 
+	*/
+
+//imports
 import React, { Component } from "react";
 import Rating from "@material-ui/lab/Rating";
 import Typography from "@material-ui/core/Typography";
@@ -8,6 +17,7 @@ import firebaseJwtManager from "../firebaseJwtManager";
 import "./Comments.css";
 import http from "../http-common";
 
+//export the class of <Comments>
 class Comments extends Component {
   constructor(props) {
     super(props);
@@ -16,7 +26,7 @@ class Comments extends Component {
       rating: [],
     };
   }
-
+  //function for setting rating
   setRating = (value) => {
     this.setState({ rating: value });
   };
@@ -24,7 +34,7 @@ class Comments extends Component {
   handleChange = (e, { value }) => {
     this.setState({ newComments: value });
   };
-
+  //post the comment
   postComment = () => {
     let formData = new FormData();
     // formData.append("userID", 3);
@@ -69,7 +79,7 @@ class Comments extends Component {
         console.log(error);
       });
   };
-
+  //render out the comment and style to the reviewbox
   render() {
     let reviews = this.props.reviews;
 
@@ -137,5 +147,5 @@ class Comments extends Component {
     );
   }
 }
-
+//export the Comments
 export default Comments;
