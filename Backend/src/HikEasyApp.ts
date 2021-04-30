@@ -1,16 +1,26 @@
+/*
+  What: This is used to construct the database connedction with the HikEasy database
+  Who: Wong Wing Yan 1155125194
+  Where: backend mysql database connectiomn
+  Why: We need to set up the databse before connect to it with typeorm
+  How: use typeorm to connect to the database, and test the connection
+*/
+
+//imports
 import { Connection, createConnection, EntityManager } from 'typeorm';
 import { appInstance } from './index';
 
 export class HikEasyApp {
   private databaseConnection: Connection | undefined = undefined;
   private entityManager: EntityManager | undefined = undefined;
-
+  
+  //get the app instance 
   static get Instance(): HikEasyApp {
     return appInstance;
   }
-
+  //use to decode waypoints
   static readonly POLYLINE_PRECISION = 6;
-
+  //set up the connection 
   get DatabaseConnection(): Connection | undefined {
     return this.databaseConnection;
   }
@@ -18,11 +28,11 @@ export class HikEasyApp {
   get EntityManager(): EntityManager | undefined {
     return this.entityManager;
   }
-
+  
   constructor() {
     this.tryConnectToDatabase();
   }
-
+  //testing function to connect to the databse
   private tryConnectToDatabase() {
     createConnection({
       type: 'mysql',
