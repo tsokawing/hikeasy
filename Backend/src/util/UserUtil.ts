@@ -1,9 +1,9 @@
 /*
-  What: This is used to hide private information regarding the /user endpoint
+  What: This is used to remove private information from User entity instances
   Who: Wong Wing Yan 1155125194
   Where: backend connection
-  Why: Gather all the part to hide private information in /user endpoint to avoid redundanrt code segment
-  How: use typescript to set up the template to notify error
+  Why: Data privacy, do not want anyone to needlessly know user details; also to reduce code redundancy, User entity may appear in many places
+  How: JS-delete the related attributes from the JS object
 */
 
 //imports

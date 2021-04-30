@@ -1,9 +1,9 @@
 /*
-  What: This is used to handle the authenication to firebase
+  What: This is used to handle Firebase Authentication
   Who: Wong Wing Yan 1155125194
   Where: backend firebase connection
   Why: We need to authenicate the user when using the service regarding HikEasy
-  How: use firebase built in function to handle authenication
+  How: Conveniently use relevant Passport Strategy from the passport module to authenticate our Firebase JWTs
 */
 
 //imports

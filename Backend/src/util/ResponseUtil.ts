@@ -1,8 +1,8 @@
 /*
-  What: This is used to handle all the error regarding the response
+  What: This is used to conveniently print out error messages in a standardized way
   Who: Wong Wing Yan 1155125194
   Where: backend connection
-  Why: Gather all the error in response to avoid redundanrt code segment
+  Why: Reduce code redundancy; usually some types of error can appear in many places
   How: use typescript to set up the template to notify error
 */
 

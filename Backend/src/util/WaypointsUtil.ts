@@ -1,9 +1,9 @@
 /*
-  What: This is used to calculate the center focus of the waypoints
+  What: This is used to calculate the center point of the waypoints
   Who: Wong Wing Yan 1155125194
   Where: backend connection
-  Why: Calculate the center focus of the waypoints so that better user experience
-  How: use Math function to calculate the center of sets of waypoints
+  Why: Allowing users to see how the trail looks like when the trail is loaded, is good UX
+  How: Calculate the center point as ave(points) using some Math functions
 */
 
 import polyline from '@mapbox/polyline';
