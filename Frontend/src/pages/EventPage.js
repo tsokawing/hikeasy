@@ -1,3 +1,8 @@
+/**
+ * Event Page.
+ * Details of an event will be displayed.
+ */
+
 import React, { Component } from "react";
 
 import "./EventPage.css";

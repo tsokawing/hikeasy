@@ -1,3 +1,8 @@
+/**
+ * New Trail Page
+ * For login users to create and submit new trail.
+ */
+
 import React, { Component } from "react";
 import { Redirect } from "react-router";
 

@@ -1,3 +1,8 @@
+/**
+ * Login Page
+ * For visiter/user to register or login.
+ */
+
 import { useState, Fragment, useEffect } from "react";
 import { Redirect } from "react-router";
 

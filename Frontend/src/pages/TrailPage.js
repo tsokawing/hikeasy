@@ -1,3 +1,8 @@
+/**
+ * Trail Page.
+ * Details of a trail will be displayed.
+ */
+
 import React, { Component } from "react";
 import { Redirect } from "react-router";
 

@@ -1,3 +1,8 @@
+/**
+ * Trail List Page
+ * List of trails from the database will be displayed.
+ */
+
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 
