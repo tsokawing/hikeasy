@@ -1,5 +1,5 @@
 /*
-  What: This is used to create teh connection the mysql database
+  What: This is used to create the connection the mysql database
   Who: Wong Wing Yan 1155125194
   Where: backend mysql database connection
   Why: We need to first create connection when accessing the database
