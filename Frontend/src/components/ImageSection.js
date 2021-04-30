@@ -1,3 +1,11 @@
+/*	
+	What: This is used to add style to the <ImageSection>, the trailPage main component and defiine the functionality of it, which is similar to the <HeroSection>
+	Who: Tso Ka Wing 1155125488
+	Where: React components for the TrailPage to display photos, info and button
+	Why: We need to define how the text and photo are displayed in the <ImageSection>
+	How: import css style for the  <ImageSection>
+*/
+
 import React, { Component } from "react";
 import "../App.css";
 import { ImageButton } from "./ImageButton";
