@@ -1,3 +1,12 @@
+/*	
+	What: This is used to add style to the <EventCard> and defiine the functionality of it
+	Who: Tso Ka Wing 1155125488
+	Where: React components for the eventListPage
+	Why: We treat every event as a card in the eventListPage, and add style to the card
+	How: import css style for the <EventCardn> componenet using card componenet of material-ui
+*/
+
+//imports
 import React, { Component } from "react";
 import Card from "@material-ui/core/Card";
 import CardActionArea from "@material-ui/core/CardActionArea";
@@ -8,6 +17,7 @@ import Button from "@material-ui/core/Button";
 import Typography from "@material-ui/core/Typography";
 import "./EventCard.css";
 
+// set up the class for EventCard component
 class EventCard extends Component {
   constructor() {
     super();
@@ -20,34 +30,28 @@ class EventCard extends Component {
     // eventID -> eventPhotoName -> event photo (actual file)
 
     console.log(this.props.event);
-    // console.log(this.props.event.id);
-
     fetch(
       "http://3.143.248.67:8080/events/get_photo/".concat(this.props.event.id)
     )
       .then((response) => response.json())
       .then((result) => {
         // fetched file name of the photo of this event, contained inside result
-        // console.log(result);
         const fileNameOfThisPhoto =
           result.photoFileNames[0]?.fileName ?? undefined;
-        // console.log(fileNameOfThisPhoto);
         // this set state
         this.setState({ photoName: fileNameOfThisPhoto }, () => {
-          // console.log(this.state.photoName);
         });
       });
   }
-
+  //render out the Eventcard
   render() {
-    // console.log(this.state.photoName);
     let imgSource = this.state.photoName
       ? "http://3.143.248.67:8080/image/".concat(this.state.photoName)
       : // ? "http://localhost:8080/image/".concat(this.state.photoName)
         "https://picsum.photos/200/300";
 
     // console.log(imgSource);
-
+    
     return (
       <div className="card-container">
         <Card className="root">
@@ -72,9 +76,6 @@ class EventCard extends Component {
                         Number.isNaN(dateTimeObject.getTime())
                       ) {
                         return "a";
-                        // return `${dateTimeObject.getFullYear(0)} ${
-                        //   dateTimeObject.getMonth() + 1
-                        // } ${dateTimeObject.getDate()} ${dateTimeObject.getHours()} ${dateTimeObject.getMinutes()}`;
                       }
                       return `${dateTimeObject.getFullYear()}-${(
                         dateTimeObject.getMonth() +
@@ -98,17 +99,11 @@ class EventCard extends Component {
             </CardContent>
           </CardActionArea>
           <CardActions>
-            {/* <Button size="small" color="primary">
-              Share
-            </Button>
-            <Button size="small" color="primary">
-              Learn More
-            </Button> */}
           </CardActions>
         </Card>
       </div>
     );
   }
 }
-
+//export the event card
 export default EventCard;
