@@ -1,4 +1,3 @@
-
 /*
   What: This is used to initialize the Phtot table in the HikEasy database
   Who: Wong Wing Yan 1155125194
@@ -20,7 +19,6 @@ import { Event } from './Event';
 
 @Entity()
 export class Photo {
-  
   //attributes of the photo table
   @PrimaryGeneratedColumn()
   id!: number;
@@ -32,11 +30,11 @@ export class Photo {
 
   @CreateDateColumn()
   createdAt!: Date;
-  
+
   //one user can post multiple photo
   @ManyToOne(() => User, (user) => user.photos)
   user!: User | undefined;
-  
+
   //one trail can post multiple photo
   @ManyToOne(() => Trail, (trail) => trail.photos)
   trail!: Trail | undefined;

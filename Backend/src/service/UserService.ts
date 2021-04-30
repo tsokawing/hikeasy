@@ -133,24 +133,24 @@ export class UserService {
     //check whether the email have been registered
     const temp = await HikEasyApp.Instance.EntityManager?.find(User);
     HikEasyApp.Instance.EntityManager.save(users);
-    //success and response 
+    //success and response
     res.json({
       success: true,
       message: 'Done',
     });
   }
   //method for updating user info through id
-  private async updateUsers(req: Request, res: Response){
+  private async updateUsers(req: Request, res: Response) {
     const id = parseInt(req.params['userID']);
     //console.log(id);
     const users = await HikEasyApp.Instance.EntityManager?.findOne(User, id);
     console.log(users);
-    if(users != undefined){
-        users.email = "gg@gmail.com";
-        users.password = "test";
+    if (users != undefined) {
+      users.email = 'gg@gmail.com';
+      users.password = 'test';
     }
-    if(HikEasyApp.Instance.EntityManager != undefined){
-        HikEasyApp.Instance.EntityManager.save(users);
+    if (HikEasyApp.Instance.EntityManager != undefined) {
+      HikEasyApp.Instance.EntityManager.save(users);
     }
     res.json({
       success: true,

@@ -23,8 +23,8 @@ export class Review {
   /**
    * DO NOT TOUCH THIS.
    */
-  
-  //attribute of the Review 
+
+  //attribute of the Review
   @PrimaryGeneratedColumn()
   id!: number;
 

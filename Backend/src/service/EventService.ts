@@ -132,7 +132,7 @@ export class EventService {
       ResponseUtil.respondWithError(res, 'Invalid date');
       return;
     }
-    //parse the time 
+    //parse the time
     event.time = new Date(eventTime_MiddleValue);
     if (event.name === undefined) {
       res.json({
@@ -161,7 +161,7 @@ export class EventService {
       message: 'Event Added',
     });
   }
-  
+
   //Update one specific event from the database with typeorm
   private async updateEvent(req: Request, res: Response) {
     //input parameter : eventID
@@ -252,7 +252,7 @@ export class EventService {
     });
     return;
   }
-  
+
   //Get the filename of photo for one event
   private async getPhoto(req: Request, res: Response) {
     const eventID = parseInt(req.params['eventID']);
