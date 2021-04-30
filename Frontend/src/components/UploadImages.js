@@ -1,27 +1,10 @@
-import React, { Component } from "react";
-import UploadService from "../services/upload-files.service";
-import LinearProgress from "@material-ui/core/LinearProgress";
-import {
-  Box,
-  Typography,
-  Button,
-  ListItem,
-  withStyles,
-} from "@material-ui/core";
+/**
+ * Upload Images Component
+ * For user to upload images, with image preview.
+ */
 
-const BorderLinearProgress = withStyles((theme) => ({
-  root: {
-    height: 15,
-    borderRadius: 5,
-  },
-  colorPrimary: {
-    backgroundColor: "#EEEEEE",
-  },
-  bar: {
-    borderRadius: 5,
-    backgroundColor: "#1a90ff",
-  },
-}))(LinearProgress);
+import React, { Component } from "react";
+import { Typography, Button, ListItem } from "@material-ui/core";
 
 export default class UploadImages extends Component {
   constructor(props) {
@@ -48,7 +31,6 @@ export default class UploadImages extends Component {
 
   submit = () => {
     this.props.submit();
-    // this.upload();
   };
 
   upload = (trailID) => {
@@ -61,7 +43,6 @@ export default class UploadImages extends Component {
     const {
       currentFile,
       previewImage,
-      progress,
       message,
       imageInfos,
       isError,
@@ -82,7 +63,7 @@ export default class UploadImages extends Component {
             Choose Image
           </Button>
         </label>
-        {/* <div className="file-name">{currentFile ? currentFile.name : null}</div> */}
+
         <Button
           className="btn-upload"
           color="primary"

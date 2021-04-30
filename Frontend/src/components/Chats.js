@@ -1,8 +1,15 @@
+/**
+ * Chats Component
+ * Return a chat section for a given event.
+ */
+
 import React, { Component } from "react";
+
+import "./Chats.css";
 import { Button, Comment, Form, Header } from "semantic-ui-react";
+
 import firebase from "firebase";
 import firebaseJwtManager from "../firebaseJwtManager";
-import "./Chats.css";
 import http from "../http-common";
 
 class Chats extends Component {
@@ -12,10 +19,12 @@ class Chats extends Component {
       newComments: [],
     };
   }
+
   handleChange = (e, { value }) => {
     this.setState({ newComments: value });
   };
 
+  // post comment to server
   postComment = () => {
     let formData = new FormData();
     formData.append("comment", this.state.newComments);
@@ -26,14 +35,12 @@ class Chats extends Component {
       tProps.reloadComments();
     };
 
-    // Get JWT for backend verification
+    // get JWT for backend verification
     firebase
       .auth()
       .currentUser.getIdToken(true)
       .then(function (idToken) {
-        // Send token to backend via HTTPS
-
-        // Post here
+        // send token to backend via HTTP
         http
           .post(
             "http://ec2-3-143-248-67.us-east-2.compute.amazonaws.com:8080/chat/publish_chat/" +
@@ -52,14 +59,12 @@ class Chats extends Component {
           });
       })
       .catch(function (error) {
-        // Handle error
         console.log(error);
       });
   };
 
   render() {
     let reviews = this.props.reviews;
-    console.log(reviews);
     return (
       <Comment.Group>
         <div className="comment-display-section">
@@ -78,9 +83,6 @@ class Chats extends Component {
                     <div>{new Date(item.createdAt).toLocaleDateString()}</div>
                   </Comment.Metadata>
                   <Comment.Text>{item.comment}</Comment.Text>
-                  {/* <Comment.Actions>
-                  <Comment.Action> Reply </Comment.Action>
-                </Comment.Actions> */}
                 </Comment.Content>
               </Comment>
             </div>
@@ -92,7 +94,6 @@ class Chats extends Component {
               <Form.TextArea
                 placeholder="Start Chatting!"
                 name="name"
-                // value={coommen}
                 onChange={this.handleChange}
               />
               <div className="comment-buttons">

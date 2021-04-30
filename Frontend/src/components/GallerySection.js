@@ -1,17 +1,11 @@
+/**
+ * Gallery Section Component
+ * A photo gallery for a trail.
+ */
+
 import React, { Component } from "react";
 import Gallery from "react-grid-gallery";
 import LoadingOverlay from "react-loading-overlay";
-
-const IMAGES = [
-  {
-    src: "https://c2.staticflickr.com/9/8817/28973449265_07e3aa5d2e_b.jpg",
-    thumbnail:
-      "https://c2.staticflickr.com/9/8817/28973449265_07e3aa5d2e_n.jpg",
-    thumbnailWidth: 320,
-    thumbnailHeight: 174,
-    caption: "After Rain (Jeshu John - designerspics.com)",
-  },
-];
 
 class GallerySection extends Component {
   constructor() {
@@ -24,8 +18,11 @@ class GallerySection extends Component {
     };
   }
   componentDidMount() {
-    console.log(this.props.trailID);
+    this.prepareImages();
+  }
 
+  // get trail image file names, then download images
+  prepareImages = () => {
     fetch(
       "http://ec2-3-143-248-67.us-east-2.compute.amazonaws.com:8080/trails/get_trail_photos/" +
         this.props.trailID
@@ -36,7 +33,7 @@ class GallerySection extends Component {
           this.loadImages();
         });
       });
-  }
+  };
 
   loadImages = async function () {
     // load images
@@ -102,11 +99,7 @@ class GallerySection extends Component {
           <Gallery
             images={this.state.images}
             enableLightbox={true}
-            // maxRows={3}
             margin={0}
-            // backdropClosesModal
-            // currentImage={3}
-            // isOpen={ true}
           />
         </LoadingOverlay>
       </>

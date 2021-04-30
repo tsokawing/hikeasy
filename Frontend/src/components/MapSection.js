@@ -1,10 +1,14 @@
+/**
+ * Map Section
+ * Return a leaflet map, data from jawg.
+ */
+
 import React, { Component } from "react";
 import { Button } from "semantic-ui-react";
 import {
   MapContainer,
   TileLayer,
   Marker,
-  Popup,
   Polyline,
   useMapEvents,
 } from "react-leaflet";

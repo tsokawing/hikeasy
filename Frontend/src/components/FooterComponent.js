@@ -1,6 +1,12 @@
+/**
+ * Footer Component
+ * Default footer for the website.
+ */
+
 import React from "react";
 import Footer from "rc-footer";
-import "rc-footer/assets/index.css"; // import 'rc-footer/asssets/index.less';
+import "rc-footer/assets/index.css";
+
 function FooterComponent() {
   return (
     <div>
@@ -52,21 +58,9 @@ function FooterComponent() {
             ],
           },
           {
-            // icon: (
-            //   <img
-            //     src="https://gw.alipayobjects.com/zos/rmsportal/nBVXkrFdWHxbZlmMbsaH.svg"
-            //     alt="more products"
-            //   />
-            // ),
             title: "More Products",
             items: [
               {
-                // icon: (
-                //   <img
-                //     src="https://gw.alipayobjects.com/zos/rmsportal/XuVpGqBFxXplzvLjJBZB.svg"
-                //     alt="yuque"
-                //   />
-                // ),
                 title: "Comming Soon",
                 url: "",
                 description: "Hikeasy iOS/Android",

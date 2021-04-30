@@ -1,3 +1,8 @@
+/**
+ * Trail Card Component
+ * Return a trail thumbnail of a trail.
+ */
+
 import React, { Component } from "react";
 import "./TrailCard.css";
 

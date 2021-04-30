@@ -1,6 +1,11 @@
+/**
+ * Image Button Component
+ * Default component for button on top of an image.
+ */
+
 import React from "react";
 import "./ImageButton.css";
-import { Link } from "react-router-dom";
+
 const STYLES = ["image-btn--primary", "image-btn--outline", "image-btn--test"];
 const SIZES = ["image-btn--medium", "image-btn--large"];
 

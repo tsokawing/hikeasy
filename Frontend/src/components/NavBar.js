@@ -1,8 +1,13 @@
+/**
+ * Nav Bar Component
+ * Default header navigation for the website.
+ */
+
 import React, { useState, useEffect } from "react";
 import { Button } from "./Button";
 import { Link } from "react-router-dom";
 import firebase from "firebase";
-import { auth, authUI } from "../firebase";
+import { auth } from "../firebase";
 import firebaseJwtManager from "../firebaseJwtManager";
 import "./NavBar.css";
 
@@ -23,18 +28,6 @@ function NavBar() {
     firebase.auth().onAuthStateChanged(function (user) {
       if (user) {
         setIsLoggedIn(true);
-        // firebase
-        //   .auth()
-        //   .currentUser.getIdToken(true)
-        //   .then(function (idToken) {
-        //     // Send token to backend via HTTPS
-        //     console.log(idToken);
-        //     console.log("HIIIII");
-        //   })
-        //   .catch(function (error) {
-        //     // Handle error
-        //     console.log(error);
-        //   });
       } else {
         setIsLoggedIn(false);
       }

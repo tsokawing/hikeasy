@@ -1,6 +1,10 @@
+/**
+ * Hero Section Component
+ * For home page.
+ */
+
 import React from "react";
 import "../App.css";
-import { Button } from "./Button";
 import "./HeroSection.css";
 
 function HeroSection() {
@@ -9,15 +13,6 @@ function HeroSection() {
       <div className="hero-banner">
         <h1>Start your journey</h1>
         <p>Discover your favourite trails.</p>
-        {/* <div className="hero-btns">
-          <Button
-            className="btns"
-            buttonStyle="btn--outline"
-            buttonSize="btn--large"
-          >
-            GET STARTED
-          </Button>
-        </div> */}
       </div>
     </div>
   );

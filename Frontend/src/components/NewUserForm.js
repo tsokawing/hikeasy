@@ -1,8 +1,12 @@
+/**
+ * New User Form
+ * A form asking details from a newly registered user.
+ */
+
 import React, { Component } from "react";
 import firebase from "firebase";
 import { Redirect } from "react-router";
 
-// New event form dialog
 import Button from "@material-ui/core/Button";
 import TextField from "@material-ui/core/TextField";
 import Dialog from "@material-ui/core/Dialog";
@@ -24,25 +28,19 @@ class NewUserForm extends Component {
   }
 
   submitInfo = () => {
-    // Get JWT for backend verification
+    // get JWT for backend verification
     let tThis = this;
     let tState = this.state;
     firebase
       .auth()
       .currentUser.getIdToken(true)
       .then(function (idToken) {
-        // Send token to backend via HTTPS
-        console.log(idToken);
+        // send token to backend via HTTP
 
-        // Get form data
         let formData = new FormData();
         formData.append("userFirstname", tState.firstName.value);
         formData.append("userLastname", tState.lastName.value);
         formData.append("userAge", tState.age.value);
-
-        console.log(tState.firstName.value);
-        console.log(tState.lastName.value);
-        console.log(tState.age.value);
 
         http
           .post(
@@ -60,10 +58,7 @@ class NewUserForm extends Component {
             tThis.setState({ submitted: true });
           });
       })
-      .catch(function (error) {
-        // Handle error
-        console.log(error);
-      });
+      .catch(function (error) {});
   };
 
   render() {
@@ -102,7 +97,6 @@ class NewUserForm extends Component {
               id="name"
               type="number"
               label="Age"
-              // type="email"
               fullWidth
               inputRef={(c) => {
                 this.state.age = c;

@@ -1,3 +1,8 @@
+/**
+ * Search Bar Component
+ * Default search bar for the website.
+ */
+
 import React, { Component } from "react";
 import SearchBar from "material-ui-search-bar";
 import "./SearchBarComponent.css";

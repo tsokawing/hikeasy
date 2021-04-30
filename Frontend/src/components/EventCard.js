@@ -1,10 +1,14 @@
+/**
+ * Event Card Component
+ * Return a card thumbnail of an event.
+ */
+
 import React, { Component } from "react";
 import Card from "@material-ui/core/Card";
 import CardActionArea from "@material-ui/core/CardActionArea";
 import CardActions from "@material-ui/core/CardActions";
 import CardContent from "@material-ui/core/CardContent";
 import CardMedia from "@material-ui/core/CardMedia";
-import Button from "@material-ui/core/Button";
 import Typography from "@material-ui/core/Typography";
 import "./EventCard.css";
 
@@ -17,36 +21,27 @@ class EventCard extends Component {
   }
 
   componentDidMount() {
-    // eventID -> eventPhotoName -> event photo (actual file)
+    this.loadEvent();
+  }
 
-    console.log(this.props.event);
-    // console.log(this.props.event.id);
-
+  loadEvent = () => {
     fetch(
       "http://3.143.248.67:8080/events/get_photo/".concat(this.props.event.id)
     )
       .then((response) => response.json())
       .then((result) => {
         // fetched file name of the photo of this event, contained inside result
-        // console.log(result);
         const fileNameOfThisPhoto =
           result.photoFileNames[0]?.fileName ?? undefined;
-        // console.log(fileNameOfThisPhoto);
-        // this set state
-        this.setState({ photoName: fileNameOfThisPhoto }, () => {
-          // console.log(this.state.photoName);
-        });
+
+        this.setState({ photoName: fileNameOfThisPhoto }, () => {});
       });
-  }
+  };
 
   render() {
-    // console.log(this.state.photoName);
     let imgSource = this.state.photoName
       ? "http://3.143.248.67:8080/image/".concat(this.state.photoName)
-      : // ? "http://localhost:8080/image/".concat(this.state.photoName)
-        "https://picsum.photos/200/300";
-
-    // console.log(imgSource);
+      : "https://picsum.photos/200/300";
 
     return (
       <div className="card-container">
@@ -72,9 +67,6 @@ class EventCard extends Component {
                         Number.isNaN(dateTimeObject.getTime())
                       ) {
                         return "a";
-                        // return `${dateTimeObject.getFullYear(0)} ${
-                        //   dateTimeObject.getMonth() + 1
-                        // } ${dateTimeObject.getDate()} ${dateTimeObject.getHours()} ${dateTimeObject.getMinutes()}`;
                       }
                       return `${dateTimeObject.getFullYear()}-${(
                         dateTimeObject.getMonth() +
@@ -93,18 +85,11 @@ class EventCard extends Component {
               <Typography variant="body2" color="textSecondary" component="p">
                 {this.props.event.description?.length
                   ? this.props.event.description
-                  : "Happy hiking..............................................................................................................."}
+                  : "Happy hiking!"}
               </Typography>
             </CardContent>
           </CardActionArea>
-          <CardActions>
-            {/* <Button size="small" color="primary">
-              Share
-            </Button>
-            <Button size="small" color="primary">
-              Learn More
-            </Button> */}
-          </CardActions>
+          <CardActions></CardActions>
         </Card>
       </div>
     );
