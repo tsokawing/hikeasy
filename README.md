@@ -1,16 +1,7 @@
-# csci3100hiking
-CSCI3100 Project: Hiking Website
+# WHAT IS THIS?
+Hiking Website
 
-## What is this?
-We are:
-
-- Tso Ka Wing 1155125488
-- Wong Wing Yan 1155125194
-- Tsang Tsz Kin Brian 1155126813
-- Tsoi Chak Yu 1155126232
-- Anshul Ghanshala 1155111816
-
-This is a repo for the course project of a software engineering course (CSCI3100). We attempt to build HikEasy, a hiking-themed website with various features.
+This is a repo for the hiking website protocol. We attempt to build HikEasy, a hiking-themed website with various features.
 
 Relevant documents are available in the `/ReadMe` directory.
 
