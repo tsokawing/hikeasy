@@ -1,4 +1,4 @@
-# WHAT IS THIS?
+# React + Node fullstack web development
 Hiking Website
 
 This is a repo for the hiking website protocol. We attempt to build HikEasy, a hiking-themed website with various features.
