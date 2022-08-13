@@ -30,7 +30,7 @@
 }
 
 .navbar-logo:hover {
-  color: #9ecca4;
+  color: #cfcfcf;
 }
 
 .fa-typo3 {
@@ -65,7 +65,7 @@
 .nav-links:hover {
   border-bottom: 4px solid #fff;
   transition: all 0.2s ease-out;
-  color: #9ecca4;
+  color: #cfcfcf;
   border-radius: 0;
 }
 
